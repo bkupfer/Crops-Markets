@@ -38,13 +38,32 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Crops and Markets</h1>
-                        <!--
-                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p> -->
-                        <p>Crops and Markets planea ser un sitio privado y exclusivo de <a href="http://www.semillas-sz.com">Semillas SZ</a> el cual facilite la gestión y permita visualizar de manera georeferenciada información respecto de las zonas de cultivo dentro de la décima región del pais, e información respecto de la base de clientes de la empresa.</p>
-                        <p>( Nota: para llegar aquí se deberá pasar por un login )</p>
-                        <p>@bkupfer</p>
+                        <h1>{{ name }}</h1>
+
+                        <p>-- Despliegue de la información específica al lugar seleccionado --</p>
+
+                        <table class="table table-hover ">
+                            <tr>
+                                <td>Dueño</td>
+                                <td>{{ owner }}</td>
+                            </tr>
+                            <tr>
+                                <td>dato 1 - ej: Disponibilidad de agua</td>
+                                <td>xxx</td>
+                            </tr>
+                            <tr>
+                                <td>dato 2</td>
+                                <td>yyy</td>
+                            </tr>
+                            <tr>
+                                <td>dato 3</td>
+                                <td>zzz</td>
+                            </tr>
+                            <tr>
+                                <td>dato 4</td>
+                                <td>www</td>
+                            </tr>
+                        </table>
 
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
                     </div>

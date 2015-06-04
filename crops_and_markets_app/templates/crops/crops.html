@@ -28,14 +28,74 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
 
     <script>
+        // creates the html content for a marker
+        function createInfoWindowContent(heading, info, whereTo){
+            var content = '<div id="content">';
+            content += '<div id="siteNotice"></div>';
+            content += '<h1 id="firstHeading" class="firstHeading">' + heading + '</h1>';
+            for (var i=0; i<info.length; i++)
+                content += '<p>' + info[i] + '</p>';
+            content += '<a href="' + whereTo + '">';
+            content += '<button class="btn btn-info">Más info</button>';
+            content += '</a>';
+            content += '</div>';
+            content += '</div>';
+
+            return content;
+        }
+
         function initialize() {
             var mapCanvas = document.getElementById("map-canvas");
+
+            // map
             var mapOptions = {
                 center: new google.maps.LatLng(-41.092427,-73.1488737),
                 zoom: 10,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
             var map = new google.maps.Map(mapCanvas, mapOptions);
+
+            // markets
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(-41.092427,-73.1488737),
+                title: 'Campo A'
+            });
+            var marker2 = new google.maps.Marker({
+                position: new google.maps.LatLng(-41.192427,-73.4688737),
+                title: 'Campo B'
+            });
+            marker.setMap(map);
+            marker2.setMap(map);
+
+            // content and info windows
+            var contentString = createInfoWindowContent('Frutillar',
+                ['Frutillar es una comuna, ciudad y balneario lacustre ubicada en la zona sur de Chile, en la ribera oeste del lago Llanquihue, en la Región de Los Lagos. Se caracteriza por la belleza de su paisaje, las tradiciones alemanas de sus fundadores y las Semanas Musicales de Frutillar. Es conocida como la "Ciudad de la Música".', 'Attribution: Frutillar, <a href="http://es.wikipedia.org/wiki/Frutillar">http://es.wikipedia.org/wiki/Frutillar</a>(actualizado el Junio 2, 2015).'],
+                "info"
+            );
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var contentString2 =
+                '<div id="content">'+
+                    '<div id="siteNotice"></div>'+
+                    '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+                    '<div id="bodyContent">'+
+                        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large sandstone rock formation in the southern part of the Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) south west of the nearest large town, Alice Springs; 450&#160;km (280&#160;mi) by road. Kata Tjuta and Uluru are the two major features of the Uluru - Kata Tjuta National Park. Uluru is sacred to the Pitjantjatjara and Yankunytjatjara, the Aboriginal people of the area. It has many springs, waterholes, rock caves and ancient paintings. Uluru is listed as a World Heritage Site.</p>'+
+                        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">https://en.wikipedia.org/w/index.php?title=Uluru</a>(last visited June 22, 2009).</p>'+
+                    '</div>'+
+                '</div>';
+            var infowindow2 = new google.maps.InfoWindow({
+              content: contentString2
+            });
+
+            // action listeners
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map,marker);
+            });
+            google.maps.event.addListener(marker2, 'click', function() {
+                infowindow2.open(map,marker2);
+            });
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
@@ -43,7 +103,7 @@
     <style>
         #map-canvas {
             width: 1200px;
-            height: 700px;
+            height: 800px;
         }
     </style>
 

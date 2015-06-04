@@ -12,6 +12,11 @@ def about(request):
 def crops(request):
     return render_to_response("crops/crops.html", locals(), context_instance=RequestContext(request))
 
+def info(request):
+    name = "Frutillar"
+    owner = "Don Graph"
+
+    return render_to_response("crops/info.html", locals(), context_instance=RequestContext(request))
 
 # Markets
 def markets(request):

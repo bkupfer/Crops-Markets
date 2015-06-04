@@ -1,10 +1,9 @@
 from django.db import models
 
-class Geobject(models.Model):
+class Marker(models.Model):
     name = models.CharField(max_length=100)
-
-class Category(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    latitude = models.FloatField()
+    longitud = models.FloatField()
 
     def __unicode__(self):
         return self.name

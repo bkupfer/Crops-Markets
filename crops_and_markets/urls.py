@@ -17,7 +17,8 @@ urlpatterns = patterns('',
 
     # crops
     url(r'^crops', 'crops_and_markets_app.views.crops', name='crops'),
-    
+    url(r'^info', 'crops_and_markets_app.views.info', name='info'),
+
     # markets
     url(r'^markets', 'crops_and_markets_app.views.markets', name='markets')
 )
