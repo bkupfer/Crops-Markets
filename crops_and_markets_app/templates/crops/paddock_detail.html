@@ -38,64 +38,15 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Predio {{ name }}</h1>
+                        <h1>Predio {{ name }}, Potrero {{ potrero_name }}</h1>
 
-                        <!-- Contact information -->
-                        <h3>Contactos</h3>
-                        <table class="table table-hover">
-                            <tr>
-                                <td>Dueño</td>
-                                <td>{{ owner }}</td>
-                            </tr>
-                            <tr>
-                                <td>Números</td>
-                                <td>-- list of numbers --</td>
-                            </tr>
-                            <tr>
-                        </table>
-
-                        <!-- General information about the area -->
-                        <h3>Datos generales del predio</h3>
-                        <table class="table table-hover">
-                            <tr>
-                                <td>Localización geografica</td>
-                                <td>{{ coordenada_x }}, {{ coordenada_y }}</td>
-                            </tr>
-                            <tr>
-                                <td>Hectareas</td>
-                                <td>{{ has }} [has]</td>
-                            </tr>
-                            <tr>
-                                <td>Agua</td>
-                                <td>{{ water }}</td>
-                            </tr>
-                            <tr>
-                                <td>Observaciones</td>
-                                <td>{{ obs }}</td>
-                            </tr>
-                            <tr>
-                                <td><a href="">Ver registro fotográfico</a></td>
-                            </tr>
-                        </table>
-                        
-                        <!-- For each potrero give information -->
-                        <h3>Potreros</h3>
-                        <table class="table table-hover">
-                            <tr>
-                                <td>Nombre</td>
-                                <td>{{ pot.name }}</td>
-                            </tr>
-                            <tr>
-                                <td>Hectareas</td>
-                                <td>{{ pot.has }}</td>
-                            </tr>
-                        </table>
-
-                        <!-- Plantations in the area -->
-                        <h3>Plantaciones</h3>
                         <table class="table table-hover">
                             <tr>
                                 <td>Id</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Predio</td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -107,7 +58,24 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><a href="paddock_detail">Ver detalle</a></td>
+                                <td>Lote origen</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Kg. semilla</td>
+                                <td> [kg]</td>
+                            </tr>
+                            <tr>
+                                <td>Kg. fertilizante</td>
+                                <td> [kg]</td>
+                            </tr>
+                            <tr>
+                                <td>Hectareas</td>
+                                <td> [has]</td>
+                            </tr>
+                            <tr>
+                                <td>Observaciones</td>
+                                <td></td>
                             </tr>
                         </table>
 
