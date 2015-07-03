@@ -1,6 +1,6 @@
 # Crops and Markets
 
-An utterly fantastic project starter developed using Django 1.8.
+An utterly fantastic project starter developed using Django 1.8, and my thesis.
 
 ## Features
 
