@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_protect
 # from crops_and_markets_app.models import *
 from models import *
 
+############
 # Neutral pages
 def about(request):
 	return render_to_response("about.html", locals(), context_instance=RequestContext(request))
@@ -34,9 +35,13 @@ def logout(request):
 	auth.logout(request)
 	return redirect(login)
 
+############
 # Crops
 def crops(request):
 	return render_to_response("crops/crops.html", locals(), context_instance=RequestContext(request))
+
+def crop_map(request):
+	return render_to_response("crops/crop_map.html", locals(), context_instance=RequestContext(request))
 
 def info(request):
 	name = "Frutillar"
@@ -48,8 +53,18 @@ def paddock_detail(request):
 
 	return render_to_response("crops/paddock_detail.html", locals(), context_instance=RequestContext(request))
 
+
+############
 # Markets
 def markets(request):
-	return render_to_response("markets/markets.html", locals(), context_instance=RequestContext(request))
+    return render_to_response("markets/markets.html", locals(), context_instance=RequestContext(request))
 
+def market_map(request):
+    return render_to_response("markets/market_map.html", locals(), context_instance=RequestContext(request))
+
+def market_table(request):
+    return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
+
+def add_market(request):
+    return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
 
