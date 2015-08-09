@@ -14,12 +14,13 @@ urlpatterns = patterns('',
     # crops
     url(r'^crops', 'crops_and_markets_app.views.crops', name='crops'),
     url(r'^crop_map', 'crops_and_markets_app.views.crop_map', name='crop_map'),
-    url(r'^info', 'crops_and_markets_app.views.info', name='info'),
+    url(r'^crop_info', 'crops_and_markets_app.views.crop_info', name='crop_info'),
     url(r'^paddock_detail', 'crops_and_markets_app.views.paddock_detail', name='paddock_detail'),
 
     # markets
     url(r'^markets', 'crops_and_markets_app.views.markets', name='markets'),
     url(r'^market_map', 'crops_and_markets_app.views.market_map', name='market_map'),
     url(r'^market_table', 'crops_and_markets_app.views.market_table', name='market_table'),
-    url(r'^add_market', 'crops_and_markets_app.views.add_market', name='add_market')
+    url(r'^add_market', 'crops_and_markets_app.views.add_market', name='add_market'),
+    url(r'^market_info', 'crops_and_markets_app.views.market_info', name='market_info')
 )
