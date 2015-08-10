@@ -74,7 +74,10 @@ def market_table(request):
 
 @login_required
 def market_info(request):
-	id = request.GET['id']
+	if request.method == "GET" and 'id' in request.GET:
+		id = request.GET['id']
+	else:
+		id = -1
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
 
 @login_required
