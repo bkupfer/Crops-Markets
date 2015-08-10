@@ -3,73 +3,73 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <title>Crops and Markets</title>
+	<title>Crops and Markets</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="../static/css/simple-sidebar.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="../static/css/simple-sidebar.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
 
 </head>
 
 <body>
 
-    <div id="wrapper">
+	<div id="wrapper">
 
-        <!-- Sidebar -->
-        {% include "sidebar.html" %}
+		<!-- Sidebar -->
+		{% include "sidebar.html" %}
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Markets</h1>
-                        <p>
-	                        Markets se utilizará para almacenar información relevante, nuevamente georeferenciada, tanto de los clientes actuales como de los clientes potenciales de la empresa.
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1>Markets</h1>
+						<p>
+							Markets se utilizará para almacenar información relevante, nuevamente georeferenciada, tanto de los clientes actuales como de los clientes potenciales de la empresa.
 							En el términos generales, la información que se busca gestionar es;
-	                        <ol>
-	                            <li>Identificar a los clientes.</li>
+							<ol>
+								<li>Identificar a los clientes.</li>
 								<li>Identificar a los potenciales clientes.</li>
 								<li>Llevar un registro de ventas realizadas a los clientes.</li>
 							</ol>
-	                        Es interesante resaltar que no basta solamente con identificar a los clientes, sino que también se busca poder asociarle información relevante a estos, como por ejemplo sus volúmenes de compra, las variedades de papas trabajadas, información de contacto, entre otras características, y despliegarla de manera ordenada, rápida e intuitiva.
-                        </p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+							Es interesante resaltar que no basta solamente con identificar a los clientes, sino que también se busca poder asociarle información relevante a estos, como por ejemplo sus volúmenes de compra, las variedades de papas trabajadas, información de contacto, entre otras características, y despliegarla de manera ordenada, rápida e intuitiva.
+						</p>
+						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </div>
+	</div>
 
-    <!-- jQuery -->
-    <script src="../static/js/jquery.js"></script>
+	<!-- jQuery -->
+	<script src="../static/js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../static/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../static/js/bootstrap.min.js"></script>
 
-    <!-- Menu Toggle Script -->
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
+	<!-- Menu Toggle Script -->
+	<script>
+	$("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
+	</script>
 
 </body>
 
