@@ -16,7 +16,7 @@
 
 	<!-- Custom CSS -->
 	<link href="../static/css/simple-sidebar.css" rel="stylesheet">
-
+	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -24,10 +24,10 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+	
 </head>
 
 <body>
-
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -49,9 +49,9 @@
 							</ol>
 							Es interesante resaltar que no basta solamente con identificar a los clientes, sino que también se busca poder asociarle información relevante a estos, como por ejemplo sus volúmenes de compra, las variedades de papas trabajadas, información de contacto, entre otras características, y despliegarla de manera ordenada, rápida e intuitiva.
 						</p>
-						<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 					</div>
 				</div>
+				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 			</div>
 		</div>
 
@@ -64,12 +64,7 @@
 	<script src="../static/js/bootstrap.min.js"></script>
 
 	<!-- Menu Toggle Script -->
-	<script>
-	$("#menu-toggle").click(function(e) {
-		e.preventDefault();
-		$("#wrapper").toggleClass("toggled");
-	});
-	</script>
+	<script src="../static/js/menu_toggle.js"></script>
 
 </body>
 
