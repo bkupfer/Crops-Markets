@@ -42,6 +42,61 @@
 				<br>
 
 				<!-- formulario ingreso nuevo cliente -->
+				<form action="" method="POST">
+					<div class="panel-body">
+						{% csrf_token %}
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="first_name">Nombre <label style="color:red">*</label></label>
+							<div class="col-sm-5">
+								{{ client_form.first_name }}
+							</div>
+						</div>
+						{{ client_form.first_name.errors }}
+						
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="last_name">Apellido <label style="color:red">*</label></label>
+							<div class="col-sm-5">
+								{{ client_form.last_name }}
+							</div>
+						</div>
+						{{ client_form.last_name.errors }}
+						
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="contact_number_1">Número de contacto 1</label>
+							<div class="col-sm-5">
+								{{ client_form.contact_number_1 }}
+							</div>
+						</div>
+						{{ client_form.contact_numbers_1.errors }}
+					
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="contact_number_2">Número de contacto 2</label>
+							<div class="col-sm-5">
+								{{ client_form.contact_number_2 }}
+							</div>
+						</div>
+						{{ client_form.contact_numbers_2.errors }}
+
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="email">Email</label>
+							<div class="col-sm-5">
+								{{ client_form.email }}
+							</div>
+						</div>		
+						{{ client_form.email.errors }}
+						
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="email">Observaciones</label>
+							<div class="col-sm-5">
+								{{ client_form.observations }}
+							</div>
+						</div>		
+						{{ client_form.email.observations }}
+
+						<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
+						<input type="submit" value="Enviar" class="btn btn-default">
+					</div>
+				</form>
 				
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 			</div>

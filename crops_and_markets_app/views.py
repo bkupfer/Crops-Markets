@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # from crops_and_markets_app.models import *
 from models import *
+from forms import *
 
 ############
 # Neutral pages
@@ -82,5 +83,21 @@ def market_info(request):
 
 @login_required
 def add_market(request):
+
+	client_form = ClientForm(request.POST or None)
+
+	if request.method == 'POST':
+		if client_form.is_valid():
+			first_name = client_form.cleaned_data['first_name']
+			last_name = client_form.cleaned_data['last_name']
+			number_1 = client_form.cleaned_data['contact_number_1']
+			number_2 = client_form.cleaned_data['contact_number_2']
+			email = client_form.cleaned_data['email']
+			obs = client_form.cleaned_data['observations']
+
+			new_client = Client(first_name = first_name, last_name = last_name, contact_number_1 = number_1,
+								contact_number_2 = number_2, email = email, observations = obs)
+			new_client.save()
+
 	return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
 
