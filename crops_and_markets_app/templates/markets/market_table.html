@@ -39,38 +39,33 @@
 
 				<h2>Tabla de clientes</h2>
 
+				<h3>Informacion de contacto</h3>
 				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>Id</th>
 							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Numero 1</th>
+							<th>Numero 2</th>
 							<th>Zona</th>
 							<th>Tamaño</th>
-							<th></th>
+							<th><!-- view detail --></th>
 						</tr>
 					</thead>
 					<tbody>
+						{% for client in clients %}
 						<tr>
-							<td>1</td>
-							<td>John Carter</td>
-							<td>Río Bueno</td>
-							<td>S</td>
-							<td><a href="market_info?id=1">ver detalle</a></td>
+							<td>{{ client.pk }}</td>
+							<td>{{ client.first_name }}</td>
+							<td>{{ client.last_name }}</td>
+							<td>{{ client.contact_number_1 }}</td>
+							<td>{{ client.contact_number_2 }}</td>
+							<td> zona </td>
+							<td> tamanno </td>
+							<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>Peter Parker</td>
-							<td>Osorno</td>
-							<td>M</td>
-							<td><a>ver detalle</a></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>John Rambo</td>
-							<td>Las golondrinas</td>
-							<td>XS</td>
-							<td><a>ver detalle</a></td>
-						</tr>
+						{% endfor %}
 					</tbody>
 				</table>
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>

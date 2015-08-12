@@ -71,6 +71,9 @@ def market_map(request):
 
 @login_required
 def market_table(request):
+	
+	clients = Client.objects.all()
+	print clients
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
 @login_required
