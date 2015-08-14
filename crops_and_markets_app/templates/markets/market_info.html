@@ -37,25 +37,46 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Detalle ( insertar nombre para id={{ id }} )</h2>
-				<br>
+				<h2>Detalle {{ client }}</h2>
 
+				<h3>Información de contacto</h3>
 				<table class="table table-hover">
 					<tr>
-						<td>Dueño</td>
-						<td>{{ owner }}</td>
+						<td>Nombre</td>
+						<td>{{ client }}</td>
 					</tr>
 					<tr>
-						<td>Números</td>
-						<td>-- list of numbers --</td>
+						<td>Número(s)</td>
+						<td>{{ client.contact_number_1 }}<br>{{ client.contact_number_2 }}</td>
 					</tr>
 					<tr>
+						<td>Email</td>
+						<td>{{ client.email }}</td>
+					</tr>
 				</table>
 
-				<p>···y el resto de la información···</p>
-
+				<h3>Información de comercial</h3>
+				<table class="table table-hover">
+					<tr>
+						<td>Zona</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Variedades</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Volúmenes</td>
+						<td> </td>
+					</tr>
+				</table>
+				
+				<h3>Observaciones</h3>
+				<p>{{ client.observations }}</p>
+				
 			</div>
 			<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+			<a href="market_table" class="btn btn-default" id="return">Volver</a>
 		</div>
 
 	</div>
