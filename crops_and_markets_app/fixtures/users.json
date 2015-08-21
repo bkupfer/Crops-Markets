@@ -1,0 +1,74 @@
+[
+    {
+        "fields": {
+            "username": "bkupfer",
+            "first_name": "Bernardo",
+            "last_name": "K\u00fcpfer",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2015-08-21T20:55:14Z",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$20000$6inIMzbN8I1R$nr6GtGehAewjJ6o4MVEZ6L0mRzd8KiVeDX33GI/35ss=",
+            "email": "bdokupferb@gmail.com",
+            "date_joined": "2015-08-21T20:53:18Z"
+        },
+        "model": "auth.user",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "username": "bkm",
+            "first_name": "Bernardo",
+            "last_name": "K\u00fcpfer",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": null,
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$20000$Wm5Oczqu5hFb$eADPb5SavCiNpXbbKF3aXNns+BwB6aYDw8vd8vemnIw=",
+            "email": "bkm.aksa@gmail.com",
+            "date_joined": "2015-08-21T21:37:05Z"
+        },
+        "model": "auth.user",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "username": "fedwards",
+            "first_name": "Francisco",
+            "last_name": "Edwards",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": null,
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$20000$3BYiPYGWuiSZ$bGux1YHU6WrIij1bFNYMP5GxHPHTRif/++XzgjS805g=",
+            "email": "feduards@semillas-sz.com",
+            "date_joined": "2015-08-21T21:37:18Z"
+        },
+        "model": "auth.user",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "username": "ppoblete",
+            "first_name": "Patricio",
+            "last_name": "Poblete",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": true,
+            "last_login": null,
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$20000$naSjVEmJAy6a$ACCxHdQ5qJV+WLhrQaeAx8a3kCyQn3F/Sa7pqghEkRo=",
+            "email": "patricio.poblete@gmail.com",
+            "date_joined": "2015-08-21T21:37:39Z"
+        },
+        "model": "auth.user",
+        "pk": 4
+    }
+]

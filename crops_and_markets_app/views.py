@@ -95,7 +95,7 @@ def add_market(request):
 	# comercial_client_form = ComercialClientForm(request.POST or None)
 
 	if request.method == 'POST':
-		if general_client_form.is_valid():
+		if client_form.is_valid():
 			first_name = client_form.cleaned_data['first_name']
 			last_name = client_form.cleaned_data['last_name']
 			number_1 = client_form.cleaned_data['contact_number_1']
