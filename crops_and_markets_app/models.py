@@ -44,7 +44,7 @@ class ComercialInfo(models.Model):
 	variaties = models.CharField(max_length = 200, blank=True, null=True)
 
 	def __str__(self):
-		return self.pk
+		return "comercial info"
 
 class GeographicInfo(models.Model):
 	latitude = models.FloatField() 

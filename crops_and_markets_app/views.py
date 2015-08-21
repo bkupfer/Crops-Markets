@@ -96,6 +96,11 @@ def add_market(request):
 
 	if request.method == 'POST':
 		if client_form.is_valid():
+
+			toc = client_form.cleaned_data['type_of_client']
+			print toc
+			print toc.type_of_client
+
 			first_name = client_form.cleaned_data['first_name']
 			last_name = client_form.cleaned_data['last_name']
 			number_1 = client_form.cleaned_data['contact_number_1']
@@ -103,8 +108,12 @@ def add_market(request):
 			email = client_form.cleaned_data['email']
 			obs = client_form.cleaned_data['observations']
 
-			new_client = Client(first_name = first_name, last_name = last_name, contact_number_1 = number_1,
-								contact_number_2 = number_2, email = email, observations = obs)
+			# get comercial info 
+			new_comercial_info = ComercialInfo(volume = 5, variaties = 'asterix')
+			new_comercial_info.save()
+
+			new_client = Client(type_of_client=toc, first_name = first_name, last_name = last_name, contact_number_1 = number_1,
+								contact_number_2 = number_2, email = email, observations = obs, comercial_info = new_comercial_info)
 			new_client.save()
 
 	return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
