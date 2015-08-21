@@ -1,14 +1,14 @@
 [
 	{
         "fields": {
-            "type_of_client": "Actual"
+            "type": "Actual"
         },
         "model": "crops_and_markets_app.TypeOfClient",
         "pk": 1
     },
     {
     	"fields": {
-    		"type_of_client": "Potencial"
+    		"type": "Potencial"
     	},
     	"model": "crops_and_markets_app.TypeOfClient",
     	"pk": 2

@@ -32,11 +32,11 @@ class Client(models.Model):
 
 
 class TypeOfClient(models.Model):
-	type_of_client = models.CharField(max_length=10)
+	type = models.CharField(max_length=10)
 
 	def __str__(self):
-		return self.type_of_client
-
+		return self.type
+		
 
 class ComercialInfo(models.Model):
 	# agregar: tamanno, zona, que ha comprado previamente, etc etc...

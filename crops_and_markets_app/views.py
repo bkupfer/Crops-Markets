@@ -72,12 +72,12 @@ def market_map(request):
 
 @login_required
 def market_table(request):
-	clients = Client.objects.all()
+	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
 @login_required
 def market_table_potential(request):
-    clients = Client.objects.all()
+    clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Potencial"))
     return render_to_response("markets/market_table_potential.html", locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -99,7 +99,6 @@ def add_market(request):
 
 			toc = client_form.cleaned_data['type_of_client']
 			print toc
-			print toc.type_of_client
 
 			first_name = client_form.cleaned_data['first_name']
 			last_name = client_form.cleaned_data['last_name']
