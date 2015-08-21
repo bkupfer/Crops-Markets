@@ -1,74 +1,16 @@
 [
-  {
-	  "fields": {
-		  "username": "bkupfer",
-		  "first_name": "Bernardo",
-		  "last_name": "K\u00fcpfer",
-		  "is_active": true,
-		  "is_superuser": true,
-		  "is_staff": true,
-		  "last_login": "2015-08-10T07:42:24Z",
-		  "groups": [],
-		  "user_permissions": [],
-		  "password": "pbkdf2_sha256$20000$WZAwU4DhnK35$C6++rw0WjSTkMkNC6VS0PGRt7JFv39u3sYi8l1cfVmA=",
-		  "email": "bdokupferb@gmail.com",
-		  "date_joined": "2015-07-03T10:46:34Z"
-	  },
-	  "model": "auth.user",
-	  "pk": 1
-  },
-  {
-	  "fields": {
-		  "username": "bkm",
-		  "first_name": "Bernardo",
-		  "last_name": "K\u00fcpfer",
-		  "is_active": true,
-		  "is_superuser": false,
-		  "is_staff": false,
-		  "last_login": null,
-		  "groups": [],
-		  "user_permissions": [],
-		  "password": "pbkdf2_sha256$20000$0GaSnoZMLdxj$5JdERqg3uQP76/OnhHJqY84Fwhk8tAGWBcZo0/4Wyi0=",
-		  "email": "bkm@aksa.cl",
-		  "date_joined": "2015-08-10T07:48:48Z"
-	  },
-	  "model": "auth.user",
-	  "pk": 2
-  },
-  {
-	  "fields": {
-		  "username": "ppoblete",
-		  "first_name": "Patricio",
-		  "last_name": "Poblete",
-		  "is_active": true,
-		  "is_superuser": false,
-		  "is_staff": true,
-		  "last_login": null,
-		  "groups": [],
-		  "user_permissions": [],
-		  "password": "pbkdf2_sha256$20000$5VRjYyaMq85D$D8E0mxKtCqaVBoOyuQdd645p9PV5LETk1o/Ww/b7CnQ=",
-		  "email": "",
-		  "date_joined": "2015-08-10T07:50:52Z"
-	  },
-	  "model": "auth.user",
-	  "pk": 3
-  },
-  {
-	  "fields": {
-		  "username": "fedwards",
-		  "first_name": "Francisco",
-		  "last_name": "Edwards",
-		  "is_active": true,
-		  "is_superuser": false,
-		  "is_staff": false,
-		  "last_login": null,
-		  "groups": [],
-		  "user_permissions": [],
-		  "password": "pbkdf2_sha256$20000$BAdJsalP3RUb$UyGKuahfOmBat35LTU/ZKDFBBT7bQDyv9+EtzfCgJ4Q=",
-		  "email": "feduards@semillas-sz.com",
-		  "date_joined": "2015-08-10T07:52:25Z"
-	  },
-	  "model": "auth.user",
-	  "pk": 4
-  }
+	{
+        "fields": {
+            "type_of_client": "Actual"
+        },
+        "model": "crops_and_markets_app.TypeOfClient",
+        "pk": 1
+    },
+    {
+    	"fields": {
+    		"type_of_client": "Potencial"
+    	},
+    	"model": "crops_and_markets_app.TypeOfClient",
+    	"pk": 2
+    }
 ]

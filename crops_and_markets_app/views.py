@@ -90,10 +90,12 @@ def market_info(request):
 
 @login_required
 def add_market(request):
+	# type_of_contact_form = TypeOfContactForm(request.POST or None)
 	client_form = ClientForm(request.POST or None)
+	# comercial_client_form = ComercialClientForm(request.POST or None)
 
 	if request.method == 'POST':
-		if client_form.is_valid():
+		if general_client_form.is_valid():
 			first_name = client_form.cleaned_data['first_name']
 			last_name = client_form.cleaned_data['last_name']
 			number_1 = client_form.cleaned_data['contact_number_1']

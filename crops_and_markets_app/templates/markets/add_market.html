@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,11 +22,8 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
 </head>
-
 <body>
-
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -37,14 +33,20 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-
 				<h2>Agregar un nuevo cliente</h2>
 				<br>
 
-				<!-- formulario ingreso nuevo cliente -->
-				<form action="" method="POST">
+				<!-- Add new client form -->
+				<form action="" method="POST"> {% csrf_token %}
+					<!-- Type of contact -->
+					<label class="control-label col-sm-5" for="type_of_client"><h4>Tipo de cliente <label style="color:red">*</h4></label></label>
+					<div class="col-sm-5">
+						{{ client_form.type_of_client }}
+					</div> <br><br>
+
+					<!-- Contact information -->
+					<h3>Información de contacto</h3>
 					<div class="panel-body">
-						{% csrf_token %}
 						<div class="col-sm-12">
 							<label class="control-label col-sm-5" for="first_name">Nombre <label style="color:red">*</label></label>
 							<div class="col-sm-5">
@@ -86,13 +88,48 @@
 						{{ client_form.email.errors }}
 						
 						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="email">Observaciones</label>
+							<label class="control-label col-sm-5" for="observations">Observaciones</label>
 							<div class="col-sm-5">
 								{{ client_form.observations }}
 							</div>
 						</div>		
 						{{ client_form.email.observations }}
+					</div>
 
+					<!-- Comercial information -->
+					<h3>Información comercial</h3>
+					<div class="panel-body">
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="type_of_client"></label>
+							<div class="col-sm-5">
+								{{ comercial_info.type }}
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="type_of_client"></label>
+							<div class="col-sm-5">
+								{{ comercial_info.type }}
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="type_of_client"></label>
+							<div class="col-sm-5">
+								{{ comercial_info.type }}
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<label class="control-label col-sm-5" for="type_of_client"></label>
+							<div class="col-sm-5">
+								{{ comercial_info.type }}
+							</div>
+						</div>
+					</div>
+
+					<!-- Submit button -->
+					<div class="panel-body">
 						<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
 						<input type="submit" value="Enviar" class="btn btn-default">
 					</div>
@@ -112,7 +149,5 @@
 
 	<!-- Menu Toggle Script -->
 	<script src="../static/js/menu_toggle.js"></script>
-
-
 </body>
 </html>
