@@ -38,13 +38,13 @@ class TypeOfClient(models.Model):
 		return self.type
 		
 
-class ComercialInfo(models.Model):
+class ComercialInfo(models.Model): # should it be renamed to -ComercialInformation- ?
+	volume = models.CharField(max_length=256, blank=True, null=True)
+	varieties = models.CharField(max_length=256, blank=True, null=True)
 	# agregar: tamanno, zona, que ha comprado previamente, etc etc...
-	volume = models.IntegerField(blank=True, null=True)
-	variaties = models.CharField(max_length = 200, blank=True, null=True)
 
 	def __str__(self):
-		return "comercial info"
+		return "comercial info nr " . __str__(self.pk)
 
 class GeographicInfo(models.Model):
 	latitude = models.FloatField() 

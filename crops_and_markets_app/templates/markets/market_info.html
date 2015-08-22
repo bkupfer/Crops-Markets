@@ -47,11 +47,15 @@
 					</tr>
 					<tr>
 						<td>Número(s)</td>
-						<td>{{ client.contact_number_1 }}<br>{{ client.contact_number_2 }}</td>
+						<td><a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
+							{% if client.contact_number_2 %}
+								<br><a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a>
+							{% endif %}
+						</td>
 					</tr>
 					<tr>
 						<td>Email</td>
-						<td>{{ client.email }}</td>
+						<td><a href="mailto:{{ client.email }}">{{ client.email }}</a></td>
 					</tr>
 				</table>
 
@@ -76,7 +80,7 @@
 				
 			</div>
 			<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
-			<a href="market_table" class="btn btn-default" id="return">Volver</a>
+			<a href="market_table{% if client.type_of_client.type == 'Potencial' %}_potential{% endif %}" class="btn btn-default" id="return">Volver</a>
 		</div>
 
 	</div>

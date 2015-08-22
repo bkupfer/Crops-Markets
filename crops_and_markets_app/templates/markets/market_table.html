@@ -45,8 +45,7 @@
 						<tr>
 							<th>Nombre</th>
 							<th>Apellido</th>
-							<th>Numero 1</th>
-							<th>Numero 2</th>
+							<th>Número contacto</th>
 							<th>Zona</th>
 							<th>Tamaño</th>
 							<th><!-- view detail --></th>
@@ -57,8 +56,7 @@
 						<tr>
 							<td>{{ client.first_name }}</td>
 							<td>{{ client.last_name }}</td>
-							<td>{{ client.contact_number_1 }}</td>
-							<td>{{ client.contact_number_2 }}</td>
+							<td><a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a></td>
 							<td> zona </td>
 							<td> tamaño </td>
 							<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>

@@ -36,106 +36,130 @@
 				<h2>Agregar un nuevo cliente</h2>
 				<br>
 
-				<!-- Add new client form -->
-				<form action="" method="POST"> {% csrf_token %}
-					<!-- Type of contact -->
-					<label class="control-label col-sm-5" for="type_of_client"><h4>Tipo de cliente <label style="color:red">*</h4></label></label>
-					<div class="col-sm-5">
-						{{ client_form.type_of_client }}
-					</div> <br><br>
+				<!-- For message to user -->
+				{% if messages %}
+				<div class="row">
+					<div class="col-sm-12">
+					{% for message in messages %}
+						<p class="alert alert-{% if message.tags == "success" %}success{% else %}danger{% endif %} text-center">
+							{{ message }}
+						</p>
+					{% endfor %}
+					</div>
+				</div> 
+				{% endif %}
 
-					<!-- Contact information -->
-					<h3>Información de contacto</h3>
-					<div class="panel-body">
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="first_name">Nombre <label style="color:red">*</label></label>
-							<div class="col-sm-5">
-								{{ client_form.first_name }}
-							</div>
-						</div>
-						{{ client_form.first_name.errors }}
-						
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="last_name">Apellido <label style="color:red">*</label></label>
-							<div class="col-sm-5">
-								{{ client_form.last_name }}
-							</div>
-						</div>
-						{{ client_form.last_name.errors }}
-						
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="contact_number_1">Número de contacto 1</label>
-							<div class="col-sm-5">
-								{{ client_form.contact_number_1 }}
-							</div>
-						</div>
-						{{ client_form.contact_numbers_1.errors }}
+				<div class="panel-body">
+					<!-- Add new client form -->
+					<form action="" method="POST"> {% csrf_token %}
 					
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="contact_number_2">Número de contacto 2</label>
-							<div class="col-sm-5">
-								{{ client_form.contact_number_2 }}
+						<!-- Type of contact -->
+						<div class="row">
+							<label class="control-label col-sm-4" for="type_of_client"><h4>Tipo de cliente <label style="color:red">*</h4></label></label>
+							<div class="col-sm-8">
+								{{ client_form.type_of_client }}
 							</div>
 						</div>
-						{{ client_form.contact_numbers_2.errors }}
 
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="email">Email</label>
-							<div class="col-sm-5">
-								{{ client_form.email }}
+						<!-- Contact information -->
+						<div class="row">
+							<h3>Información de contacto</h3>
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ client_form.first_name }}
+								</div>
 							</div>
-						</div>		
-						{{ client_form.email.errors }}
+							{{ client_form.first_name.errors }}
+							
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="last_name">Apellido <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ client_form.last_name }}
+								</div>
+							</div>
+							{{ client_form.last_name.errors }}
+							
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="contact_number_1">Número de contacto</label>
+								<div class="col-sm-8">
+									{{ client_form.contact_number_1 }}
+								</div>
+							</div>
+							{{ client_form.contact_numbers_1.errors }}
 						
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="observations">Observaciones</label>
-							<div class="col-sm-5">
-								{{ client_form.observations }}
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="contact_number_2">Número de contacto 2</label>
+								<div class="col-sm-8">
+									{{ client_form.contact_number_2 }}
+								</div>
 							</div>
-						</div>		
-						{{ client_form.email.observations }}
-					</div>
+							{{ client_form.contact_numbers_2.errors }}
 
-					<!-- Comercial information -->
-					<h3>Información comercial</h3>
-					<div class="panel-body">
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="type_of_client"></label>
-							<div class="col-sm-5">
-								{{ comercial_info.type }}
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="email">Email</label>
+								<div class="col-sm-8">
+									{{ client_form.email }}
+								</div>
+							</div>		
+							{{ client_form.email.errors }}
+							
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="observations">Observaciones</label>
+								<div class="col-sm-8">
+									{{ client_form.observations }}
+								</div>
+							</div>		
+							{{ client_form.observations.errors }}
+						</div>	
+
+						<!-- Comercial information -->
+						<div class="row">
+							<h3>Información comercial</h3>
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="volume">Volumen</label>
+								<div class="col-sm-8">
+									{{ comercial_info_form.volume }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="varieties">Variedades</label>
+								<div class="col-sm-8">
+									{{ comercial_info_form.varieties }}
+								</div>
+							</div>
+	
+							<!-- todo > future fields 
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="type_of_client"></label>
+								<div class="col-sm-8">
+									{{ comercial_info.type }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="type_of_client"></label>
+								<div class="col-sm-8">
+									{{ comercial_info.type }}
+								</div>
+							</div> -->
+						</div>
+						<br>
+
+						<!-- Submit button -->
+						<div class="row">
+							<div class="col-sm-4">
+								<input type="submit" value="Enviar" class="btn btn-default">
+							</div>
+							<div class="col-sm-8">
+								<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
 							</div>
 						</div>
+					</form>
+					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				</div>
 
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="type_of_client"></label>
-							<div class="col-sm-5">
-								{{ comercial_info.type }}
-							</div>
-						</div>
-
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="type_of_client"></label>
-							<div class="col-sm-5">
-								{{ comercial_info.type }}
-							</div>
-						</div>
-
-						<div class="col-sm-12">
-							<label class="control-label col-sm-5" for="type_of_client"></label>
-							<div class="col-sm-5">
-								{{ comercial_info.type }}
-							</div>
-						</div>
-					</div>
-
-					<!-- Submit button -->
-					<div class="panel-body">
-						<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
-						<input type="submit" value="Enviar" class="btn btn-default">
-					</div>
-				</form>
-				
-				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 			</div>
 		</div>
 

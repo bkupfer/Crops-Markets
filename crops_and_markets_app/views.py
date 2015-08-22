@@ -1,6 +1,5 @@
-from django.shortcuts import render, render_to_response, RequestContext
-from django.shortcuts import render, render_to_response, redirect, get_object_or_404
-from django.contrib import auth
+from django.shortcuts import render, render_to_response, RequestContext, redirect, get_object_or_404
+from django.contrib import auth, messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
@@ -92,14 +91,12 @@ def market_info(request):
 def add_market(request):
 	# type_of_contact_form = TypeOfContactForm(request.POST or None)
 	client_form = ClientForm(request.POST or None)
-	# comercial_client_form = ComercialClientForm(request.POST or None)
+	comercial_info_form = ComercialInformationForm(request.POST or None)
 
 	if request.method == 'POST':
-		if client_form.is_valid():
-
-			toc = client_form.cleaned_data['type_of_client']
-			print toc
-
+		if client_form.is_valid() and comercial_info_form.is_valid():
+			# client information
+			type_of_client = client_form.cleaned_data['type_of_client']
 			first_name = client_form.cleaned_data['first_name']
 			last_name = client_form.cleaned_data['last_name']
 			number_1 = client_form.cleaned_data['contact_number_1']
@@ -107,13 +104,17 @@ def add_market(request):
 			email = client_form.cleaned_data['email']
 			obs = client_form.cleaned_data['observations']
 
-			# get comercial info 
-			new_comercial_info = ComercialInfo(volume = 5, variaties = 'asterix')
+			# comercial information
+			volume = comercial_info_form.cleaned_data['volume']
+			varieties = comercial_info_form.cleaned_data['varieties']
+
+			new_comercial_info = ComercialInfo(volume=volume, varieties=varieties)
 			new_comercial_info.save()
 
-			new_client = Client(type_of_client=toc, first_name = first_name, last_name = last_name, contact_number_1 = number_1,
+			new_client = Client(type_of_client=type_of_client, first_name = first_name, last_name = last_name, contact_number_1 = number_1,
 								contact_number_2 = number_2, email = email, observations = obs, comercial_info = new_comercial_info)
 			new_client.save()
+			messages.success(request, 'Cliente agregado.')
 
 	return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
 
