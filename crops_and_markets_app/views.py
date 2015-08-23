@@ -85,6 +85,7 @@ def market_info(request):
 	if request.method == "GET" and 'id' in request.GET:
 		id = request.GET['id']
         client = Client.objects.get(pk = id)
+        comercial_info = ComercialInfo.objects.get(client = id)
 
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
 
@@ -108,7 +109,6 @@ def add_market(request):
 			# comercial information
 			volume = comercial_info_form.cleaned_data['volume']
 			varieties = comercial_info_form.cleaned_data['varieties']
-
 			new_comercial_info = ComercialInfo(volume=volume, varieties=varieties)
 			new_comercial_info.save()
 
