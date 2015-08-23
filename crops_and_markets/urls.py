@@ -5,11 +5,13 @@ urlpatterns = patterns('',
 	# administrator
 	url(r'^admin/', include(admin.site.urls)),
 
-	# index
+	# general views
 	url(r'^$', 'crops_and_markets_app.views.login', name='login'),
 	url(r'^index', 'crops_and_markets_app.views.home', name='home'),
 	url(r'^home', 'crops_and_markets_app.views.home', name='home'),
 	url(r'^about', 'crops_and_markets_app.views.about', name='about'),
+    url(r'^access_denied', 'crops_and_markets_app.views.access_denied', name='access_denied'),
+    url(r'^accounts/login', 'crops_and_markets_app.views.access_denied', name='access_denied'),
 
 	# crops
 	url(r'^crops', 'crops_and_markets_app.views.crops', name='crops'),

@@ -21,22 +21,23 @@ def login(request):
 	if request.method == "POST":
 		username = request.POST['username']
 		password = request.POST['password']
-
 		user = auth.authenticate(username=username, password=password)
 
 		if user is not None and user.is_active:
 			auth.login(request, user)
 			return redirect('home')
+		# else:
+			# print("invalid user/password combination.")
+            
+        return render_to_response("login.html", locals(), context_instance=RequestContext(request))
 
-		else:
-			print("invalid user/password combination.")
+# def logout(request):
+#	auth.logout(request)
+#	return redirect(login)
 
-	return render_to_response("login.html", locals(), context_instance=RequestContext(request))
-
-def logout(request):
-	auth.logout(request)
-	return redirect(login)
-
+def access_denied(request):
+    #return redirect("access_denied");
+    return render_to_response("access_denied.html", [], context_instance=RequestContext(request))
 
 ############
 # Crops
