@@ -16,6 +16,7 @@ class ClientForm(forms.Form):
 		# exclude = ('campo_a', 'campo_b', 'campo_c')
 
 class ComercialInformationForm(forms.Form):
+	zone = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	volume = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	varieties = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 

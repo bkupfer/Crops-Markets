@@ -13,6 +13,7 @@ from django.utils.encoding import smart_text
 #
 # ###
 
+
 # ######## #
 # Markets
 class Client(models.Model):
@@ -25,7 +26,7 @@ class Client(models.Model):
 	email = models.EmailField(blank=True, null=True)
 	observations = models.TextField(blank=True, null=True)
 
-	comercial_info = models.ForeignKey('ComercialInfo')
+	comercial_info = models.ForeignKey('ComercialInfo') # check if this foreign key should be here, or it should be all the way down into comercialInfo
 
 	def __str__(self):
 		return self.first_name + " " + self.last_name
@@ -39,12 +40,14 @@ class TypeOfClient(models.Model):
 		
 
 class ComercialInfo(models.Model): # should it be renamed to -ComercialInformation- ?
+	zone = models.CharField(max_length=256, blanck=True, null=True)
 	volume = models.CharField(max_length=256, blank=True, null=True)
 	varieties = models.CharField(max_length=256, blank=True, null=True)
 	# agregar: tamanno, zona, que ha comprado previamente, etc etc...
 
 	def __str__(self):
 		return "comercial info nr " . __str__(self.pk)
+
 
 class GeographicInfo(models.Model):
 	latitude = models.FloatField() 

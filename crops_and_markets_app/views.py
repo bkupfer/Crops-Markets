@@ -39,6 +39,7 @@ def access_denied(request):
     #return redirect("access_denied");
     return render_to_response("access_denied.html", [], context_instance=RequestContext(request))
 
+
 ############
 # Crops
 @login_required
