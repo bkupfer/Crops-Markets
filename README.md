@@ -2,12 +2,6 @@
 
 An utterly fantastic project for the agricultural industry, developed using Django 1.8, and my thesis.
 
-## Features
-
-- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
-- Enhancements to Django's static file serving functionality via WhiteNoise
-- Enhancements to Django's database functionality via django-postgrespool and dj-database-url
-
 ## How to Use
 
 To use this project, follow these steps:
@@ -22,8 +16,15 @@ To use this project, follow these steps:
 	`$ python manage.py runserver`
 5. Enjoy
 
+## Features
+
+- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
+- Enhancements to Django's static file serving functionality via WhiteNoise
+- Enhancements to Django's database functionality via django-postgrespool and dj-database-url
+
 ## Further Reading
 
+- [Semillas-SZ](http://www.semillas-sz.com/)
 - [Gunicorn](https://warehouse.python.org/project/gunicorn/)
 - [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
 - [django-postgrespool](https://warehouse.python.org/project/django-postgrespool/)
