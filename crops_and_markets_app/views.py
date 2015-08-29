@@ -92,12 +92,12 @@ def market_info(request):
 
 @login_required
 def add_market(request):
-	# type_of_contact_form = TypeOfContactForm(request.POST or None)
 	client_form = ClientForm(request.POST or None)
+	geographical_form = GMarkerForm(request.POST or None)
 	comercial_info_form = ComercialInformationForm(request.POST or None)
 
 	if request.method == 'POST':
-		if client_form.is_valid() and comercial_info_form.is_valid():
+		if client_form.is_valid() and geo_form and comercial_info_form.is_valid():
 			# client information
 			type_of_client = client_form.cleaned_data['type_of_client']
 			first_name = client_form.cleaned_data['first_name']
@@ -106,6 +106,11 @@ def add_market(request):
 			number_2 = client_form.cleaned_data['contact_number_2']
 			email = client_form.cleaned_data['email']
 			obs = client_form.cleaned_data['observations']
+
+			# geographical information
+			zone = geographical_form.cleaned_data['zone']
+			latitude = geographical_form.cleaned_data['latitude']
+			longitude = geographical_form.cleaned_data['longitude']
 
 			# comercial information
 			volume = comercial_info_form.cleaned_data['volume']

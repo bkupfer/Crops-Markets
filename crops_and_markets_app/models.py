@@ -2,6 +2,20 @@ from django.db import models
 from django.utils.encoding import smart_text
 
 # ######## #
+# General 
+class GMarker(models.Model):
+	zone = models.CharField(max_length=256, blank=True, null=True)
+	latitude = models.FloatField(blank=True, null=True)
+	longitud = models.FloatField(blank=True, null=True)
+
+	def __str__(self):
+		if zone is not None:
+			return self.zone
+		else:
+			return "Geographical information"
+
+
+# ######## #
 # Crops	
 # class Marker(models.Model):
 #	name = models.CharField(max_length=100)
@@ -14,7 +28,6 @@ from django.utils.encoding import smart_text
 # ###
 
 
-# ######## #
 # Markets
 class Client(models.Model):
 	type_of_client = models.ForeignKey('TypeOfClient')
@@ -32,15 +45,8 @@ class Client(models.Model):
 		return self.first_name + " " + self.last_name
 
 
-class TypeOfClient(models.Model):
-	type = models.CharField(max_length=10)
-
-	def __str__(self):
-		return self.type
-		
-
 class ComercialInfo(models.Model): # should it be renamed to -ComercialInformation- ?
-	zone = models.CharField(max_length=256, blanck=True, null=True)
+	zone = models.CharField(max_length=256, blank=True, null=True)
 	volume = models.CharField(max_length=256, blank=True, null=True)
 	varieties = models.CharField(max_length=256, blank=True, null=True)
 	# agregar: tamanno, zona, que ha comprado previamente, etc etc...
@@ -49,9 +55,8 @@ class ComercialInfo(models.Model): # should it be renamed to -ComercialInformati
 		return "comercial info nr " . __str__(self.pk)
 
 
-class GeographicInfo(models.Model):
-	latitude = models.FloatField() 
-	longitud = models.FloatField()
+class TypeOfClient(models.Model):
+	type = models.CharField(max_length=10)
 
 	def __str__(self):
-		return 'geographic information'
+		return self.type

@@ -113,6 +113,39 @@
 							{{ client_form.observations.errors }}
 						</div>	
 
+						<!-- Geographic information -->
+						<div class="row">
+							<h3>Información geográfica</h3>
+							<!-- Region ~~ # maybe interesting in talking about chile only ~~ todo: check if this field would be usefull in some way.
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="region">Región</label>
+								<div class="col-sm-8">
+									{{ gmarker.region }}
+								</div>
+							</div> -->
+	
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="varieties">Ubicación</label>
+								<div class="col-sm-8">
+									{{ geographical_form.zone }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="varieties">Latitud</label>
+								<div class="col-sm-8">
+									{{ geographical_form.latitude }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="varieties">Longitud</label>
+								<div class="col-sm-8">
+									{{ geographical_form.longitude }}
+								</div>
+							</div>
+						</div>
+
 						<!-- Comercial information -->
 						<div class="row">
 							<h3>Información comercial</h3>
@@ -145,6 +178,8 @@
 								</div>
 							</div> -->
 						</div>
+						
+						
 						<br>
 
 						<!-- Submit button -->

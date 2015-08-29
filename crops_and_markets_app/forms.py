@@ -1,6 +1,22 @@
 from django import forms
 from crops_and_markets_app.models import *
 
+# ######## #
+# General
+class GMarkerForm(forms.Form):
+	zone = forms.CharField(label='Ubicacion', max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	latitude = forms.IntegerField(label='Latitud', required=False)
+	longitude = forms.IntegerField(label='Longitud', required=False)
+    
+	class Meta:
+		model = GMarker
+
+# ######## #
+# Crops
+
+
+# ######## #
+# Markets
 # new client forum 
 class ClientForm(forms.Form):
 	type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
@@ -15,8 +31,9 @@ class ClientForm(forms.Form):
 		model = Client
 		# exclude = ('campo_a', 'campo_b', 'campo_c')
 
+
 class ComercialInformationForm(forms.Form):
-	zone = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	# zone = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	volume = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	varieties = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 
