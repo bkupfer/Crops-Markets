@@ -86,18 +86,20 @@ def market_info(request):
 	if request.method == "GET" and 'id' in request.GET:
 		id = request.GET['id']
         client = Client.objects.get(pk = id)
+        geo_info  = GeoMarker.objects.get(client = id)
         comercial_info = ComercialInfo.objects.get(client = id)
+
 
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
 
 @login_required
 def add_market(request):
 	client_form = ClientForm(request.POST or None)
-	geographical_form = GMarkerForm(request.POST or None)
+	geographical_form = GeoMarkerForm(request.POST or None)
 	comercial_info_form = ComercialInformationForm(request.POST or None)
 
 	if request.method == 'POST':
-		if client_form.is_valid() and geo_form and comercial_info_form.is_valid():
+		if client_form.is_valid() and geographical_form.is_valid() and comercial_info_form.is_valid():
 			# client information
 			type_of_client = client_form.cleaned_data['type_of_client']
 			first_name = client_form.cleaned_data['first_name']
@@ -107,21 +109,26 @@ def add_market(request):
 			email = client_form.cleaned_data['email']
 			obs = client_form.cleaned_data['observations']
 
+			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, contact_number_1=number_1, 
+				contact_number_2=number_2, email=email, observations=obs)
+			new_client.save()
+
 			# geographical information
 			zone = geographical_form.cleaned_data['zone']
 			latitude = geographical_form.cleaned_data['latitude']
 			longitude = geographical_form.cleaned_data['longitude']
 
+			new_geomarker = GeoMarker(client=new_client, zone=zone, latitude=latitude, longitude=longitude)
+			new_geomarker.save() 
+
 			# comercial information
 			volume = comercial_info_form.cleaned_data['volume']
 			varieties = comercial_info_form.cleaned_data['varieties']
-			new_comercial_info = ComercialInfo(volume=volume, varieties=varieties)
+
+			new_comercial_info = ComercialInfo(client=new_client, volume=volume, varieties=varieties)
 			new_comercial_info.save()
 
-			new_client = Client(type_of_client=type_of_client, first_name = first_name, last_name = last_name, contact_number_1 = number_1,
-								contact_number_2 = number_2, email = email, observations = obs, comercial_info = new_comercial_info)
-			new_client.save()
-			messages.success(request, 'Cliente agregado.')
+			messages.success(request, 'Cliente agregado exitosamente.')
 
 	return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
 

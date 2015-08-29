@@ -3,13 +3,14 @@ from crops_and_markets_app.models import *
 
 # ######## #
 # General
-class GMarkerForm(forms.Form):
+class GeoMarkerForm(forms.Form):
 	zone = forms.CharField(label='Ubicacion', max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(label='Latitud', required=False)
 	longitude = forms.IntegerField(label='Longitud', required=False)
     
 	class Meta:
-		model = GMarker
+		model = GeoMarker
+
 
 # ######## #
 # Crops
@@ -17,7 +18,6 @@ class GMarkerForm(forms.Form):
 
 # ######## #
 # Markets
-# new client forum 
 class ClientForm(forms.Form):
 	type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	first_name = forms.CharField(label='Nombre', max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))

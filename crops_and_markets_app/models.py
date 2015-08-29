@@ -3,16 +3,18 @@ from django.utils.encoding import smart_text
 
 # ######## #
 # General 
-class GMarker(models.Model):
+class GeoMarker(models.Model):
+	client = models.ForeignKey('Client')
+
 	zone = models.CharField(max_length=256, blank=True, null=True)
 	latitude = models.FloatField(blank=True, null=True)
-	longitud = models.FloatField(blank=True, null=True)
+	longitude = models.FloatField(blank=True, null=True)
 
 	def __str__(self):
-		if zone is not None:
-			return self.zone
+		if self.zone is not None:
+			return str(self.client) + ": " + self.zone
 		else:
-			return "Geographical information"
+			return "geographical information"
 
 
 # ######## #
@@ -39,20 +41,19 @@ class Client(models.Model):
 	email = models.EmailField(blank=True, null=True)
 	observations = models.TextField(blank=True, null=True)
 
-	comercial_info = models.ForeignKey('ComercialInfo') # check if this foreign key should be here, or it should be all the way down into comercialInfo
-
 	def __str__(self):
 		return self.first_name + " " + self.last_name
 
 
 class ComercialInfo(models.Model): # should it be renamed to -ComercialInformation- ?
-	zone = models.CharField(max_length=256, blank=True, null=True)
+	client = models.ForeignKey('Client')
+
 	volume = models.CharField(max_length=256, blank=True, null=True)
 	varieties = models.CharField(max_length=256, blank=True, null=True)
-	# agregar: tamanno, zona, que ha comprado previamente, etc etc...
+	# todo: add; size, historial, timestamps, etc. // aditional information
 
 	def __str__(self):
-		return "comercial info nr " . __str__(self.pk)
+		return "comercial info: " + str(self.client)
 
 
 class TypeOfClient(models.Model):

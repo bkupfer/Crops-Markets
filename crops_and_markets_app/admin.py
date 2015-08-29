@@ -2,7 +2,7 @@ from django.contrib import admin
 from . import models
 
 # general
-admin.site.register(models.GMarker)
+admin.site.register(models.GeoMarker)
 
 # crops
 # admin.site.register(models.Marker)
