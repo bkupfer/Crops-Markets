@@ -69,6 +69,10 @@ def markets(request):
 
 @login_required
 def market_map(request):
+#	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
+#	potential = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Potencial"))
+	geomarkers = GeoMarker.objects.all()
+
 	return render_to_response("markets/market_map.html", locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -78,16 +82,16 @@ def market_table(request):
 
 @login_required
 def market_table_potential(request):
-    clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Potencial"))
-    return render_to_response("markets/market_table_potential.html", locals(), context_instance=RequestContext(request))
+	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Potencial"))
+	return render_to_response("markets/market_table_potential.html", locals(), context_instance=RequestContext(request))
 
 @login_required
 def market_info(request):
 	if request.method == "GET" and 'id' in request.GET:
 		id = request.GET['id']
-        client = Client.objects.get(pk = id)
-        geo_info  = GeoMarker.objects.get(client = id)
-        comercial_info = ComercialInfo.objects.get(client = id)
+		client = Client.objects.get(pk = id)
+		geo_info  = GeoMarker.objects.get(client = id)
+		comercial_info = ComercialInfo.objects.get(client = id)
 
 
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
