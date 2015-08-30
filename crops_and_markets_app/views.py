@@ -29,7 +29,7 @@ def login(request):
 		# else:
 			# print("invalid user/password combination.")
 
-		return render_to_response("login.html", locals(), context_instance=RequestContext(request))
+	return render_to_response("login.html", locals(), context_instance=RequestContext(request))
 
 # def logout(request):
 #	auth.logout(request)
