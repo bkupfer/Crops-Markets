@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="author" content="bkupfer">
 
 	<title>Crops and Markets</title>
 
@@ -65,7 +65,7 @@
 	  * @ geocoder: google.maps.Geocoder object to be used.
 	  * @ map: the map to be used.
 	  * @ address: the address to be geocoded.
-	  * @ title: title of the marker that will be created in the map
+	  * @ title: title of the marker that will be created in the map.
 	  * @ typeOfClient: reduntant definition is redundant. */
 	function geocodeAddress(geocoder, map, address, title, typeOfClient){ 
 		geocoder.geocode({'address': address}, function(results, status){
@@ -102,15 +102,11 @@
 
 	<div id="wrapper">
 
-		<!-- Sidebar -->
 		{% include "sidebar.html" %}
 
-		<!-- Page Content -->
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
-
 				<div class="row">
-					
 					<h2>Mapa</h2>
 					<br>
 					
@@ -126,15 +122,9 @@
 
 	</div>
 
-	<!-- jQuery -->
 	<script src="static/js/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
 	<script src="static/js/bootstrap.min.js"></script>
-
-	<!-- Menu Toggle Script -->
 	<script src="../static/js/menu_toggle.js"></script>
-
 
 </body>
 </html>

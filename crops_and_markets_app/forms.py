@@ -7,7 +7,7 @@ class GeoMarkerForm(forms.Form):
 	zone = forms.CharField(label='Ubicacion', max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(label='Latitud', required=False)
 	longitude = forms.IntegerField(label='Longitud', required=False)
-    
+
 	class Meta:
 		model = GeoMarker
 

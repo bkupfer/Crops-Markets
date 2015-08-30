@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="author" content="bkupfer">
 
 	<title>Crops and Markets</title>
 
@@ -26,10 +27,8 @@
 <body>
 	<div id="wrapper">
 
-		<!-- Sidebar -->
 		{% include "sidebar.html" %}
 
-		<!-- Page Content -->
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
@@ -123,7 +122,7 @@
 									{{ gmarker.region }}
 								</div>
 							</div> -->
-	
+
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="varieties">Ubicación</label>
 								<div class="col-sm-8">
@@ -163,7 +162,7 @@
 								</div>
 							</div>
 	
-							<!-- todo > future fields 
+							<!-- todo > future fields.
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="type_of_client"></label>
 								<div class="col-sm-8">
@@ -178,35 +177,29 @@
 								</div>
 							</div> -->
 						</div>
-						
-						
 						<br>
 
 						<!-- Submit button -->
 						<div class="row">
 							<div class="col-sm-4">
-								<input type="submit" value="Enviar" class="btn btn-default">
+								<input type="submit" value="Agregar" class="btn btn-default">
 							</div>
 							<div class="col-sm-8">
 								<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
 							</div>
 						</div>
+
 					</form>
 					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 				</div>
 
 			</div>
 		</div>
-
 	</div>
 
-	<!-- jQuery -->
 	<script src="static/js/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
 	<script src="static/js/bootstrap.min.js"></script>
-
-	<!-- Menu Toggle Script -->
 	<script src="../static/js/menu_toggle.js"></script>
+
 </body>
 </html>
