@@ -93,7 +93,6 @@ def market_info(request):
 		geo_info  = GeoMarker.objects.get(client = id)
 		comercial_info = ComercialInfo.objects.get(client = id)
 
-
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
 
 @login_required

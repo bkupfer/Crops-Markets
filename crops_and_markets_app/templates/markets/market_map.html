@@ -28,24 +28,7 @@
 	<script src="https://maps.googleapis.com/maps/api/js"></script>
 
 	<script>
-
-	function codeAddress(address) {
-		var address = "Agusto Leguia Norte 101, Santiago, Chile";
-		
-		geocoder.geocode( { 'address': address}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				map.setCenter(results[0].geometry.location);
-				var marker = new google.maps.Marker({
-					map: map,
-					position: results[0].geometry.location
-				});
-			} else {
-				alert('Geocode was not successful for the following reason: ' + status);
-			}
-		});
-	}
-
-	// creates the html content for a marker
+	/**  creates the html content for a marker */
 	function createInfoWindowContent(heading, info, whereTo){
 		var content = '<div id="content">';
 		content += '<div id="siteNotice"></div>';
@@ -62,9 +45,8 @@
 	}
 
 	function initialize(){
-		var mapCanvas = document.getElementById("map-canvas");
-
 		// map
+		var mapCanvas = document.getElementById("map-canvas");
 		var mapOptions = {
 			center: new google.maps.LatLng(-37.092427,-73.1488737),
 			zoom: 5,
@@ -72,36 +54,20 @@
 		}
 		var map = new google.maps.Map(mapCanvas, mapOptions);
 
-		// markets
+		// geocoding and markets
 		var geocoder = new google.maps.Geocoder();
-
-		/* 
-		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(-31.092427,-71.1488737),
-			title: 'Campo A'
-		});
-		var marker2 = new google.maps.Marker({
-			position: new google.maps.LatLng(-41.192427,-73.4688737),
-			title: 'Campo B'
-		});
-		marker.setMap(map);
-		marker2.setMap(map);
-		*/
-
-		var geocoder = new google.maps.Geocoder();
-		// awesome, this works !
-		// geocodeAddress(geocoder, map, 'agusto leguia norte 101, santiago, chile');
 		{% for geomarker in geomarkers %}
-		geocodeAddress(geocoder, map, "{{ geomarker.zone }}", "{{ geomarker.client }}"); 
+		geocodeAddress(geocoder, map, "{{ geomarker.zone }}", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}");
 		{% endfor %}
 	}
 
 	/** Transforms an address into a google.maps.Marker into the map. 
 	  * @ geocoder: google.maps.Geocoder object to be used.
 	  * @ map: the map to be used.
-	  * @ address: the address to be geocoded 
-	  * @ title: title of the marker that will be created in the map*/
-	function geocodeAddress(geocoder, map, address, title){ 
+	  * @ address: the address to be geocoded.
+	  * @ title: title of the marker that will be created in the map
+	  * @ typeOfClient: reduntant definition is redundant. */
+	function geocodeAddress(geocoder, map, address, title, typeOfClient){ 
 		geocoder.geocode({'address': address}, function(results, status){
 			if (status == google.maps.GeocoderStatus.OK){
 				var marker = new google.maps.Marker({
@@ -109,6 +75,10 @@
 					map: map,
 					title: title
 				});
+				if (typeOfClient == "Actual")
+					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+				if (typeOfClient == "Potencial")
+					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png'); 
 			}
 			else {
 				alert('Geocode was not succesful for the following reason:' + status); 
@@ -139,12 +109,18 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Mapa</h2>
-				<br>
+				<div class="row">
+					
+					<h2>Mapa</h2>
+					<br>
+					
+					<div class="col-bg-12" id="map-canvas"><!-- map goes here --></div>
+					<div class="col-sm-12">
+						<p class="text-right small">Los marcadores de color <label style="color:red">rojo</label> y <label style="color:blue">azul</label> representan los clientes actuales y potenciales respectivamente.</p>
+					</div>
 
-				<div id="map-canvas"></div>
-
-				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				</div>
 			</div>
 		</div>
 
