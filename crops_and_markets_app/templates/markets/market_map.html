@@ -28,15 +28,16 @@
 	<script src="https://maps.googleapis.com/maps/api/js"></script>
 
 	<script>
-	/**  creates the html content for a marker */
+	/**  creates the html content for the information window of a marker */
 	function createInfoWindowContent(heading, info, whereTo){
 		var content = '<div id="content">';
 		content += '<div id="siteNotice"></div>';
-		content += '<h1 id="firstHeading" class="firstHeading">' + heading + '</h1>';
-		for (var i=0; i<info.length; i++)
-			content += '<p>' + info[i] + '</p>';
+		content += '<h3 id="firstHeading" class="firstHeading">' + heading + '</h3>';
+		//for (var i=0; i<info.length; i++)
+		//	content += '<p>' + info[i] + '</p>';
+		content += '<p>'+info+'</p>';
 		content += '<a href="' + whereTo + '">';
-		content += '<button class="btn btn-default">Más info</button>';
+		content += '<button class="btn btn-default">Ver detalle</button>';
 		content += '</a>';
 		content += '</div>';
 		content += '</div>';
@@ -57,7 +58,7 @@
 		// geocoding and markets
 		var geocoder = new google.maps.Geocoder();
 		{% for geomarker in geomarkers %}
-		geocodeAddress(geocoder, map, "{{ geomarker.zone }}", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}");
+		geocodeAddress(geocoder, map, "{{ geomarker.zone }}", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}", "{{ geomarker.client.pk }}");
 		{% endfor %}
 	}
 
@@ -67,7 +68,7 @@
 	  * @ address: the address to be geocoded.
 	  * @ title: title of the marker that will be created in the map.
 	  * @ typeOfClient: reduntant definition is redundant. */
-	function geocodeAddress(geocoder, map, address, title, typeOfClient){ 
+	function geocodeAddress(geocoder, map, address, title, typeOfClient, idClient){ 
 		geocoder.geocode({'address': address}, function(results, status){
 			if (status == google.maps.GeocoderStatus.OK){
 				var marker = new google.maps.Marker({
@@ -78,7 +79,19 @@
 				if (typeOfClient == "Actual")
 					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 				if (typeOfClient == "Potencial")
-					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png'); 
+					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+				
+				// creating information window
+				var contentString = createInfoWindowContent(title, address, 'market_info?id='+idClient);
+				var infoWindow = new google.maps.InfoWindow({
+					content: contentString
+				});
+				google.maps.event.addListener(marker, 'click', function(){
+					infoWindow.open(map, marker);
+				}); 
+
+
+
 			}
 			else {
 				alert('Geocode was not succesful for the following reason:' + status); 

@@ -34,14 +34,14 @@
 
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
-
+				<div class="row">
 				<h2>Detalle {{ client }}</h2>
 
 				<h3>Información de contacto</h3>
 				<table class="table table-hover">
 					<tr>
 						<td class="col-sm-4">Nombre</td>
-						<td>{{ client }}</td>
+						<td class="col-sm-8">{{ client }}</td>
 					</tr>
 					<tr>
 						<td>Número(s)</td>
@@ -60,27 +60,27 @@
 				<h3>Información geográfica</h3>
 				<table class="table table-hover">
 					<tr>
-						<td>Zona</td>
-						<td>{{ geo_info.zone }}</td>
+						<td class="col-sm-4">Zona</td>
+						<td class="col-sm-8">{{ geo_info.zone }}</td>
 					</tr>
 				</table>
 				<a href="" class="btn btn-default" id="go-to-map">Ver en mapa</a>
-	
+
 				<h3>Información de comercial</h3>
 				<table class="table table-hover">
 					<tr>
-						<td>Volumen</td>
-						<td>{{ comercial_info.volume }}</td>
+						<td class="col-sm-4">Volumen</td>
+						<td class="col-sm-8">{{ comercial_info.volume }}</td>
 					</tr>
 					<tr>
 						<td>Variedades</td>
 						<td>{{ comercial_info.varieties }}</td>
 					</tr>
 				</table>
-				
+
 				<h3>Observaciones</h3>
 				<p>{{ client.observations }}</p>
-				
+				</div>
 			</div>
 			<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 			<a href="market_table{% if client.type_of_client.type == 'Potencial' %}_potential{% endif %}" class="btn btn-default" id="return">Volver</a>
