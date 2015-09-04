@@ -25,113 +25,115 @@
 	<![endif]-->
 
 	<style>
-		body {
-			background: url(http://mymaplist.com/img/parallax/back.png);
-			background-color: #444;
-			background: url(http://mymaplist.com/img/parallax/pinlayer2.png), url(http://mymaplist.com/img/parallax/pinlayer1.png), url(http://mymaplist.com/img/parallax/back.png);
-			padding-top: 20px;
-		}
+	body {
+		background: url(http://mymaplist.com/img/parallax/back.png);
+		background-color: #444;
+		background: url(http://mymaplist.com/img/parallax/pinlayer2.png), 
+					url(http://mymaplist.com/img/parallax/pinlayer1.png), 
+					url(http://mymaplist.com/img/parallax/back.png);
+		padding-top: 20px;
+	}
 
-		.container {
-			width: 406px;
-			max-width: 406px;
-			margin-top: 25px;
-		}
+	.container {
+		width: 406px;
+		max-width: 406px;
+		margin-top: 25px;
+	}
 
-		#signup {
-			padding: 5px 25px 25px;
-			background: #fff;
-			box-shadow:
-				0px 0px 0px 5px rgba( 255,255,255,0.4 ),
-				0px 4px 20px rgba( 0,0,0,0.33 );
-			border-radius: 5px;
-			display: table;
-		}
+	#signup {
+		padding: 5px 25px 25px;
+		background: #fff;
+		box-shadow:
+			0px 0px 0px 5px rgba( 255,255,255,0.4 ),
+			0px 4px 20px rgba( 0,0,0,0.33 );
+		border-radius: 5px;
+		display: table;
+	}
 
-		#signup .header {
-			margin-bottom: 20px;
-		}
+	#signup .header {
+		margin-bottom: 20px;
+	}
 
-		#signup .sep {
-			height: 1px;
-			background: #e8e8e8;
-			width: 406px;
-			margin: 0px -25px;
-		}
+	#signup .sep {
+		height: 1px;
+		background: #e8e8e8;
+		width: 406px;
+		margin: 0px -25px;
+	}
 
-		#signup .inputs {
-			margin-top: 20px;
-		}
+	#signup .inputs {
+		margin-top: 20px;
+	}
 
-		input::-webkit-input-placeholder {
-			color:    #b5b5b5;
-		}
+	input::-webkit-input-placeholder {
+		color:    #b5b5b5;
+	}
 
-		input:-moz-placeholder {
-			color:    #b5b5b5;
-		}
+	input:-moz-placeholder {
+		color:    #b5b5b5;
+	}
 
-		#signup .inputs input[type=text], input[type=password] {
-			background: #f5f5f5;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-			border-radius: 3px;
-			border: none;
-			padding: 13px 10px;
-			width: 330px;
-			margin-bottom: 20px;
-			box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
-			clear: both;
-		}
+	#signup .inputs input[type=text], input[type=password] {
+		background: #f5f5f5;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		border: none;
+		padding: 13px 10px;
+		width: 330px;
+		margin-bottom: 20px;
+		box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+		clear: both;
+	}
 
-		#signup .inputs input[type=text]:focus, input[type=password]:focus {
-			background: #fff;
-			box-shadow: 0px 0px 0px 3px #fff38e, inset 0px 2px 3px rgba( 0,0,0,0.2 ), 0px 5px 5px rgba( 0,0,0,0.15 );
-			outline: none;
-		}
+	#signup .inputs input[type=text]:focus, input[type=password]:focus {
+		background: #fff;
+		box-shadow: 0px 0px 0px 3px #fff38e, inset 0px 2px 3px rgba( 0,0,0,0.2 ), 0px 5px 5px rgba( 0,0,0,0.15 );
+		outline: none;
+	}
 
-		#signup .inputs .checkboxy {
-			display: block;
-			position: static;
-			height: 25px;
-			margin-top: 10px;
-			clear: both;
-		}
+	#signup .inputs .checkboxy {
+		display: block;
+		position: static;
+		height: 25px;
+		margin-top: 10px;
+		clear: both;
+	}
 
-		#signup .inputs input[type=checkbox] {
-			float: left;
-			margin-right: 10px;
-			margin-top: 3px;
-		}
+	#signup .inputs input[type=checkbox] {
+		float: left;
+		margin-right: 10px;
+		margin-top: 3px;
+	}
 	</style>
 
 </head>
 
 <body>
-<div class="container">
+	<div class="container">
+		<form id="signup" role="form" method="POST"> {% csrf_token %}
+			<div class="header">
+				<h3>Crops and Markets</h3>
+				<p>Ingrese su nombre de usuario y contraseña.</p>
+			</div>
 
-	<form id="signup" role="form" method="POST"> {% csrf_token %}
-		<div class="header">
-			<h3>Crops and Markets</h3>
-			<p>Ingrese su nombre de usuario y contraseña.</p>
-		</div>
+			<div class="sep"></div>
 
-		<div class="sep"></div>
+			<div class="inputs">
+				<label for="username">Nombre de usuario</label>
+				<input id="username" type="text" name="username"/>
 
-		<div class="inputs">
-			<label for="username">Nombre de usuario</label>
-			<input id="username" type="text" name="username"/>
+				<label for="password">Contraseña</label>
+				<input id="password" type="password" name="password"/>
 
-			<label for="password">Contraseña</label>
-			<input id="password" type="password" name="password"/>
+				<!-- <label class="checkbox"><input type="checkbox" value="remember-me">Recuérdame</label> -->
 
-			<!-- <label class="checkbox"><input type="checkbox" value="remember-me">Recuérdame</label> -->
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+			</div>
+		</form>
+	</div>
 
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-		</div>
-	</form>
-
-</div>
+	<script src="static/js/googleanalytics.js"></script>
 
 </body>
 </html>
