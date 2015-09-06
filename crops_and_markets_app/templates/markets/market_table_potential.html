@@ -24,6 +24,22 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+	<!-- List.js -->
+	<script src="static/js/list.js"></script>
+	<!-- <script src="http://listjs.com/no-cdn/list.js"></script> -->
+
+	<style type="text/css">
+	input {
+		border:solid 1px #ccc;
+		border-radius: 5px;
+		padding:7px 14px;
+		margin-bottom:10px
+	}
+	input:focus {
+		border-color:#aaa;
+	}
+	</style>
+	
 </head>
 
 <body>
@@ -38,35 +54,50 @@
 				<h2>Tabla de potenciales clientes</h2>
 
 				<h3>Información de contacto</h3>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>Número contacto</th>
-							<th>Zona</th>
-							<th>Tamaño</th>
-							<th><!-- view detail --></th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for client in clients %}
-						<tr>
-							<td>{{ client.first_name }}</td>
-							<td>{{ client.last_name }}</td>
-							<td><a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a></td>
-							<td> zona </td>
-							<td> tamaño </td>
-							<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+
+				<div id="clients">
+
+					<input class="search" placeholder="Buscar"/>
+					<button class="btn btn-default sort" data-sort="name">Ordenar por nombre</button>
+					<button class="btn btn-default sort" data-sort="last_name">Ordenar por apellido</button>
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Número contacto</th>
+								<th>Zona</th>
+								<th>Tamaño</th>
+								<th><!-- view detail --></th>
+							</tr>
+						</thead>
+						<tbody class="list">
+							{% for client in clients %}
+							<tr>
+								<td class="name">{{ client.first_name }}</td>
+								<td class="last_name">{{ client.last_name }}</td>
+								<td>{% if client.contact_number_1 %}<a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>{% else %}-- -- --{% endif %}</td>
+								<td class="zone"> -- -- -- </td>
+								<td> -- -- -- </td>
+								<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 			</div>
 		</div>
 
 	</div>
+
+	<script type="text/javascript">
+	var options = {
+		valueNames: [ 'name', 'last_name' ]
+	};
+	var userList = new List('clients', options);
+	</script>
 
 	<script src="static/js/jquery.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
