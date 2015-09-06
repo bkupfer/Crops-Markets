@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, render_to_response, RequestContext, redirect, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -77,6 +78,7 @@ def market_map(request):
 @login_required
 def market_table(request):
 	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
+	
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -117,10 +119,11 @@ def add_market(request):
 
 			# geographical information
 			zone = geographical_form.cleaned_data['zone']
+			address = geographical_form.cleaned_data['address']
 			latitude = geographical_form.cleaned_data['latitude']
 			longitude = geographical_form.cleaned_data['longitude']
 
-			new_geomarker = GeoMarker(client=new_client, zone=zone, latitude=latitude, longitude=longitude)
+			new_geomarker = GeoMarker(client=new_client, zone=zone, address=address, latitude=latitude, longitude=longitude)
 			new_geomarker.save() 
 
 			# comercial information

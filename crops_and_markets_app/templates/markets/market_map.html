@@ -32,10 +32,10 @@
 	function createInfoWindowContent(heading, info, whereTo){
 		var content = '<div id="content">';
 		content += '<div id="siteNotice"></div>';
-		content += '<h3 id="firstHeading" class="firstHeading">' + heading + '</h3>';
-		//for (var i=0; i<info.length; i++)
-		//	content += '<p>' + info[i] + '</p>';
-		content += '<p>'+info+'</p>';
+		content += '<h4 id="firstHeading" class="firstHeading">' + heading + '</h4>';
+		for (var i=0; i<info.length; i++)
+			content += '<p>' + info[i] + '</p>';
+		//content += '<p>'+info+'</p>';
 		content += '<a href="' + whereTo + '">';
 		content += '<button class="btn btn-default">Ver detalle</button>';
 		content += '</a>';
@@ -46,7 +46,7 @@
 	}
 
 	function initialize(){
-		// map
+		// Map
 		var mapCanvas = document.getElementById("map-canvas");
 		var mapOptions = {
 			center: new google.maps.LatLng(-37.092427,-73.1488737),
@@ -55,11 +55,43 @@
 		}
 		var map = new google.maps.Map(mapCanvas, mapOptions);
 
-		// geocoding and markets
+		// Geocoding and markets
 		var geocoder = new google.maps.Geocoder();
 		{% for geomarker in geomarkers %}
-		geocodeAddress(geocoder, map, "{{ geomarker.zone }}", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}", "{{ geomarker.client.pk }}");
+		geocodeAddress(geocoder, map, "{{ geomarker.address }}", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}", "{{ geomarker.client.pk }}");
 		{% endfor %}
+
+		// Try HTML5 geolocation.
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+
+				var myCurrentLocationMarker = new google.maps.Marker({
+					position: pos,
+					map: map, 
+					icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+				});
+				var myCurrentLocationInfoWindow = new google.maps.InfoWindow({
+					content: "mi ubicación actual"
+				});
+				google.maps.event.addListener(myCurrentLocationMarker, 'click', function(){
+					myCurrentLocationInfoWindow.open(map, myCurrentLocationMarker);
+				}); 
+
+				map.setCenter(pos);
+				map.setZoom(12);
+			}, function() {
+				handleLocationError(true, infoWindow, map.getCenter());
+			});
+		} 
+		else {
+			// Browser doesn't support Geolocation
+			handleLocationError(false, infoWindow, map.getCenter());
+		}
+
 	}
 
 	/** Transforms an address into a google.maps.Marker into the map. 
@@ -82,16 +114,13 @@
 					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 				
 				// creating information window
-				var contentString = createInfoWindowContent(title, address, 'market_info?id='+idClient);
+				var contentString = createInfoWindowContent(title, [address], 'market_info?id='+idClient);
 				var infoWindow = new google.maps.InfoWindow({
 					content: contentString
 				});
 				google.maps.event.addListener(marker, 'click', function(){
 					infoWindow.open(map, marker);
 				}); 
-
-
-
 			}
 			else {
 				alert('Geocode was not succesful for the following reason:' + status); 
@@ -125,7 +154,7 @@
 					
 					<div class="col-bg-12" id="map-canvas"><!-- map goes here --></div>
 					<div class="col-sm-12">
-						<p class="text-right small">Los marcadores de color <label style="color:red">rojo</label> y <label style="color:blue">azul</label> representan los clientes actuales y potenciales respectivamente.</p>
+						<p class="text-right small">Los marcadores de color <label style="color:red">rojo</label> y <label style="color:blue">azul</label> representan los clientes <label style="color:red">actuales</label> y <label style="color:blue">potenciales</label> respectivamente.</p>
 					</div>
 
 					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>

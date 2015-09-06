@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from crops_and_markets_app.models import *
 
@@ -5,6 +6,7 @@ from crops_and_markets_app.models import *
 # General
 class GeoMarkerForm(forms.Form):
 	zone = forms.CharField(label='Ubicacion', max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	address = forms.CharField(label='Direccion', max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(label='Latitud', required=False)
 	longitude = forms.IntegerField(label='Longitud', required=False)
 
