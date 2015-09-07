@@ -100,7 +100,7 @@
 	  * @ address: the address to be geocoded.
 	  * @ title: title of the marker that will be created in the map.
 	  * @ typeOfClient: reduntant definition is redundant. */
-	function geocodeAddress(geocoder, map, address, title, typeOfClient, idClient){ 
+	function geocodeAddress(geocoder, map, address, title, typeOfClient, idClient){
 		geocoder.geocode({'address': address}, function(results, status){
 			if (status == google.maps.GeocoderStatus.OK){
 				var marker = new google.maps.Marker({

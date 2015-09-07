@@ -60,6 +60,9 @@ def crop_info(request):
 def paddock_detail(request):
 	return render_to_response("crops/paddock_detail.html", locals(), context_instance=RequestContext(request))
 
+@login_required
+def add_crop(request):
+	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 
 ############
 # Markets
