@@ -8,6 +8,7 @@ from django.utils.encoding import smart_text
 # crops geomarker
 class Crop(models.Model):
 	crop_owner = models.ForeignKey('CropOwner')
+	created = models.DateTimeField(auto_now_add=True)
 
 	# geographical information 
 	zone = models.CharField(max_length=256, blank=True, null=True)
@@ -41,11 +42,13 @@ class Crop(models.Model):
 # crops 'clients'
 # saves information of the crop owner
 class CropOwner(models.Model):
+	created = models.DateTimeField(auto_now_add=True)
 	owner_name = models.CharField(max_length=256, blank=True, null=True)
+	# -- crop owner information --
 
-
-class Padock(models.Model):
+class Paddock(models.Model):
 	crop = models.ForeignKey('Crop')
+	# -- information --
 
 
 # ######## #
@@ -68,6 +71,9 @@ class GeoMarker(models.Model):
 
 class Client(models.Model):
 	type_of_client = models.ForeignKey('TypeOfClient')
+	created = models.DateTimeField(auto_now_add=True)
+
+	# contact information
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
 	contact_number_1 = models.IntegerField(blank=True, null=True)
@@ -81,7 +87,7 @@ class Client(models.Model):
 
 class ComercialInfo(models.Model): # should it be renamed to -ComercialInformation- ?
 	client = models.ForeignKey('Client')
-	volume = models.CharField(max_length=256, blank=True, null=True)
+	volume = models.CharField(max_length=256, blank=True, null=True) # aka. size
 	varieties = models.CharField(max_length=256, blank=True, null=True) # change to multiple select fields. limited set of options.
 	# todo: add; size, historial, timestamps, etc. // aditional information // what kind of information is really needed here? 
 

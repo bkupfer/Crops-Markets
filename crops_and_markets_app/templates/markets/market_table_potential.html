@@ -60,6 +60,7 @@
 					<input class="search" placeholder="Buscar"/>
 					<button class="btn btn-default sort" data-sort="name">Ordenar por nombre</button>
 					<button class="btn btn-default sort" data-sort="last_name">Ordenar por apellido</button>
+					<button class="btn btn-default sort" data-sort="zone">Ordenar por zona</button>
 
 					<table class="table table-hover">
 						<thead>
@@ -77,8 +78,15 @@
 							<tr>
 								<td class="name">{{ client.first_name }}</td>
 								<td class="last_name">{{ client.last_name }}</td>
-								<td>{% if client.contact_number_1 %}<a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>{% else %}-- -- --{% endif %}</td>
-								<td class="zone"> -- -- -- </td>
+								<td>{% if client.contact_number_1 %}
+										<a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
+									{% else %}-- -- --{% endif %}
+								</td>
+								<td class="zone">
+									{% for gm in client.geomarker_set.all %}
+									{{ gm.zone }} 
+									{% endfor %}
+								</td>
 								<td> -- -- -- </td>
 								<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>
 							</tr>
@@ -94,7 +102,7 @@
 
 	<script type="text/javascript">
 	var options = {
-		valueNames: [ 'name', 'last_name', 'zone' 	]
+		valueNames: [ 'name', 'last_name', 'zone' ]
 	};
 	var userList = new List('clients', options);
 	</script>
