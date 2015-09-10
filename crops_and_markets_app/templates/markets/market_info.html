@@ -44,10 +44,10 @@
 						<td class="col-sm-8">{{ client }}</td>
 					</tr>
 					<tr>
-						<td>Número(s)</td>
+						<td>Número{% if client.contact_number_2 %}s{% endif %}</td>
 						<td><a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
 							{% if client.contact_number_2 %}
-								<br><a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a>
+								, <a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a>
 							{% endif %}
 						</td>
 					</tr>
@@ -57,11 +57,31 @@
 					</tr>
 				</table>
 
+				<h3>Información de Empresa</h3>
+				<table class="table table-hover">
+					<tr>
+						<td class="col-sm-4">Compañía</td>
+						<td class="col-sm-8">{{ client.company }}</td>
+					</tr>
+					<tr>
+						<td>Cargo</td>
+						<td>{{ client.charge }}</td>
+					</tr>
+				</table>
+
 				<h3>Información geográfica</h3>
 				<table class="table table-hover">
 					<tr>
-						<td class="col-sm-4">Zona</td>
-						<td class="col-sm-8">{{ geo_info.zone }}</td>
+						<td class="col-sm-4">Región</td>
+						<td class="col-sm-8">{{ geo_info.region }}</td>
+					</tr>
+					<tr>
+						<td>Provincia</td>
+						<td>{{ geo_info.province }}</td>
+					</tr>
+					<tr>
+						<td>Comuna</td>
+						<td>{{ geo_info.commune }}</td>
 					</tr>
 					<tr>
 						<td>Dirección</td>
@@ -73,12 +93,16 @@
 				<h3>Información de comercial</h3>
 				<table class="table table-hover">
 					<tr>
-						<td class="col-sm-4">Volumen</td>
-						<td class="col-sm-8">{{ comercial_info.volume }}</td>
+						<td class="col-sm-4">Volumen Promedio</td>
+						<td class="col-sm-8"></td>
+					</tr>
+					<tr>
+						<td>Precio Promedio</td>
+						<td></td>
 					</tr>
 					<tr>
 						<td>Variedades</td>
-						<td>{{ comercial_info.varieties }}</td>
+						<td></td>
 					</tr>
 				</table>
 

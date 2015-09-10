@@ -32,7 +32,7 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Agregar un nuevo predio</h2>
+				<h2>Agregar un nuevo <em>crop_owner</em></h2>
 
 				<!-- For message to user -->
 				{% if messages %}
@@ -55,107 +55,76 @@
 						<div class="row">
 							<h3>Información de contacto</h3>
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="first_name">Dueño <label style="color:red">*</label></label>
+								<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>
 								<div class="col-sm-8">
-									
+									{{ owner_form.first_name }}
 								</div>
 							</div>
-						</div>
-
-						<!-- Geographic information -->
-						<div class="row">
-							<h3>Información geográfica</h3>
-
-							<div id="places">
-								<div id="id_geoinfo_0">
-
-									<!-- Geoinfo form --> 
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="zone">Región</label>
-										<div class="col-sm-8">
-											{{ geographical_form.region }}
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="zone">Provincia</label>
-										<div class="col-sm-8">
-											{{ geographical_form.region }}
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="zone">Comuna</label>
-										<div class="col-sm-8">
-											{{ geographical_form.region }}
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="direction">Dirección</label>
-										<div class="col-sm-8">
-											{{ geographical_form.address }}
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="lat">Latitud</label>
-										<div class="col-sm-8">
-											{{ geographical_form.latitude }}
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="lng">Longitud</label>
-										<div class="col-sm-8">
-											{{ geographical_form.longitude }}
-										</div>
-									</div>
-
-								</div>
-							</div>
-
+							{{ owner_form.first_name.errors }}
 							
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="last_name">Apellido <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ owner_form.last_name }}
+								</div>
+							</div>
+							{{ owner_form.last_name.errors }}
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="contact_number_1">Número de contacto</label>
+								<div class="col-sm-8">
+									{{ owner_form.contact_number_1 }}
+								</div>
+							</div>
+							{{ owner_form.contact_numbers_1.errors }}
+						
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="contact_number_2">Número de contacto 2</label>
+								<div class="col-sm-8">
+									{{ owner_form.contact_number_2 }}
+								</div>
+							</div>
+							{{ owner_form.contact_numbers_2.errors }}
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="email">Email</label>
+								<div class="col-sm-8">
+									{{ owner_form.email }}
+								</div>
+							</div>
+							{{ owner_form.email.errors }}
 						</div>
 
-						<!-- Geographic characteristics -->
+						<!-- Company information -->
 						<div class="row">
-							<h3>Información del terreno</h3>
+							<h3>Información de compañía</h3>
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="volume">Disponibilidad de agua <label style="color:red">*</label></label>
+								<label class="control-label col-sm-4" for="observations">Nombre compañía</label>
 								<div class="col-sm-8">
-									{{ comercial_info_form.volume }}
+									{{ company_form.name }}
 								</div>
+								{{ company_form.name.errors }}
 							</div>
 
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="varieties">Características de suelo <label style="color:red">*</label></label>
+								<label class="control-label col-sm-4" for="observations">Rut compañía</label>
 								<div class="col-sm-8">
-									{{ comercial_info_form.varieties }}
+									{{ company_form.rut }}
 								</div>
+								{{ company_form.rut.errors }}
 							</div>
-
-							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="varieties">Topografía de suelo <label style="color:red">*</label></label>
-								<div class="col-sm-8">
-									{{ comercial_info_form.varieties }}
-								</div>
-							</div>
-
-							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="varieties">Heladas <label style="color:red">*</label></label>
-								<div class="col-sm-8">
-									{{ comercial_info_form.varieties }}
-								</div>
-							</div>
-
-						<!-- Add another geoinfo forum button -->
-						<div id="add_geoinfo" class="col-sm-12" align="right">
-							<button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Agregar lugar</button>
 						</div>
+
+						<!-- Observations -->
+						<div class="row">
+							<h3>Observaciones</h3>
+							<div class="col-sm-12">
+								{{ owner_form.observations }}
+							</div>
+							{{ owner_form.observations.errors }}
 						</div>
+
 						<br>
-
 						<!-- Submit button -->
 						<div class="row">
 							<div class="col-sm-4">

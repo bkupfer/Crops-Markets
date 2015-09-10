@@ -51,7 +51,7 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Tabla de potenciales clientes</h2>
+				<h2>Tabla de crops</h2>
 
 				<h3>Información de contacto</h3>
 
@@ -59,37 +59,35 @@
 
 					<input class="search" placeholder="Buscar"/>
 					<button class="btn btn-default sort" data-sort="name">Ordenar por nombre</button>
-					<button class="btn btn-default sort" data-sort="company">Ordenar por compañía</button>
-					<button class="btn btn-default sort" data-sort="region">Ordenar por región</button>
+					<button class="btn btn-default sort" data-sort="last_name">Ordenar por apellido</button>
+					<button class="btn btn-default sort" data-sort="zone">Ordenar por zona</button>
 
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>Cliente</th>
-								<th>Compañía</th>
-								<th>Región</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Número contacto</th>
+								<th>Zona</th>
 								<th>Tamaño</th>
-								<!--<th>Número contacto</th>-->
 								<th><!-- view detail --></th>
 							</tr>
 						</thead>
 						<tbody class="list">
 							{% for client in clients %}
 							<tr>
-								<td class="client">{{ client }}</td>
-								<td class="company">
-									{{ client.company }}
-								</td>
-								<td class="region">
-									{% for gm in client.geomarker_set.all %}
-									{{ gm.region }} 
-									{% endfor %}
-								</td>
-								<td class="size"> -- -- -- <!-- tamanno --></td>
-								<!--<td>{% if client.contact_number_1 %}
+								<td class="name">{{ client.first_name }}</td>
+								<td class="last_name">{{ client.last_name }}</td>
+								<td>{% if client.contact_number_1 %}
 										<a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
 									{% else %}-- -- --{% endif %}
-								</td>-->
+								</td>
+								<td class="zone">
+									{% for gm in client.geomarker_set.all %}
+									{{ gm.zone }} 
+									{% endfor %}
+								</td>
+								<td> -- -- -- </td>
 								<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>
 							</tr>
 							{% endfor %}
@@ -104,7 +102,7 @@
 
 	<script type="text/javascript">
 	var options = {
-		valueNames: [ 'client', 'company','region', 'size']
+		valueNames: [ 'name', 'last_name', 'zone' ]
 	};
 	var userList = new List('clients', options);
 	</script>

@@ -13,9 +13,15 @@ from forms import *
 def about(request):
 	return render_to_response("about.html", locals(), context_instance=RequestContext(request))
 
+
+def access_denied(request):
+	return render_to_response("access_denied.html", [], context_instance=RequestContext(request))
+
+
 @login_required
 def home(request):
 	return render_to_response("home.html", locals(), context_instance=RequestContext(request))
+
 
 @csrf_protect
 def login(request):
@@ -32,23 +38,50 @@ def login(request):
 
 	return render_to_response("login.html", locals(), context_instance=RequestContext(request))
 
+
 # def logout(request):
 #	auth.logout(request)
 #	return redirect(login)
-
-def access_denied(request):
-	return render_to_response("access_denied.html", [], context_instance=RequestContext(request))
 
 
 ############
 # Crops
 @login_required
+def add_crop(request):
+	# todo: owner  +  data 
+	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def add_owner(request):
+	owner_form = CropOwnerForm(request.POST or None)
+	company_form = CompanyCropFrom(request.POST or None)
+
+	if request.method == 'POST':
+		if owner_form.is_valid() and company_form.is_valid():
+			first_name = owner_form.cleaned_data['first_name']
+			last_name = owner_form.cleaned_data['last_name']
+			number_1 = owner_form.cleaned_data['contact_number_1']
+			number_2 = owner_form.cleaned_data['contact_number_2']
+			email = owner_form.cleaned_data['email']
+
+			# excisting company
+			#company = company_form.cleaned_data['excisting_company']
+			# new company
+			company_name = company_form.cleaned_data['name']
+			company_rut = company_form.cleaned_data['rut']
+
+
+			obs = owner_form.cleaned_data['observations']
+
+
+	return render_to_response("crops/add_owner.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
 def crops(request):
 	return render_to_response("crops/crops.html", locals(), context_instance=RequestContext(request))
 
-@login_required
-def crop_map(request):
-	return render_to_response("crops/crop_map.html", locals(), context_instance=RequestContext(request))
 
 @login_required
 def crop_info(request):
@@ -56,19 +89,101 @@ def crop_info(request):
 	owner = "Don Graph"
 	return render_to_response("crops/crop_info.html", locals(), context_instance=RequestContext(request))
 
+
+@login_required
+def crop_map(request):
+	return render_to_response("crops/crop_map.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def crop_table(request):
+	return render_to_response("crops/crop_table.html", locals(), context_instance=RequestContext(request))
+
+
 @login_required
 def paddock_detail(request):
 	return render_to_response("crops/paddock_detail.html", locals(), context_instance=RequestContext(request))
 
-@login_required
-def add_crop(request):
-	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 
 ############
 # Markets
 @login_required
+def add_market(request):
+	client_form = ClientForm(request.POST or None)
+	geographical_form = GeoMarkerForm(request.POST or None)
+	# comercial_info_form = ComercialInformationForm(request.POST or None)
+	company_form = CompanyMarketForm(request.POST or None)
+	print "hello"
+	if request.method == 'POST':
+		if client_form.is_valid() and geographical_form.is_valid() and company_form.is_valid():
+			print "forms are valid"
+			# company information
+			# excisting company
+			company = company_form.cleaned_data['excisting_company']
+			print company
+			# new company
+			if company is None:
+				company_name = company_form.cleaned_data['name']
+				company_rut = company_form.cleaned_data['rut']
+
+				new_company = CompanyMarket(name=company_name, rut=company_rut)
+				new_company.save()
+
+				company = new_company
+
+			# client information
+			type_of_client = client_form.cleaned_data['type_of_client']
+			first_name = client_form.cleaned_data['first_name']
+			last_name = client_form.cleaned_data['last_name']
+			number_1 = client_form.cleaned_data['contact_number_1']
+			number_2 = client_form.cleaned_data['contact_number_2']
+			email = client_form.cleaned_data['email']
+			charge = client_form.cleaned_data['charge']
+			obs = client_form.cleaned_data['observations']
+
+			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, contact_number_1=number_1, 
+				contact_number_2=number_2, email=email, charge=charge, observations=obs, company=company)
+			new_client.save()
+
+			# geographical information
+			region = geographical_form.cleaned_data['region']
+			#province = geographical_form.cleaned_data['province']
+			#commune = geographical_form.cleaned_data['commune']
+			address = geographical_form.cleaned_data['address']
+			latitude = geographical_form.cleaned_data['latitude']
+			longitude = geographical_form.cleaned_data['longitude']
+
+			new_geomarker = GeoMarker(client=new_client, region=region, address=address, latitude=latitude, longitude=longitude)
+			new_geomarker.save() 
+
+			# all done -- success
+			messages.success(request, 'Cliente agregado exitosamente.')
+
+	return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def add_sale(request):
+	# AWWWW YEEAHH
+	return render_to_response("markets/add_sale.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
 def markets(request):
 	return render_to_response("markets/markets.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def market_info(request):
+	if request.method == "GET" and 'id' in request.GET:
+		id = request.GET['id']
+		client = Client.objects.get(pk = id)
+		geo_info = GeoMarker.objects.get(client = id) # change to filter. this should allow multiple locations.
+		comercial_info = ComercialInformation.objects.filter(client = id)
+		# calculate (avg. volumen), avg. price) & regular varieties.
+
+	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
+
 
 @login_required
 def market_map(request):
@@ -78,64 +193,15 @@ def market_map(request):
 
 	return render_to_response("markets/market_map.html", locals(), context_instance=RequestContext(request))
 
+
 @login_required
 def market_table(request):
 	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
+
 @login_required
 def market_table_potential(request):
 	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Potencial"))
 	return render_to_response("markets/market_table_potential.html", locals(), context_instance=RequestContext(request))
-
-@login_required
-def market_info(request):
-	if request.method == "GET" and 'id' in request.GET:
-		id = request.GET['id']
-		client = Client.objects.get(pk = id)
-		geo_info  = GeoMarker.objects.get(client = id)
-		comercial_info = ComercialInfo.objects.get(client = id)
-
-	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
-
-@login_required
-def add_market(request):
-	client_form = ClientForm(request.POST or None)
-	geographical_form = GeoMarkerForm(request.POST or None)
-	comercial_info_form = ComercialInformationForm(request.POST or None)
-
-	if request.method == 'POST':
-		if client_form.is_valid() and geographical_form.is_valid() and comercial_info_form.is_valid():
-			# client information
-			type_of_client = client_form.cleaned_data['type_of_client']
-			first_name = client_form.cleaned_data['first_name']
-			last_name = client_form.cleaned_data['last_name']
-			number_1 = client_form.cleaned_data['contact_number_1']
-			number_2 = client_form.cleaned_data['contact_number_2']
-			email = client_form.cleaned_data['email']
-			obs = client_form.cleaned_data['observations']
-
-			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, contact_number_1=number_1, 
-				contact_number_2=number_2, email=email, observations=obs)
-			new_client.save()
-
-			# geographical information
-			zone = geographical_form.cleaned_data['zone']
-			address = geographical_form.cleaned_data['address']
-			latitude = geographical_form.cleaned_data['latitude']
-			longitude = geographical_form.cleaned_data['longitude']
-
-			new_geomarker = GeoMarker(client=new_client, zone=zone, address=address, latitude=latitude, longitude=longitude)
-			new_geomarker.save() 
-
-			# comercial information
-			volume = comercial_info_form.cleaned_data['volume']
-			varieties = comercial_info_form.cleaned_data['varieties']
-
-			new_comercial_info = ComercialInfo(client=new_client, volume=volume, varieties=varieties)
-			new_comercial_info.save()
-
-			messages.success(request, 'Cliente agregado exitosamente.')
-
-	return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
 
