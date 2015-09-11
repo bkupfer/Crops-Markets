@@ -34,7 +34,7 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Agregar un nuevo <em>crop_owner</em></h2>
+				<h2>Agregar un nuevo propietario</h2>
 
 				<!-- For message to user -->
 				{% if messages %}
@@ -95,12 +95,27 @@
 								</div>
 							</div>
 							{{ owner_form.email.errors }}
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="cargo">Cargo</label>
+								<div class="col-sm-8">
+									{{ owner_form.charge }}
+								</div>
+							</div>
+							{{ owner_form.email.charge }}
 						</div>
 
 						<!-- Company information -->
 						<div class="row">
 							<h3>Información de compañía</h3>
 							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="observations">Compañía</label>
+								<div class="col-sm-8">
+									{{ company_form.excisting_company }}
+								</div>
+							</div>
+
+							<div class="col-sm-12"><br>
 								<label class="control-label col-sm-4" for="observations">Nombre compañía</label>
 								<div class="col-sm-8">
 									{{ company_form.name }}

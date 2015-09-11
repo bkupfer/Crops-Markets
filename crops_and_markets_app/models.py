@@ -34,6 +34,9 @@ class CompanyCrop(models.Model):
 	name = models.CharField(max_length=100)
 	rut = models.CharField(max_length=20, blank=True, null=True)
 
+	def __str__(self):
+		return self.name.encode('utf-8')
+
 
 # crops geomarker
 class Crop(models.Model):
@@ -76,14 +79,18 @@ class Crop(models.Model):
 
 class CropOwner(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
-	company = models.ForeignKey('CompanyCrop')
+	company = models.ForeignKey('CompanyCrop', null=True)
 
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
 	contact_number_1 = models.IntegerField(blank=True, null=True)
 	contact_number_2 = models.IntegerField(blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
+	charge = models.CharField(max_length=100, blank=True, null=True)
 	observations = models.TextField(blank=True, null=True)
+
+	def __str__(self):
+		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
 
 
 class Paddock(models.Model):
@@ -108,7 +115,7 @@ class Client(models.Model):
 	observations = models.TextField(blank=True, null=True)
 
 	# company information
-	company = models.ForeignKey('CompanyMarket', blank=True, null=True)
+	company = models.ForeignKey('CompanyMarket', null=True)
 
 	def __str__(self):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
@@ -127,11 +134,12 @@ class ComercialInformation(models.Model):
 
 
 class CompanyMarket(models.Model):
-	name = models.CharField(max_length=100, blank=True, null=True)
+	name = models.CharField(max_length=100)
 	rut = models.CharField(max_length=20, blank=True, null=True)
 
 	def __str__(self):
 		return self.name.encode('utf-8')
+
 
 class GeoMarker(models.Model):
 	client = models.ForeignKey('Client')

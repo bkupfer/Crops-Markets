@@ -49,6 +49,9 @@ def login(request):
 @login_required
 def add_crop(request):
 	# todo: owner  +  data 
+	crop_form = CropForm(request.POST or None)
+	
+
 	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 
 
@@ -59,21 +62,31 @@ def add_owner(request):
 
 	if request.method == 'POST':
 		if owner_form.is_valid() and company_form.is_valid():
+			# company information
+			# excisting company
+			company = company_form.cleaned_data['excisting_company']
+			if company is None:
+				# new company
+				company_name = company_form.cleaned_data['name']
+				company_rut = company_form.cleaned_data['rut']
+
+				company = CompanyCrop(name=company_name, rut=company_rut)
+				company.save()
+
 			first_name = owner_form.cleaned_data['first_name']
 			last_name = owner_form.cleaned_data['last_name']
 			number_1 = owner_form.cleaned_data['contact_number_1']
 			number_2 = owner_form.cleaned_data['contact_number_2']
 			email = owner_form.cleaned_data['email']
-
-			# excisting company
-			#company = company_form.cleaned_data['excisting_company']
-			# new company
-			company_name = company_form.cleaned_data['name']
-			company_rut = company_form.cleaned_data['rut']
-
-
+			charge = owner_form.cleaned_data['charge']
 			obs = owner_form.cleaned_data['observations']
 
+			new_owner = CropOwner(company=company, first_name=first_name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
+				email=email, charge=charge, observations=obs)
+			new_owner.save()
+
+			# all done -- success
+			messages.success(request, 'Propietario agregado exitosamente.')
 
 	return render_to_response("crops/add_owner.html", locals(), context_instance=RequestContext(request))
 
@@ -113,23 +126,19 @@ def add_market(request):
 	geographical_form = GeoMarkerForm(request.POST or None)
 	# comercial_info_form = ComercialInformationForm(request.POST or None)
 	company_form = CompanyMarketForm(request.POST or None)
-	print "hello"
+
 	if request.method == 'POST':
 		if client_form.is_valid() and geographical_form.is_valid() and company_form.is_valid():
-			print "forms are valid"
 			# company information
 			# excisting company
 			company = company_form.cleaned_data['excisting_company']
-			print company
-			# new company
 			if company is None:
+				# new company
 				company_name = company_form.cleaned_data['name']
 				company_rut = company_form.cleaned_data['rut']
 
-				new_company = CompanyMarket(name=company_name, rut=company_rut)
-				new_company.save()
-
-				company = new_company
+				company = CompanyMarket(name=company_name, rut=company_rut)
+				company.save()
 
 			# client information
 			type_of_client = client_form.cleaned_data['type_of_client']

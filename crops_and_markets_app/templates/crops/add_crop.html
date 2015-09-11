@@ -57,9 +57,9 @@
 						<div class="row">
 							<h3>Información de contacto</h3>
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="first_name">Dueño <label style="color:red">*</label></label>
+								<label class="control-label col-sm-4" for="first_name">Propietario <label style="color:red">*</label></label>
 								<div class="col-sm-8">
-									
+									{{ crop_form.company }}
 								</div>
 							</div>
 						</div>
@@ -75,42 +75,42 @@
 									<div class="col-sm-12">
 										<label class="control-label col-sm-4" for="zone">Región</label>
 										<div class="col-sm-8">
-											{{ geographical_form.region }}
+											{{ crop_form.region }}
 										</div>
 									</div>
 
 									<div class="col-sm-12">
 										<label class="control-label col-sm-4" for="zone">Provincia</label>
 										<div class="col-sm-8">
-											{{ geographical_form.region }}
+											
 										</div>
 									</div>
 
 									<div class="col-sm-12">
 										<label class="control-label col-sm-4" for="zone">Comuna</label>
 										<div class="col-sm-8">
-											{{ geographical_form.region }}
+											
 										</div>
 									</div>
 
 									<div class="col-sm-12">
 										<label class="control-label col-sm-4" for="direction">Dirección</label>
 										<div class="col-sm-8">
-											{{ geographical_form.address }}
+											{{ crop_form.address }}
 										</div>
 									</div>
 
 									<div class="col-sm-12">
 										<label class="control-label col-sm-4" for="lat">Latitud</label>
 										<div class="col-sm-8">
-											{{ geographical_form.latitude }}
+											{{ crop_form.latitude }}
 										</div>
 									</div>
 
 									<div class="col-sm-12">
 										<label class="control-label col-sm-4" for="lng">Longitud</label>
 										<div class="col-sm-8">
-											{{ geographical_form.longitude }}
+											{{ crop_form.longitude }}
 										</div>
 									</div>
 
@@ -150,14 +150,9 @@
 									{{ comercial_info_form.varieties }}
 								</div>
 							</div>
-
-						<!-- Add another geoinfo forum button -->
-						<div id="add_geoinfo" class="col-sm-12" align="right">
-							<button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Agregar lugar</button>
 						</div>
-						</div>
+					
 						<br>
-
 						<!-- Submit button -->
 						<div class="row">
 							<div class="col-sm-4">
