@@ -29,5 +29,6 @@ urlpatterns = patterns('',
 	url(r'^market_info', 'crops_and_markets_app.views.market_info', name='market_info'),
 	url(r'^market_map', 'crops_and_markets_app.views.market_map', name='market_map'),
 	url(r'^market_table$', 'crops_and_markets_app.views.market_table', name='market_table'),
-	url(r'^market_table_potential', 'crops_and_markets_app.views.market_table_potential', name='market_table_potential')
+	url(r'^market_table_potential', 'crops_and_markets_app.views.market_table_potential', name='market_table_potential'),
+	url(r'^sales_history', 'crops_and_markets_app.views.sales_history', name='sales_history')
 )
