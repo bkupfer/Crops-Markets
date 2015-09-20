@@ -60,7 +60,7 @@
 		// Geocoding and markets
 		var geocoder = new google.maps.Geocoder();
 		{% for geomarker in geomarkers %}
-		geocodeAddress(geocoder, map, "{{ geomarker.address }}", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}", "{{ geomarker.client.pk }}");
+		geocodeAddress(geocoder, map, "{{ geomarker.address }}, Region {{ geomarker.region }}, Chile", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}", "{{ geomarker.client.pk }}");
 		{% endfor %}
 
 		// Try HTML5 geolocation.

@@ -214,3 +214,7 @@ def market_table_potential(request):
 	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Potencial"))
 	return render_to_response("markets/market_table_potential.html", locals(), context_instance=RequestContext(request))
 
+
+@login_required
+def sales_history(request):
+	return render_to_response("markets/sales_history.html", locals(), context_instance=RequestContext(request))
