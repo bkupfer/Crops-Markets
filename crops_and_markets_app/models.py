@@ -158,6 +158,15 @@ class GeoMarker(models.Model):
 		else:
 			return str(self.client)
 
+	def get_address(self):
+		address = ""
+		if self.address is not None:
+			address = address + self.address
+			if self.region is not None:
+				adress = address + ", " + self.region
+			address = address + ", Chile"
+		return address
+
 
 class TypeOfClient(models.Model):
 	type = models.CharField(max_length=10)

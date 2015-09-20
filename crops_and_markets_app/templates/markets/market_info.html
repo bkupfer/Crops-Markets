@@ -26,6 +26,63 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+	<!-- Google maps -->
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+
+	<script>
+	function displayMap(){
+		var button = $("#mapButton");
+		button.text(button.text() == "Mostrar mapa" ? "Ocultar mapa" : "Mostrar mapa");
+
+		var mapCanvas = $("#map-canvas");
+		mapCanvas.slideToggle("slow");
+	}
+
+	function initialize(){
+		var address = "{{ geo_info.address }}, {{ geo_info.region }}, Chile";
+		var mapCanvas = $("#map-canvas")[0];
+		if (address != ""){
+			var mapOptions = {
+				zoom: 10,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({'address': address}, function(results, status){
+				if (status == google.maps.GeocoderStatus.OK){
+					mapOptions.center = results[0].geometry.location;
+					var map = new google.maps.Map(mapCanvas, mapOptions);
+
+					var marker = new google.maps.Marker({
+						position: results[0].geometry.location, 
+						map: map
+					});
+
+					var typeOfClient = "{{ client.type_of_client }}";
+					if (typeOfClient == "Actual")
+							marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+					if (typeOfClient == "Potencial")
+							marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+				}
+				else {
+					alert('Geocode was not succesful for the following reason:' + status); 
+				}
+			});
+		}
+		// todo: test this else.
+		else mapCanvas.text("No se tiene información geográfica respecto de este cliente.");
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+	</script>
+
+	<style>
+	#map-canvas {
+		width: 100%;
+		height: 250px;
+	}
+	</style>
 </head>
 
 <body>
@@ -90,7 +147,9 @@
 							<td>{{ geo_info.address }}</td>
 						</tr>
 					</table>
-					<a href="" class="btn btn-default" id="go-to-map">Ver en mapa</a>
+					
+					<div class="col-bg-12" id="map-canvas"><!-- map goes here --></div>
+					<button class="btn btn-default" id="mapButton" onclick="displayMap()">Mostrar mapa</button>
 
 					<h3>Información de comercial</h3>
 					<table class="table table-hover">
@@ -108,6 +167,7 @@
 						</tr>
 					</table>
 					<a href="add_sale" class="btn btn-default" id="register-transaction">Registrar venta</a>
+					<a href="add_reserve" class="btn btn-default" id="register-transaction">Registrar reserva</a>
 					<a href="sales_history" class="btn btn-default" id="view-historic-transatcions">Ver historial ventas</a>
 
 					<h3>Observaciones</h3>
@@ -124,6 +184,8 @@
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
+
+
 
 </body>
 </html>
