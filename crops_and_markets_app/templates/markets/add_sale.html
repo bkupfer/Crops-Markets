@@ -42,7 +42,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 					{% for message in messages %}
-						<p class="alert alert-{% if message.tags == "success" %}success{% else %}danger{% endif %} text-center">
+						<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
 							{{ message }}
 						</p>
 					{% endfor %}
@@ -52,7 +52,7 @@
 
 				<div class="panel-body">
 					<!-- Add new client form -->
-					<form action="" method="POST" id="saleForm"> {% csrf_token %}
+					<form action="" method="POST"> {% csrf_token %}
 
 						<div class="row">
 							<h3>Información de venta</h3>
@@ -119,9 +119,9 @@
 	function validateForm(){
 		console.log("okei, validando !");
 		var validator = new Validator("saleForm");
-		validator.addValidation("id_variety", "req")
-		validator.addValidation("id_volume", "req")
-		validator.addValidation("id_price", "req")
+		validator.addValidation("id_variety", "req");
+		validator.addValidation("id_volume", "req");
+		validator.addValidation("id_price", "req");
 	}
 	</script>
 	-->

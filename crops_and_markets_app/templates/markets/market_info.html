@@ -39,6 +39,7 @@
 		mapCanvas.slideToggle("slow");
 	}
 
+	/* initializes the map and places marker */
 	function initialize(){
 		var address = "{{ geo_info.address }}, {{ geo_info.region }}, Chile";
 		var mapCanvas = $("#map-canvas")[0];
@@ -101,7 +102,7 @@
 					<div class="row">
 						<div class="col-sm-12">
 						{% for message in messages %}
-							<p class="alert alert-{% if message.tags == "success" %}success{% else %}danger{% endif %} text-center">
+							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
 								{{ message }}
 							</p>
 						{% endfor %}
