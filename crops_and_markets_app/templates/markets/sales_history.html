@@ -53,50 +53,43 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Historial de ventas {{ "cliente-x" }}</h2>
+				<h2>Historial de ventas {{ client }}</h2>
 
 				<br>
 				<div id="clients">
 					<input class="search" placeholder="Buscar"/>
-					<button class="btn btn-default sort" data-sort="client">Ordenar por nombre</button>
-					<button class="btn btn-default sort" data-sort="company">Ordenar por compañía</button>
-					<button class="btn btn-default sort" data-sort="region">Ordenar por región</button>
+					<button class="btn btn-default sort" data-sort="date">Ordenar por fecha</button>
+					<button class="btn btn-default sort" data-sort="variety">Ordenar por variedades</button>
+					<button class="btn btn-default sort" data-sort="price">Ordenar por precio</button>
 
 					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Fecha</th>
-								<th>Volúmen</th>
 								<th>Variedades</th>
-								<th>Monto</th> <!-- qué tipo de información les interesa almacenar aquí? -->
-								<!--<th>Número contacto</th>-->
-								<th><!-- view detail --></th>
+								<th>Volúmen</th>
+								<th>Precio</th>
+								<th>Observaciones</th>
 							</tr>
 						</thead>
 						<tbody class="list">
 							{% for sale in sales %}
 							<tr>
-								<td class="client">{{ client }}</td>
-								<td class="company">
-									{{ client.company }}
+								<td class="date">{{ sale.timestamp }}</td>
+								<td class="variety">{{ sale.variety }}</td>
+								<td class="volume">{{ sale.volume }}</td>
+								<td class="price">$ {{ sale.price }}</td>
+								<td>{% if sale.observations %}
+									<a href="sales_detail?id={{ sale.pk }}">obs</a>
+									{% endif %}
 								</td>
-								<td class="region">
-									{% for gm in client.geomarker_set.all %}
-									{{ gm.region }} 
-									{% endfor %}
-								</td>
-								<td class="size"> -- -- -- <!-- tamanno --></td>
-								<!--<td>{% if client.contact_number_1 %}
-										<a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
-									{% else %}-- -- --{% endif %}
-								</td>-->
-								<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>
 							</tr>
 							{% endfor %}
 						</tbody>
 					</table>
 				</div>
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				<a href="market_info?id={{ client.pk }}" class="btn btn-default" id="return">Volver</a>
 			</div>
 		</div>
 
@@ -104,7 +97,7 @@
 
 	<script type="text/javascript">
 	var options = {
-		valueNames: [ 'client', 'company','region', 'size']
+		valueNames: [ 'date', 'variety','volume', 'price']
 	};
 	var userList = new List('clients', options);
 	</script>

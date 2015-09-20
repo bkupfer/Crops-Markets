@@ -134,7 +134,7 @@ def add_market(request):
 			company = company_form.cleaned_data['excisting_company']
 			if company is None:
 				# new company
-				company_name = company_form.cleaned_data['name']
+				company_name = company_form.cleaned_data['name'].title()
 				company_rut = company_form.cleaned_data['rut']
 
 				company = CompanyMarket(name=company_name, rut=company_rut)
@@ -142,12 +142,12 @@ def add_market(request):
 
 			# client information
 			type_of_client = client_form.cleaned_data['type_of_client']
-			first_name = client_form.cleaned_data['first_name']
-			last_name = client_form.cleaned_data['last_name']
+			first_name = client_form.cleaned_data['first_name'].title()
+			last_name = client_form.cleaned_data['last_name'].title()
 			number_1 = client_form.cleaned_data['contact_number_1']
 			number_2 = client_form.cleaned_data['contact_number_2']
 			email = client_form.cleaned_data['email']
-			charge = client_form.cleaned_data['charge']
+			charge = client_form.cleaned_data['charge'].title()
 			obs = client_form.cleaned_data['observations']
 
 			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, contact_number_1=number_1, 
@@ -163,7 +163,7 @@ def add_market(request):
 			longitude = geographical_form.cleaned_data['longitude']
 
 			new_geomarker = GeoMarker(client=new_client, region=region, address=address, latitude=latitude, longitude=longitude)
-			new_geomarker.save() 
+			new_geomarker.save()
 
 			# all done -- success
 			messages.success(request, 'Cliente agregado exitosamente.')
@@ -173,8 +173,38 @@ def add_market(request):
 
 @login_required
 def add_sale(request):
-	# AWWWW YEEAHH
+	sale_form = SaleForm(request.POST or None)
+
+	if request.method == 'GET':
+		client_id = request.GET['id']
+		print "CLIENT ID (GET): " + client_id
+		client = Client.objects.get(pk=client_id)
+
+	if request.method == 'POST':
+		client_id = request.GET['id']
+		if sale_form.is_valid():
+			print "CLIENT ID (POST): " + client_id
+			variety = sale_form.cleaned_data['variety']
+			volume = sale_form.cleaned_data['volume']
+			price = sale_form.cleaned_data['price']
+			obs = sale_form.cleaned_data['observations']
+
+			new_sale = Sale(client=Client.objects.get(pk=client_id), price=price, variety=variety, volume=volume, observations=obs)
+			new_sale.save()
+
+			messages.success(request, 'Venta de ' + str(variety) + ' agregada con éxtio.')
+		else:
+			messages.error(request, 'Error en el formulario')
+	
+	print "CLIENT ID (BEFORE RENDER):" + client_id
 	return render_to_response("markets/add_sale.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def add_reservation(request):
+	if request.method == 'GET':
+		id = request.GET['id']
+	return render_to_response("markets/add_reservation.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
@@ -216,5 +246,20 @@ def market_table_potential(request):
 
 
 @login_required
+def sales_detail(request):
+	if request.method == 'GET':
+		sale_id = request.GET['id']
+		sale = Sale.objects.get(pk=sale_id)
+		previous_id = sale.client.pk
+	return render_to_response("markets/sales_detail.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
 def sales_history(request):
+	if request.method == 'GET':
+		id = request.GET['id']
+		client = Client.objects.get(pk = id)
+		sales = Sale.objects.filter(client = id)
+
 	return render_to_response("markets/sales_history.html", locals(), context_instance=RequestContext(request))
+

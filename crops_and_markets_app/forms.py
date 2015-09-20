@@ -90,3 +90,19 @@ class GeoMarkerForm(forms.Form):
 
 	class Meta:
 		model = GeoMarker
+
+
+class SaleForm(forms.Form):
+	price = forms.IntegerField()
+	variety = forms.ModelChoiceField(queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	volume = forms.IntegerField()
+	observations = forms.CharField(label='Observations', required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) #to add a placeholder, place this into Textarea() > attrs={'placeholder': u'Observaciones'}
+
+	class Meta: 
+		model = Sale
+
+
+class ReserveForm(forms.Form):
+
+	class Meta:
+		model = Reserve
