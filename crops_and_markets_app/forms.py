@@ -46,14 +46,13 @@ class CropOwnerForm(forms.Form):
 # Markets
 class ClientForm(forms.Form):
 	type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	first_name = forms.CharField(label='Nombre', max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	last_name = forms.CharField(label='Apellido', max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	contact_number_1 = forms.IntegerField(label='Numero de contacto', required=False)
-	contact_number_2 = forms.IntegerField(label='Numero de contacto 2', required=False)
+	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	contact_number_1 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	contact_number_2 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={"class": "form-control input-sm"}))
-	charge = forms.CharField(label='Cargo', required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-
-	observations = forms.CharField(label='Observations', required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) #to add a placeholder, place this into Textarea() > attrs={'placeholder': u'Observaciones'}
+	charge = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
 
 	class Meta:
 		model = Client
@@ -85,17 +84,17 @@ class GeoMarkerForm(forms.Form):
 	#province = todo
 	#commune = todo
 	address = forms.CharField(label='Direccion', max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	latitude = forms.IntegerField(label='Latitud', required=False)
-	longitude = forms.IntegerField(label='Longitud', required=False)
+	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
+	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
 	class Meta:
 		model = GeoMarker
 
 
 class SaleForm(forms.Form):
-	price = forms.IntegerField()
+	price = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	variety = forms.ModelChoiceField(queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	volume = forms.IntegerField()
+	volume = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	observations = forms.CharField(label='Observations', required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) #to add a placeholder, place this into Textarea() > attrs={'placeholder': u'Observaciones'}
 
 	class Meta: 

@@ -169,9 +169,10 @@
 							</td>
 						</tr>
 					</table>
-					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-transaction">Registrar venta</a>
+					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar venta</a>
 					<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction">Registrar reserva</a>
 					<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial ventas</a>
+					<a href="reservation_history?id={{ client.id }}" class="btn btn-default" id="view-historic-reservations" disabled="true">Ver historial reservas</a>
 					{% endif %}
 
 					<h3>Información geográfica</h3>
