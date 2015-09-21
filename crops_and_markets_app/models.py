@@ -120,16 +120,16 @@ class Client(models.Model):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
 
 
-class ComercialInformation(models.Model):
-	timestamp = models.DateTimeField(auto_now_add=True)
-	client = models.ForeignKey('Client')
-	volume = models.IntegerField(blank=True, null=True) # aka. size
-	varieties = models.ForeignKey('PotatoVariety') # change to multiple select from PotatoVarieties.
-	price = models.IntegerField(blank=True, null=True)
-	# todo: add; size, historial, timestamps, etc. // aditional information // what kind of information is really needed here? 
+# @ deprecated : { it seems im no longer using this. }
+#class ComercialInformation(models.Model):
+#	timestamp = models.DateTimeField(auto_now_add=True)
+#	client = models.ForeignKey('Client')
+#	varieties = models.ForeignKey('PotatoVariety') # change to multiple select from PotatoVarieties.
+#	price = models.IntegerField(blank=True, null=True)
+#	# todo: add; size, historial, timestamps, etc. // aditional information // what kind of information is really needed here? 
 
-	def __str__(self):
-		return "comercial info: " + str(self.client)
+#	def __str__(self):
+#		return "comercial info: " + str(self.client)
 
 
 class CompanyMarket(models.Model):
@@ -172,8 +172,8 @@ class Sale(models.Model):
 	client = models.ForeignKey('Client')
 	# date ~~ fecha en la que se realizo la venta
 	price = models.IntegerField()
-	variety = models.ForeignKey('PotatoVariety')
 	volume = models.IntegerField()
+	variety = models.ForeignKey('PotatoVariety')
 	observations = models.TextField(blank=True, null=True)
 	# user 
 

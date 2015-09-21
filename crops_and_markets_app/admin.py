@@ -15,7 +15,7 @@ admin.site.register(models.Paddock)
 
 # markets
 admin.site.register(models.Client)
-admin.site.register(models.ComercialInformation)
+#admin.site.register(models.ComercialInformation)
 admin.site.register(models.CompanyMarket)
 admin.site.register(models.GeoMarker)
 admin.site.register(models.Sale)

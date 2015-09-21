@@ -60,13 +60,13 @@ class ClientForm(forms.Form):
 		# exclude = ('campo_a', 'campo_b', 'campo_c')
 
 
-class ComercialInformationForm(forms.Form):
-	#volume = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	#varieties = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	#price (...)
+#class ComercialInformationForm(forms.Form):
+#	#volume = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+#	#varieties = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+#	#price (...)
 
-	class Meta:
-		model = ComercialInformation
+#	class Meta:
+#		model = ComercialInformation
 
 
 class CompanyMarketForm(forms.Form):

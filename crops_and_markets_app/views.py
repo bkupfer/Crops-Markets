@@ -51,7 +51,6 @@ def add_crop(request):
 	# todo: owner  +  data 
 	crop_form = CropForm(request.POST or None)
 	
-
 	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 
 
@@ -218,8 +217,26 @@ def market_info(request):
 		id = request.GET['id']
 		client = Client.objects.get(pk = id)
 		geo_info = GeoMarker.objects.get(client = id) # change to filter. this should allow multiple locations.
-		comercial_info = ComercialInformation.objects.filter(client = id)
-		# calculate (avg. volumen), avg. price) & regular varieties.
+		#comercial_info = ComercialInformation.objects.filter(client = id)
+
+		sales = Sale.objects.filter(client=client)
+		n = len(sales)
+		total_price = 0
+		total_volume = 0
+		varieties = {}
+		for s in sales:
+			total_price += s.price
+			total_volume += s.volume
+			if s.variety not in varieties:
+				varieties[s.variety] = s.volume
+			else:
+				varieties[s.variety] += s.volume
+
+		for var in varieties:
+			varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
+
+		avg_price = total_price / n
+		avg_volume = total_volume / n
 
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
 
