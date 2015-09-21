@@ -147,7 +147,7 @@ def add_market(request):
 			number_2 = client_form.cleaned_data['contact_number_2']
 			email = client_form.cleaned_data['email']
 			charge = client_form.cleaned_data['charge'].title()
-			obs = client_form.cleaned_data['observations']
+			obs = client_form.cleaned_data['observations'].strip()
 
 			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, contact_number_1=number_1, 
 				contact_number_2=number_2, email=email, charge=charge, observations=obs, company=company)
@@ -186,7 +186,13 @@ def add_sale(request):
 			variety = sale_form.cleaned_data['variety']
 			volume = sale_form.cleaned_data['volume']
 			price = sale_form.cleaned_data['price']
-			obs = sale_form.cleaned_data['observations']
+			obs = sale_form.cleaned_data['observations'].strip(' \t\n\r')
+
+			print "current obs"
+			print obs
+
+			
+
 
 			new_sale = Sale(client=Client.objects.get(pk=client_id), price=price, variety=variety, volume=volume, observations=obs)
 			new_sale.save()
@@ -221,23 +227,26 @@ def market_info(request):
 
 		if client.type_of_client.type == "Actual":
 			sales = Sale.objects.filter(client=client)
-			n = len(sales)
-			total_price = 0
-			total_volume = 0
-			varieties = {}
-			for s in sales:
-				total_price += s.price
-				total_volume += s.volume
-				if s.variety not in varieties:
-					varieties[s.variety] = s.volume
-				else:
-					varieties[s.variety] += s.volume
+			
+			if len(sales) != 0:
+				total_price = 0
+				total_volume = 0
+				varieties = {}
+				
+				for s in sales:
+					total_price += s.price
+					total_volume += s.volume
+					if s.variety not in varieties:
+						varieties[s.variety] = s.volume
+					else:
+						varieties[s.variety] += s.volume
+				for var in varieties:
+					varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
+				avg_price = total_price / len(sales)
+				avg_volume = total_volume / len(sales)
+			else:
+				avg_price = avg_volume = 0
 
-			for var in varieties:
-				varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
-
-			avg_price = total_price / n
-			avg_volume = total_volume / n
 
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
 

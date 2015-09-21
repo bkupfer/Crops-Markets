@@ -97,8 +97,8 @@
 				<div class="row">
 					<h2>Detalle {{ client }}</h2>
 
-					<!-- For message to user -->
 					{% if messages %}
+					<!-- For message to user -->
 					<div class="row">
 						<div class="col-sm-12">
 						{% for message in messages %}
@@ -118,9 +118,11 @@
 						</tr>
 						<tr>
 							<td>Número{% if client.contact_number_2 %}s{% endif %}</td>
-							<td><a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
-								{% if client.contact_number_2 %}
-									, <a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a>
+							<td>{% if client.contact_number_1 %}
+									<a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
+									{% if client.contact_number_2 %}
+										<br><a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a>
+									{% endif %}
 								{% endif %}
 							</td>
 						</tr>
@@ -146,7 +148,6 @@
 					<h3>Información de comercial</h3>
 					<table class="table table-hover">
 						<tr>
-						<tr>
 							<td class="col-sm-4">Precio Promedio</td>
 							<td class="col-sm-8">$ {{ avg_price }}</td>
 						</tr>
@@ -158,7 +159,8 @@
 							<td>{% for key, values in varieties.items %}
 									{{ key }}
 									({{ values }}%), 
-								{% endfor %}</td>
+								{% endfor %}
+							</td>
 						</tr>
 					</table>
 					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-transaction">Registrar venta</a>
@@ -190,7 +192,7 @@
 
 					<h3>Observaciones</h3>
 					<div style="border: 1px solid #CCCCCC">
-						<p class="text-justify" style="margin: 1%"> {{ client.observations }}</p>
+						<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ client.observations }}</p>
 					</div>
 				</div>
 			</div>
