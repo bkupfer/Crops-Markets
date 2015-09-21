@@ -34,7 +34,7 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Agregar un nuevo cliente</h2>
+				<h2>Agregar cliente</h2>
 				<br>
 
 				<!-- For message to user -->
@@ -56,15 +56,15 @@
 					
 						<!-- Type of contact -->
 						<div class="row">
-							<label class="control-label col-sm-4" for="type_of_client"><h4>Tipo de cliente <label style="color:red">*</h4></label></label>
+							<label class="control-label col-sm-4" for="type_of_client"><h4>Tipo de cliente <label style="color:red">*</label></h4></label>
 							<div class="col-sm-8">
 								{{ client_form.type_of_client }}
 							</div>
 						</div>
 
-						<!-- Contact information -->
+						<!-- Clients information -->
 						<div class="row">
-							<h3>Información de contacto</h3>
+							<h3>Información de cliente</h3>
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>
 								<div class="col-sm-8">
@@ -78,69 +78,75 @@
 								<div class="col-sm-8">
 									{{ client_form.last_name }}
 								</div>
-							</div>
 							{{ client_form.last_name.errors }}
+							</div>
 							
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="contact_number_1">Número de contacto</label>
 								<div class="col-sm-8">
 									{{ client_form.contact_number_1 }}
 								</div>
-							</div>
 							{{ client_form.contact_numbers_1.errors }}
+							</div>
 						
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="contact_number_2">Número de contacto 2</label>
 								<div class="col-sm-8">
 									{{ client_form.contact_number_2 }}
 								</div>
-							</div>
 							{{ client_form.contact_numbers_2.errors }}
+							</div>
 
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="email">Email</label>
 								<div class="col-sm-8">
 									{{ client_form.email }}
 								</div>
-							</div>		
 							{{ client_form.email.errors }}
-
-							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="charge">Cargo</label>
-								<div class="col-sm-8">
-									{{ client_form.charge }}
-								</div>
 							</div>
-							{{ client_form.charge.errors }}
 
-						</div>
-
-						<!-- Company information -->
-						<div class="row">
-							<h3>Información de compañía</h3>
+							<!-- Company information -->
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="observations">Compañía</label>
+								<label class="control-label col-sm-4" for="company_member"><h4>Miembro de empresa</h4></label>
 								<div class="col-sm-8">
-									{{ company_form.excisting_company }}
+									<div class="checkbox">
+										<input type="checkbox" id="company-member"> si
+									</div>
 								</div>
 							</div>
 
-							<div class="col-sm-12">
-								<br>
-								<label class="control-label col-sm-4" for="observations">Nombre compañía</label>
-								<div class="col-sm-8">
-									{{ company_form.name }}
+							<div class="col-sm-12" id="company-info" style="display: none;">
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="excisting_company">Compañía</label>
+									<div class="col-sm-8">
+										{{ company_form.excisting_company }}
+										<input type="checkbox" id="new-company"> otra compañía
+									</div>
 								</div>
-								{{ company_form.name.errors }}
+
+								<div class="col-sm-12" style="display: none;" id="company-name">
+									<label class="control-label col-sm-4" for="name">Nombre compañía</label>
+									<div class="col-sm-8">
+										{{ company_form.name }}
+									</div>
+								</div>
+
+								<div class="col-sm-12" style="display: none;" id="company-rut">
+									<label class="control-label col-sm-4" for="rut">Rut compañía</label>
+									<div class="col-sm-8">
+										{{ company_form.rut }}
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="charge">Cargo</label>
+									<div class="col-sm-8">
+										{{ client_form.charge }}
+									</div>
+								</div>
+
 							</div>
 
-							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="observations">Rut compañía</label>
-								<div class="col-sm-8">
-									{{ company_form.rut }}
-								</div>
-								{{ company_form.rut.errors }}
-							</div>
 						</div>
 
 						<!-- Geographic information -->
@@ -149,7 +155,6 @@
 
 							<div id="places">
 								<div id="id_geoinfo_0">
-
 									<!-- Geographic information form --> 
 									<div class="col-sm-12">
 										<label class="control-label col-sm-4" for="zone">Región</label>
@@ -210,7 +215,6 @@
 							<div class="col-sm-12">
 								{{ client_form.observations }}
 							</div>
-							{{ client_form.observations.errors }}
 						</div>
 
 
@@ -238,22 +242,69 @@
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
 	
+	<script type="text/javascript">
+	$("#company-member").click(function(e){
+		$("#company-info").toggle(300);
+	});
+
+	$("#new-company").click(function(e){
+		if ($("#new-company").prop("checked"))
+			$("#id_excisting_company").prop('disabled', true);
+		else
+			$("#id_excisting_company").prop('disabled', false);
+		
+		$("#company-name").toggle(200);
+		$("#company-rut").toggle(200);
+	});
+	</script>
+
 </body>
 
-<script type="text/javascript">
-/* For multiple location forums manageing */
-function addForm(btn, prefix){
-	// var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-}
 
-function deleteForm(btn, prefix){
 
-}
 
-$("#add_geoinfo").click(function () {
-	return addForm(this, 'geoinfo');
-});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- some javascript scripts made comments and kind forgoten.. for now -->
+// <script type="text/javascript">
+// /* For multiple location forums manageing */
+// function addForm(btn, prefix){
+// 	// var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+// }
+
+// function deleteForm(btn, prefix){
+
+// }
+
+// $("#add_geoinfo").click(function () {
+// 	return addForm(this, 'geoinfo');
+// });
 </script>
 
 <script type="text/javascript">
