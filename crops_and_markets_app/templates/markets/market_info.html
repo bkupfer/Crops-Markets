@@ -142,6 +142,29 @@
 						</tr>
 					</table>
 
+
+					<h3>Información de comercial</h3>
+					<table class="table table-hover">
+						<tr>
+						<tr>
+							<td class="col-sm-4">Precio Promedio</td>
+							<td class="col-sm-8">$ {{ avg_price }}</td>
+						</tr>
+							<td>Volumen Promedio</td>
+							<td>{{ avg_volume }} [ton]</td>
+						</tr>
+						<tr>
+							<td>Variedades</td>
+							<td>{% for key, values in varieties.items %}
+									{{ key }}
+									({{ values }}%), 
+								{% endfor %}</td>
+						</tr>
+					</table>
+					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-transaction">Registrar venta</a>
+					<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction">Registrar reserva</a>
+					<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial ventas</a>
+					
 					<h3>Información geográfica</h3>
 					<table class="table table-hover">
 						<tr>
@@ -161,28 +184,8 @@
 							<td>{{ geo_info.address }}</td>
 						</tr>
 					</table>
-					
 					<div class="col-bg-12" id="map-canvas"><!-- map goes here --></div><br>
 					<button class="btn btn-default" id="mapButton" onclick="displayMap()">Ocultar mapa</button>
-
-					<h3>Información de comercial</h3>
-					<table class="table table-hover">
-						<tr>
-							<td class="col-sm-4">Volumen Promedio</td>
-							<td class="col-sm-8"></td>
-						</tr>
-						<tr>
-							<td>Precio Promedio</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>Variedades</td>
-							<td></td>
-						</tr>
-					</table>
-					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-transaction">Registrar venta</a>
-					<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction">Registrar reserva</a>
-					<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial ventas</a>
 
 					<h3>Observaciones</h3>
 					<div style="border: 1px solid #CCCCCC">
