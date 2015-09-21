@@ -219,24 +219,25 @@ def market_info(request):
 		geo_info = GeoMarker.objects.get(client = id) # change to filter. this should allow multiple locations.
 		#comercial_info = ComercialInformation.objects.filter(client = id)
 
-		sales = Sale.objects.filter(client=client)
-		n = len(sales)
-		total_price = 0
-		total_volume = 0
-		varieties = {}
-		for s in sales:
-			total_price += s.price
-			total_volume += s.volume
-			if s.variety not in varieties:
-				varieties[s.variety] = s.volume
-			else:
-				varieties[s.variety] += s.volume
+		if client.type_of_client.type == "Actual":
+			sales = Sale.objects.filter(client=client)
+			n = len(sales)
+			total_price = 0
+			total_volume = 0
+			varieties = {}
+			for s in sales:
+				total_price += s.price
+				total_volume += s.volume
+				if s.variety not in varieties:
+					varieties[s.variety] = s.volume
+				else:
+					varieties[s.variety] += s.volume
 
-		for var in varieties:
-			varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
+			for var in varieties:
+				varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
 
-		avg_price = total_price / n
-		avg_volume = total_volume / n
+			avg_price = total_price / n
+			avg_volume = total_volume / n
 
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
 
