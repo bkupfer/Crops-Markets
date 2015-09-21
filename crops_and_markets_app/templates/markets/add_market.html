@@ -35,7 +35,6 @@
 			<div class="container-fluid">
 
 				<h2>Agregar cliente</h2>
-				<br>
 
 				<!-- For message to user -->
 				{% if messages %}
@@ -56,9 +55,14 @@
 					
 						<!-- Type of contact -->
 						<div class="row">
-							<label class="control-label col-sm-4" for="type_of_client"><h4>Tipo de cliente <label style="color:red">*</label></h4></label>
+							<div class="col-sm-4">
+								<label class="control-label" for="type_of_client"><h4>Tipo de cliente <label style="color:red">*</label></h4></label>
+							</div>
 							<div class="col-sm-8">
 								{{ client_form.type_of_client }}
+							</div>
+							<div class="col-sm-12">
+								{% if client_form.type_of_client.errors %}<ul><li><label style="color:red">Este campo es muy obligatorio.</label></li></ui>{% endif %}
 							</div>
 						</div>
 
@@ -70,7 +74,7 @@
 								<div class="col-sm-8">
 									{{ client_form.first_name }}
 								</div>
-							{{ client_form.first_name.errors }}
+							{% if client_form.first_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 							</div>
 							
 							<div class="col-sm-12">
@@ -78,7 +82,7 @@
 								<div class="col-sm-8">
 									{{ client_form.last_name }}
 								</div>
-							{{ client_form.last_name.errors }}
+							{% if client_form.last_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 							</div>
 							
 							<div class="col-sm-12">
@@ -86,7 +90,6 @@
 								<div class="col-sm-8">
 									{{ client_form.contact_number_1 }}
 								</div>
-							{{ client_form.contact_numbers_1.errors }}
 							</div>
 						
 							<div class="col-sm-12">
@@ -94,7 +97,6 @@
 								<div class="col-sm-8">
 									{{ client_form.contact_number_2 }}
 								</div>
-							{{ client_form.contact_numbers_2.errors }}
 							</div>
 
 							<div class="col-sm-12">
@@ -102,7 +104,6 @@
 								<div class="col-sm-8">
 									{{ client_form.email }}
 								</div>
-							{{ client_form.email.errors }}
 							</div>
 
 							<!-- Company information -->
@@ -157,10 +158,11 @@
 								<div id="id_geoinfo_0">
 									<!-- Geographic information form --> 
 									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="zone">Región</label>
+										<label class="control-label col-sm-4" for="zone">Región <label style="color:red">*</label></label>
 										<div class="col-sm-8">
 											{{ geographical_form.region }}
 										</div>
+										{% if geographical_form.region.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 									</div>
 
 									<div class="col-sm-12">

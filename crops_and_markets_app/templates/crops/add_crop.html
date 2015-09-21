@@ -34,14 +34,14 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Agregar un nuevo predio</h2>
+				<h2>Agregar predio</h2>
 
 				<!-- For message to user -->
 				{% if messages %}
 				<div class="row">
 					<div class="col-sm-12">
 					{% for message in messages %}
-						<p class="alert alert-{% if message.tags == "success" %}success{% else %}danger{% endif %} text-center">
+						<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
 							{{ message }}
 						</p>
 					{% endfor %}
@@ -50,28 +50,111 @@
 				{% endif %}
 
 				<div class="panel-body">
-					<!-- Add new client form -->
+					<!-- Add new crop form -->
 					<form action="" method="POST"> {% csrf_token %}
 
-						<!-- Contact information -->
+						<!-- Clients information -->
 						<div class="row">
-							<h3>Información de contacto</h3>
+							<h3>Información de cliente</h3>
+
+							<!-- use known owner -->
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="first_name">Propietario <label style="color:red">*</label></label>
 								<div class="col-sm-8">
 									{{ crop_form.company }}
+										<input type="checkbox" id="new-owner"> agregar nuevo propietario
 								</div>
 							</div>
+							
+							<!-- use new owner -->
+							<span  id="owner-form" style="display: none;">
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ owner_form.first_name }}
+									</div>
+								{% if owner_form.first_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+								
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="last_name">Apellido <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ owner_form.last_name }}
+									</div>
+								{% if owner_form.last_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+								
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="contact_number_1">Número de contacto</label>
+									<div class="col-sm-8">
+										{{ owner_form.contact_number_1 }}
+									</div>
+								</div>
+							
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="contact_number_2">Número de contacto 2</label>
+									<div class="col-sm-8">
+										{{ owner_form.contact_number_2 }}
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="email">Email</label>
+									<div class="col-sm-8">
+										{{ owner_form.email }}
+									</div>
+								</div>
+
+								<div class="col-sm-12" id="charge"style="display: none;">
+									<label class="control-label col-sm-4" for="charge">Cargo</label>
+									<div class="col-sm-8">
+										{{ owner_form.charge }}
+									</div>
+								</div>
+
+								<!-- Company information -->
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="company_member"><h4>Miembro de empresa</h4></label>
+									<div class="col-sm-8">
+										<div class="checkbox">
+											<input type="checkbox" id="company-member"> si
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-12" id="company-info" style="display: none;">
+									<div class="col-sm-12">
+										<label class="control-label col-sm-4" for="excisting_company">Compañía</label>
+										<div class="col-sm-8">
+											{{ company_form.excisting_company }}
+											<input type="checkbox" id="new-company"> otra compañía
+										</div>
+									</div>
+
+									<div class="col-sm-12" style="display: none;" id="company-name">
+										<label class="control-label col-sm-4" for="name">Nombre compañía</label>
+										<div class="col-sm-8">
+											{{ company_form.name }}
+										</div>
+									</div>
+
+									<div class="col-sm-12" style="display: none;" id="company-rut">
+										<label class="control-label col-sm-4" for="rut">Rut compañía</label>
+										<div class="col-sm-8">
+											{{ company_form.rut }}
+										</div>
+									</div>
+
+								</div>
+							</span>
+
 						</div>
 
 						<!-- Geographic information -->
 						<div class="row">
 							<h3>Información geográfica</h3>
-
 							<div id="places">
 								<div id="id_geoinfo_0">
-
-									<!-- Geoinfo form --> 
 									<div class="col-sm-12">
 										<label class="control-label col-sm-4" for="zone">Región</label>
 										<div class="col-sm-8">
@@ -113,11 +196,8 @@
 											{{ crop_form.longitude }}
 										</div>
 									</div>
-
 								</div>
 							</div>
-
-							
 						</div>
 
 						<!-- Geographic characteristics -->
@@ -152,6 +232,15 @@
 							</div>
 						</div>
 					
+						<!-- Observations -->
+						<div class="row">
+							<h3>Observaciones</h3>
+							<div class="col-sm-12">
+								{{ owner_form.observations }}
+							</div>
+							{{ owner_form.observations.errors }}
+						</div>
+
 						<br>
 						<!-- Submit button -->
 						<div class="row">
@@ -175,6 +264,27 @@
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
+
+	<script type="text/javascript">
+	$("#new-owner").click(function(e){
+		$("#owner-form").toggle(300);
+	});
+
+	$("#company-member").click(function(e){
+		$("#charge").toggle(300);
+		$("#company-info").toggle(300);
+	});
+
+	$("#new-company").click(function(e){
+		if ($("#new-company").prop("checked"))
+			$("#id_excisting_company").prop('disabled', true);
+		else
+			$("#id_excisting_company").prop('disabled', false);
+		
+		$("#company-name").toggle(200);
+		$("#company-rut").toggle(200);
+	});
+	</script>
 	
 </body>
 

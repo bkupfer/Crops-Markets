@@ -48,9 +48,22 @@ def login(request):
 # Crops
 @login_required
 def add_crop(request):
-	# todo: owner  +  data 
+	owner_form = CropOwnerForm(request.POST or None)
 	crop_form = CropForm(request.POST or None)
-	
+	company_form = CompanyCropFrom(request.POST or None)
+
+	if request.method == "POST":
+		if owner_form.is_valid() and crop_form.is_valid() and company_form.is_valid():
+			# process data
+			# (...)
+			#
+			#
+			#
+			#
+
+			# if we get to this point
+			messages.success(request, 'Predio agregado exitosamente.')
+
 	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 
 
@@ -166,6 +179,8 @@ def add_market(request):
 
 			# all done -- success
 			messages.success(request, 'Cliente agregado exitosamente.')
+		else:
+			messages.error(request, 'Error en el formulario.')
 
 	return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
 
