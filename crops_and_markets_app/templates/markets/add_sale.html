@@ -25,6 +25,7 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
+
 </head>
 <body>
 	<div id="wrapper">
@@ -34,15 +35,14 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Registrar compra/venta</h2>
-				<br>
+				<h2>Registrar venta {{ client }}</h2>
 
 				<!-- For message to user -->
 				{% if messages %}
 				<div class="row">
 					<div class="col-sm-12">
 					{% for message in messages %}
-						<p class="alert alert-{% if message.tags == "success" %}success{% else %}danger{% endif %} text-center">
+						<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
 							{{ message }}
 						</p>
 					{% endfor %}
@@ -53,24 +53,45 @@
 				<div class="panel-body">
 					<!-- Add new client form -->
 					<form action="" method="POST"> {% csrf_token %}
-					
-						<img src="https://dayair.org/wp-content/uploads/2015/02/Cash-Loan.jpg" alt="awwwww_yeeah!" width="95%">
+
+						<div class="row">
+							<h3>Información de venta</h3>
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="observations">Variedad <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ sale_form.variety }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="observations">Volumen <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ sale_form.volume }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="observations">Precio <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ sale_form.price }}
+								</div>
+							</div>
+						</div>
 
 						<!-- Observations -->
 						<div class="row">
 							<h3>Observaciones</h3>
 							<div class="col-sm-12">
-								{{ client_form.observations }}
+								{{ sale_form.observations }}
 							</div>
-							{{ client_form.observations.errors }}
 						</div>
-
 
 						<br>
 						<!-- Submit button -->
 						<div class="row">
 							<div class="col-sm-4">
 								<input type="submit" value="Agregar" class="btn btn-default">
+								<a href="market_info?id={{ client_id }}" class="btn btn-default">Cancelar</a>
 							</div>
 							<div class="col-sm-8">
 								<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
@@ -79,6 +100,7 @@
 
 					</form>
 					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+					<a href="market_info?id={{ client_id }}" class="btn btn-default">Volver</a>
 				</div>
 
 			</div>
@@ -89,111 +111,19 @@
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
+
+	<!-- javascript validator - ->
+	<script src="static/js/gen_validatorv4.js"></script>
 	
+	<script type="text/javascript">
+	function validateForm(){
+		console.log("okei, validando !");
+		var validator = new Validator("saleForm");
+		validator.addValidation("id_variety", "req");
+		validator.addValidation("id_volume", "req");
+		validator.addValidation("id_price", "req");
+	}
+	</script>
+	-->
 </body>
-
-<script type="text/javascript">
-/* For multiple location forums manageing */
-function addForm(btn, prefix){
-	// var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-}
-
-function deleteForm(btn, prefix){
-
-}
-
-$("#add_geoinfo").click(function () {
-	return addForm(this, 'geoinfo');
-});
-
-</script>
-
-<script type="text/javascript">
-///////////////////////////////// u-salidas //////////////////////////
-/*
-	function deleteForm(btn, prefix) {
-            var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-
-            if (formCount > 1) {
-                // Delete the item/form
-                $(btn).parents('.item').remove();
-                var forms = $('.item'); // Get all the forms
-                // Update the total number of forms (1 less than before)
-                $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
-
-                var i = 0;
-                // Go through the forms and set their indices, names and IDs
-                for (formCount = forms.length; i < formCount; i++) {
-                    $(forms.get(i)).children().children().each(function () {
-                        updateElementIndex(this, prefix, i);
-                    });
-                }
-                // Validate dates
-                count_avaliable_days(0);
-            }
-            else {
-                alert("Debes agregar al menos un destino!");
-            }
-            return false;
-        }
-
-        function addForm(btn, prefix) {
-            var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-
-            // You can only submit a maximum of 'maxForms' forms
-            var maxForms = 10;
-            if (formCount < max_forms) {
-                // Clone a form (without event handlers) from the first form
-                var row = $(".item:first").clone(false).get(0);
-
-                // Insert it after the last form
-                $(row).removeAttr('id').hide().insertAfter(".item:last").slideDown(300);
-
-                // Remove the bits we don't want in the new row/form
-                // e.g. error messages
-                $(".errorlist", row).remove();
-                $(row).children().removeClass('error');
-                // Relabel/rename all the relevant bits
-				$(row).children().children().children().each(function () {
-                    updateElementIndex(this, prefix, formCount);
-                    if ($(this).attr('type') == 'text')
-                        $(this).val('');
-                });
-                $(row).children().children().each(function () {
-                    updateElementIndex(this, prefix, formCount);
-                    if ($(this).attr('type') == 'text')
-                        $(this).val('');
-                });
-
-                // Add an event handler for the delete item/form link
-                $(row).find('.delete').click(function () {
-                    count_avaliable_days(0);
-                    return deleteForm(this, prefix);
-                });
-                citySelector = $(row).find('.city')[0];
-                citySelector.options.length = 0;
-                citySelector.options[0] = new Option("Seleccione Ciudad", "");
-                // Update the total form count;
-                $('#id_' + prefix + '-TOTAL_FORMS').val(formCount + 1);
-                $(".datepicker").datepicker();
-
-            } // End if
-            else {
-                alert("Lo siento, no más de " + maxForms + " lugares.");
-            }
-            return false;
-        }
-
-        // Register the click event handlers
-        $("#add_destination").click(function () {
-            return addForm(this, 'destinations');
-        });
-
-        $(".delete").click(function () {
-            return deleteForm(this, 'destinations');
-        });
-    });
-*/
-</script>
-
 </html>

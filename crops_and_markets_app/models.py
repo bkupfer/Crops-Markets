@@ -38,7 +38,6 @@ class CompanyCrop(models.Model):
 		return self.name.encode('utf-8')
 
 
-# crops geomarker
 class Crop(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	crop_owner = models.ForeignKey('CropOwner', blank=True, null=True)
@@ -157,6 +156,37 @@ class GeoMarker(models.Model):
 			return str(self.client) + ": " + str(self.address)
 		else:
 			return str(self.client)
+
+	def get_address(self):
+		address = ""
+		if self.address is not None:
+			address = address + self.address
+			if self.region is not None:
+				adress = address + ", " + self.region
+			address = address + ", Chile"
+		return address
+
+
+class Sale(models.Model):
+	timestamp = models.DateTimeField(auto_now_add=True)
+	client = models.ForeignKey('Client')
+	# date ~~ fecha en la que se realizo la venta
+	price = models.IntegerField()
+	variety = models.ForeignKey('PotatoVariety')
+	volume = models.IntegerField()
+	observations = models.TextField(blank=True, null=True)
+	# user 
+
+
+class Reserve(models.Model):
+	timestamp = models.DateTimeField(auto_now_add=True)
+	client = models.ForeignKey('Client')
+
+	reserve_date = models.DateTimeField()
+	price = models.IntegerField()
+	variety = models.ForeignKey('PotatoVariety')
+	volume = models.IntegerField()
+	observations = models.TextField(blank=True, null=True)
 
 
 class TypeOfClient(models.Model):
