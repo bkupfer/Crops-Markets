@@ -15,7 +15,8 @@ class CompanyCropFrom(forms.Form):
 
 
 class CropForm(forms.Form):
-	company = forms.ModelChoiceField(queryset=CropOwner.objects.all(), empty_label="Dueño", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+
+	# THE CROP FORM #	
 
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	#province = todo
@@ -24,11 +25,17 @@ class CropForm(forms.Form):
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
+	# information about crop characteristics, yada yada.
+
 	class Meta:
 		model = Crop
 
 
 class CropOwnerForm(forms.Form):
+	# excisting owner
+	old_owner = forms.ModelChoiceField(queryset=CropOwner.objects.all(), empty_label="Propietario registrado", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+
+	# new owner
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	contact_number_1 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))

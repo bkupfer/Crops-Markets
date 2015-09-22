@@ -61,7 +61,7 @@
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="first_name">Propietario <label style="color:red">*</label></label>
 								<div class="col-sm-8">
-									{{ crop_form.company }}
+									{{ owner_form.old_owner }}
 										<input type="checkbox" id="new-owner"> agregar nuevo propietario
 								</div>
 							</div>
@@ -267,6 +267,10 @@
 
 	<script type="text/javascript">
 	$("#new-owner").click(function(e){
+		if ($("#new-owner").prop("checked"))
+			$("#id_old_owner").prop('disabled', true);
+		else
+			$("#id_old_owner").prop('disabled', false);
 		$("#owner-form").toggle(300);
 	});
 

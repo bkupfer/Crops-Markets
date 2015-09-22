@@ -67,40 +67,40 @@ def add_crop(request):
 	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 
 
-@login_required
-def add_owner(request):
-	owner_form = CropOwnerForm(request.POST or None)
-	company_form = CompanyCropFrom(request.POST or None)
+# @login_required
+# def add_owner(request):
+# 	owner_form = CropOwnerForm(request.POST or None)
+# 	company_form = CompanyCropFrom(request.POST or None)
 
-	if request.method == 'POST':
-		if owner_form.is_valid() and company_form.is_valid():
-			# company information
-			# excisting company
-			company = company_form.cleaned_data['excisting_company']
-			if company is None:
-				# new company
-				company_name = company_form.cleaned_data['name']
-				company_rut = company_form.cleaned_data['rut']
+# 	if request.method == 'POST':
+# 		if owner_form.is_valid() and company_form.is_valid():
+# 			# company information
+# 			# excisting company
+# 			company = company_form.cleaned_data['excisting_company']
+# 			if company is None:
+# 				# new company
+# 				company_name = company_form.cleaned_data['name']
+# 				company_rut = company_form.cleaned_data['rut']
 
-				company = CompanyCrop(name=company_name, rut=company_rut)
-				company.save()
+# 				company = CompanyCrop(name=company_name, rut=company_rut)
+# 				company.save()
 
-			first_name = owner_form.cleaned_data['first_name']
-			last_name = owner_form.cleaned_data['last_name']
-			number_1 = owner_form.cleaned_data['contact_number_1']
-			number_2 = owner_form.cleaned_data['contact_number_2']
-			email = owner_form.cleaned_data['email']
-			charge = owner_form.cleaned_data['charge']
-			obs = owner_form.cleaned_data['observations']
+# 			first_name = owner_form.cleaned_data['first_name']
+# 			last_name = owner_form.cleaned_data['last_name']
+# 			number_1 = owner_form.cleaned_data['contact_number_1']
+# 			number_2 = owner_form.cleaned_data['contact_number_2']
+# 			email = owner_form.cleaned_data['email']
+# 			charge = owner_form.cleaned_data['charge']
+# 			obs = owner_form.cleaned_data['observations']
 
-			new_owner = CropOwner(company=company, first_name=first_name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
-				email=email, charge=charge, observations=obs)
-			new_owner.save()
+# 			new_owner = CropOwner(company=company, first_name=first_name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
+# 				email=email, charge=charge, observations=obs)
+# 			new_owner.save()
 
-			# all done -- success
-			messages.success(request, 'Propietario agregado exitosamente.')
+# 			# all done -- success
+# 			messages.success(request, 'Propietario agregado exitosamente.')
 
-	return render_to_response("crops/add_owner.html", locals(), context_instance=RequestContext(request))
+# 	return render_to_response("crops/add_owner.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required

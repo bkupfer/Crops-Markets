@@ -15,7 +15,7 @@ urlpatterns = patterns('',
 
 	# crops
 	url(r'^add_crop', 'crops_and_markets_app.views.add_crop', name='add_crop'),
-	url(r'^add_owner', 'crops_and_markets_app.views.add_owner', name='add_owner'),
+	#url(r'^add_owner', 'crops_and_markets_app.views.add_owner', name='add_owner'),
 	url(r'^crops', 'crops_and_markets_app.views.crops', name='crops'),
 	url(r'^crop_map', 'crops_and_markets_app.views.crop_map', name='crop_map'),
 	url(r'^crop_info', 'crops_and_markets_app.views.crop_info', name='crop_info'),

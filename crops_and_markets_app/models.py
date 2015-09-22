@@ -40,7 +40,7 @@ class CompanyCrop(models.Model):
 
 class Crop(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
-	crop_owner = models.ForeignKey('CropOwner', blank=True, null=True)
+	crop_owner = models.ManyToManyField('CropOwner')
 
 	# geographical information
 	region = models.ForeignKey('Region', blank=True, null=True)
@@ -54,6 +54,7 @@ class Crop(models.Model):
 	#distance_to_hq	# refered to the distance to hq. this could be automatically calculated
 					# (lat, lng) of sz >> (xx, yy) 
 
+	# terrain characteristics  
 	# core characteristics -- as boolean and then text for observation/coments
 	water = models.BooleanField()
 	frost = models.BooleanField()
@@ -78,6 +79,8 @@ class Crop(models.Model):
 
 class CropOwner(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
+	# crop -- there is a ManyToMany field relating crops with owners.
+	# crop_owner.crop_set.all() -- this should give all the crops for this owner.
 	company = models.ForeignKey('CompanyCrop', null=True)
 
 	first_name = models.CharField(max_length=100)
@@ -110,7 +113,6 @@ class Client(models.Model):
 	contact_number_2 = models.IntegerField(blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
 	charge = models.CharField(max_length=100, blank=True, null=True)
-
 	observations = models.TextField(blank=True, null=True)
 
 	# company information
