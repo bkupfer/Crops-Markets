@@ -52,11 +52,9 @@
 				<div class="panel-body">
 					<!-- Add new crop form -->
 					<form action="" method="POST"> {% csrf_token %}
-
 						<!-- Clients information -->
 						<div class="row">
 							<h3>Información de cliente</h3>
-
 							<!-- use known owner -->
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="first_name">Propietario <label style="color:red">*</label></label>
@@ -153,81 +151,89 @@
 						<!-- Geographic information -->
 						<div class="row">
 							<h3>Información geográfica</h3>
-							<div id="places">
-								<div id="id_geoinfo_0">
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="zone">Región</label>
-										<div class="col-sm-8">
-											{{ crop_form.region }}
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="zone">Provincia</label>
-										<div class="col-sm-8">
-											
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="zone">Comuna</label>
-										<div class="col-sm-8">
-											
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="direction">Dirección</label>
-										<div class="col-sm-8">
-											{{ crop_form.address }}
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="lat">Latitud</label>
-										<div class="col-sm-8">
-											{{ crop_form.latitude }}
-										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="lng">Longitud</label>
-										<div class="col-sm-8">
-											{{ crop_form.longitude }}
-										</div>
-									</div>
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="zone">Región</label>
+								<div class="col-sm-8">
+									{{ crop_form.region }}
 								</div>
 							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="zone">Provincia</label>
+								<div class="col-sm-8">
+									
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="zone">Comuna</label>
+								<div class="col-sm-8">
+									
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="direction">Dirección</label>
+								<div class="col-sm-8">
+									{{ crop_form.address }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="col-sm-4">
+									<label class="control-label">Latitud, Longitud</label>
+								</div>
+								<div class="col-sm-4">
+									{{ crop_form.latitude }}
+								</div>
+								<div class="col-sm-4">
+									{{ crop_form.longitude }}
+								</div>
+							</div>
+
 						</div>
 
-						<!-- Geographic characteristics -->
+						<!-- Terain characteristics -->
 						<div class="row">
 							<h3>Información del terreno</h3>
+
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="volume">Disponibilidad de agua <label style="color:red">*</label></label>
+								<div class="col-sm-4">
+									<label class="control-label">Disponibilidad de agua <label style="color:red">*</label></label>
+									<label style="float: right;">{{ crop_form.water }}</label>
+								</div>
 								<div class="col-sm-8">
-									{{ comercial_info_form.volume }}
+									{{ crop_form.water_cmnt }}
 								</div>
 							</div>
 
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="varieties">Características de suelo <label style="color:red">*</label></label>
+								<div class="col-sm-4">
+									<label class="control-label">Calidad de suelo <label style="color:red">*</label></label>
+									<label style="float: right;">{{ crop_form.soil }}</label>
+								</div>
 								<div class="col-sm-8">
-									{{ comercial_info_form.varieties }}
+									{{ crop_form.soil_cmnt }}
 								</div>
 							</div>
 
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="varieties">Topografía de suelo <label style="color:red">*</label></label>
+								<div class="col-sm-4">
+									<label class="control-label" for="varieties">Topografía de suelo <label style="color:red">*</label></label>
+									<label style="float: right;">{{ crop_form.topography }}</label>
+								</div>
 								<div class="col-sm-8">
-									{{ comercial_info_form.varieties }}
+									{{ crop_form.topography_cmnt }}
 								</div>
 							</div>
 
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="varieties">Heladas <label style="color:red">*</label></label>
+								<div class="col-sm-4">
+									<label class="control-label">Temperaturas adecuadas <label style="color:red">*</label></label>
+									<label style="float: right;">{{ crop_form.temperatures }}</label>
+								</div>
 								<div class="col-sm-8">
-									{{ comercial_info_form.varieties }}
+									{{ crop_form.temperatures_cmnt }}
 								</div>
 							</div>
 						</div>

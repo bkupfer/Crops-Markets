@@ -54,18 +54,24 @@ class Crop(models.Model):
 	#distance_to_hq	# refered to the distance to hq. this could be automatically calculated
 					# (lat, lng) of sz >> (xx, yy) 
 
-	# terrain characteristics  
+	# terrain characteristics 
+	# Los factores claves son:
+	# 1.- agua
+	# 2.- calidad de tierra
+	# 3.- topologia
+	# 4.- no-heloso (temperaturas)
+
 	# core characteristics -- as boolean and then text for observation/coments
 	water = models.BooleanField()
-	frost = models.BooleanField()
-	terrain_characteristics = models.BooleanField()
+	soil = models.BooleanField()
 	topography = models.BooleanField()
+	temperatures = models.BooleanField()
 
 	# core characteristics coments
 	water_cmnt = models.CharField(max_length=1024, blank=True, null=True)
-	frost_cmnt = models.CharField(max_length=1024, blank=True, null=True)
-	terrain_characteristics_cmnt = models.CharField(max_length=1024, blank=True, null=True)
+	soil_cmnt = models.CharField(max_length=1024, blank=True, null=True)
 	topography_cmnt = models.CharField(max_length=1024, blank=True, null=True)
+	temperatures_cmnt = models.CharField(max_length=1024, blank=True, null=True)
 
 	# secondary characteristics
 	observations = models.TextField(blank=True, null=True)

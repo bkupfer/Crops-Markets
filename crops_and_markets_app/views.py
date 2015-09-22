@@ -49,8 +49,8 @@ def login(request):
 @login_required
 def add_crop(request):
 	owner_form = CropOwnerForm(request.POST or None)
-	crop_form = CropForm(request.POST or None)
 	company_form = CompanyCropFrom(request.POST or None)
+	crop_form = CropForm(request.POST or None)
 
 	if request.method == "POST":
 		if owner_form.is_valid() and crop_form.is_valid() and company_form.is_valid():

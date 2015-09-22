@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django import forms
 from crops_and_markets_app.models import *
 
@@ -19,13 +20,28 @@ class CropForm(forms.Form):
 	# THE CROP FORM #	
 
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	#province = todo
-	#commune = todo	
+	#province =forms.ModelChoiceField(queryset=Province.objects.all(), empty_label="Provincia", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	#commune = todo	... 
 	address = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
-	# information about crop characteristics, yada yada.
+	# information about crop core characteristics
+	# Los factores claves son:
+	# 1.- agua
+	# 2.- calidad de tierra
+	# 3.- topologia
+	# 4.- no-heloso (temperaturas)
+	water = forms.BooleanField(required=False)
+	soil = forms.BooleanField(required=False)
+	topography = forms.BooleanField(required=False)
+	temperatures = forms.BooleanField(required=False)
+
+	water_cmnt = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	soil_cmnt = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	topography_cmnt = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	temperatures_cmnt = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+
 
 	class Meta:
 		model = Crop
@@ -97,6 +113,7 @@ class GeoMarkerForm(forms.Form):
 
 
 class SaleForm(forms.Form):
+	day = forms.DateField(initial=datetime.date.today)
 	price = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	variety = forms.ModelChoiceField(queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	volume = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
@@ -107,6 +124,11 @@ class SaleForm(forms.Form):
 
 
 class ReserveForm(forms.Form):
+	day = forms.DateField(initial=datetime.date.today)
+	price = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	variety = forms.ModelChoiceField(queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	volume = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) #to add a placeholder, place this into Textarea() > attrs={'placeholder': u'Observaciones'}
 
 	class Meta:
 		model = Reserve
