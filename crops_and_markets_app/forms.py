@@ -5,24 +5,31 @@ from crops_and_markets_app.models import *
 
 # ######## #
 # Crops
-class CompanyCropFrom(forms.Form):
-	excisting_company = forms.ModelChoiceField(queryset=CompanyCrop.objects.all(), empty_label="Compañía", required=False, widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	# new company
-	name = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	rut = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+class CompanyCropFrom(forms.Form): # todo, add required false to required fields
+	company_member = forms.BooleanField(required=False)
+	excisting_company = forms.ModelChoiceField(required=False, queryset=CompanyCrop.objects.all(), empty_label="Compañía", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 
 	class Meta:
 		model = CompanyCrop
 
+	def clean(self):
+		checkbox = self.cleaned_data.get('company_member')
+		print "CHECK BOX!"
+		print checkbox
+		if not checkbox:
+			return self.cleaned_data
+		if self.cleaned_data.get('excisting_company') is not None or self.cleaned_data.get('name') != "":
+			return self.cleaned_data
+		raise forms.ValidationError('Error validating CompanyCropFrom')
+
 
 class CropForm(forms.Form):
-
-	# THE CROP FORM #	
-
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	#province =forms.ModelChoiceField(queryset=Province.objects.all(), empty_label="Provincia", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	#commune = todo	... 
-	address = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
@@ -37,11 +44,12 @@ class CropForm(forms.Form):
 	topography = forms.BooleanField(required=False)
 	temperatures = forms.BooleanField(required=False)
 
-	water_cmnt = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	soil_cmnt = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	topography_cmnt = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	temperatures_cmnt = forms.CharField(max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	water_cmnt = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	soil_cmnt = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	topography_cmnt = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	temperatures_cmnt = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 
+	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
 
 	class Meta:
 		model = Crop
@@ -49,19 +57,53 @@ class CropForm(forms.Form):
 
 class CropOwnerForm(forms.Form):
 	# excisting owner
-	old_owner = forms.ModelChoiceField(queryset=CropOwner.objects.all(), empty_label="Propietario registrado", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	old_owner = forms.ModelChoiceField(required=False, queryset=CropOwner.objects.all(), empty_label="Propietario registrado", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 
 	# new owner
-	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	first_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	last_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	contact_number_1 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	contact_number_2 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={"class": "form-control input-sm"}))
-	charge = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
+	position = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	#observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
 
 	class Meta: 
 		model = CropOwner
+
+
+	# def clean_old_owner(self):
+	# 	print "clean old owner"
+	# 	return self.clean()
+
+	# def clean_first_name(self):
+	# 	print "clean first name"
+	# 	return self.clean()
+
+	# def clean_last_name(self):
+	# 	print "clean last name"
+	# 	return self.clean()
+
+
+	def clean(self):
+		print "clean"
+		old_owner = self.cleaned_data.get('old_owner')
+		first_name = self.cleaned_data.get('first_name')
+		last_name = self.cleaned_data.get('last_name')
+
+		print old_owner
+		print first_name
+		print last_name
+
+
+		print old_owner is not None
+		print (first_name != "" and last_name != "")
+
+		if old_owner is not None or (first_name != "" and last_name != ""):
+			print "clean: formulario valido"
+			return self.cleaned_data
+		
+		raise forms.ValidationError('Error validating CropOwnerForm')
 
 
 # ######## #
@@ -73,7 +115,7 @@ class ClientForm(forms.Form):
 	contact_number_1 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	contact_number_2 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={"class": "form-control input-sm"}))
-	charge = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	position = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
 
 	class Meta:
@@ -104,7 +146,7 @@ class GeoMarkerForm(forms.Form):
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	#province = todo
 	#commune = todo
-	address = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 

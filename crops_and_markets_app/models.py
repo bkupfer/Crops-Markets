@@ -76,26 +76,26 @@ class Crop(models.Model):
 	# secondary characteristics
 	observations = models.TextField(blank=True, null=True)
 
-	def __str__(self):
-		if self.zone is not None:
-			return str(self.crop_owner) + ": " + str(self.address)
-		else:
-			return str(self.crop_owner)
+	# def __str__(self):
+	# 	if self.address is not None:
+	# 		return str(self.crop_owner) + ": " + str(self.address)
+	# 	else:
+	# 		return str(self.crop_owner)
 
 
 class CropOwner(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	# crop -- there is a ManyToMany field relating crops with owners.
 	# crop_owner.crop_set.all() -- this should give all the crops for this owner.
-	company = models.ForeignKey('CompanyCrop', null=True)
-
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
 	contact_number_1 = models.IntegerField(blank=True, null=True)
 	contact_number_2 = models.IntegerField(blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
-	charge = models.CharField(max_length=100, blank=True, null=True)
-	observations = models.TextField(blank=True, null=True)
+	position = models.CharField(max_length=100, blank=True, null=True)
+
+	company = models.ForeignKey('CompanyCrop', null=True)
+	#observations = models.TextField(blank=True, null=True)
 
 	def __str__(self):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
@@ -118,7 +118,7 @@ class Client(models.Model):
 	contact_number_1 = models.IntegerField(blank=True, null=True)
 	contact_number_2 = models.IntegerField(blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
-	charge = models.CharField(max_length=100, blank=True, null=True)
+	position = models.CharField(max_length=100, blank=True, null=True)
 	observations = models.TextField(blank=True, null=True)
 
 	# company information

@@ -53,16 +53,80 @@ def add_crop(request):
 	crop_form = CropForm(request.POST or None)
 
 	if request.method == "POST":
-		if owner_form.is_valid() and crop_form.is_valid() and company_form.is_valid():
-			# process data
-			# (...)
-			#
-			#
-			#
-			#
+
+		# if owner_form.is_valid():
+		# 	messages.success(request, "owner form valido!.")
+		# 	print "views: formulario valido"
+		# else:
+		# 	print "views: formulario invalido" 
+		# 	print owner_form.errors
+
+		# if company_form.is_valid():
+		# 	print "company form is valid"
+		# if crop_form.is_valid():
+		# 	print "crop_form is valid"
+
+		if owner_form.is_valid() and company_form.is_valid() and crop_form.is_valid():
+			# owner information
+			owner = owner_form.cleaned_data['old_owner']
+			if owner is None:
+				name = owner_form.cleaned_data['first_name'].title()
+				last_name = owner_form.cleaned_data['last_name'].title()
+				number_1 = owner_form.cleaned_data['contact_number_1']
+				number_2 = owner_form.cleaned_data['contact_number_2']
+				email = owner_form.cleaned_data['email']
+				position = owner_form.cleaned_data['position'].title()
+				#obs_owner = owner_form.cleaned_data['observations']
+
+				# company information
+				company = None
+				company_member = company_form.cleaned_data['company_member']
+				if company_member:
+					company = company_form.cleaned_data['excisting_company']
+					if company is None:
+						company_name = company_form.cleaned_data['name'].title()
+						company_rut = company_form.cleaned_data['rut']
+
+						company = CompanyCrop(name=company_name, rut=company_rut)
+						company.save()
+
+				owner = CropOwner(first_name=name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
+					email=email, position=position, company=company)
+				owner.save()
+
+			# crop information
+			# geographical information
+			region = crop_form.cleaned_data['region']
+			#province = crop_form.cleaned_data['province']
+			#commune = crop_form.cleaned_data['commune']
+			address = crop_form.cleaned_data['address']
+			lat = crop_form.cleaned_data['latitude']
+			lng = crop_form.cleaned_data['longitude']
+
+			# terrain characteristics information
+			bwater = crop_form.cleaned_data['water']
+			bsoil = crop_form.cleaned_data['soil']
+			btopo = crop_form.cleaned_data['topography']
+			btemp = crop_form.cleaned_data['temperatures']
+
+			cwater = crop_form.cleaned_data['water_cmnt']
+			csoil = crop_form.cleaned_data['soil_cmnt']
+			ctopo = crop_form.cleaned_data['topography_cmnt']
+			ctemp = crop_form.cleaned_data['temperatures_cmnt']
+
+			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
+
+			crop = Crop(region=region,    address=address, latitude=lat, longitude=lng,
+				water=bwater, soil=bsoil, topography=btopo, temperatures=btemp,
+				water_cmnt=cwater, soil_cmnt=csoil, topography_cmnt=ctopo, temperatures_cmnt=ctemp,
+				observations=obs)
+			crop.save()
+			crop.crop_owner.add(owner)
 
 			# if we get to this point
-			messages.success(request, 'Predio agregado exitosamente.')
+			messages.success(request, "Predio agregado exitosamente.")
+		else:
+			messages.error(request, "Error en el formulario.")
 
 	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 
@@ -90,11 +154,11 @@ def add_crop(request):
 # 			number_1 = owner_form.cleaned_data['contact_number_1']
 # 			number_2 = owner_form.cleaned_data['contact_number_2']
 # 			email = owner_form.cleaned_data['email']
-# 			charge = owner_form.cleaned_data['charge']
+# 			position = owner_form.cleaned_data['position']
 # 			obs = owner_form.cleaned_data['observations']
 
 # 			new_owner = CropOwner(company=company, first_name=first_name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
-# 				email=email, charge=charge, observations=obs)
+# 				email=email, position=position, observations=obs)
 # 			new_owner.save()
 
 # 			# all done -- success
@@ -141,17 +205,6 @@ def add_market(request):
 
 	if request.method == 'POST':
 		if client_form.is_valid() and geographical_form.is_valid() and company_form.is_valid():
-			# company information
-			# excisting company
-			company = company_form.cleaned_data['excisting_company']
-			if company is None:
-				# new company
-				company_name = company_form.cleaned_data['name'].title()
-				company_rut = company_form.cleaned_data['rut']
-
-				company = CompanyMarket(name=company_name, rut=company_rut)
-				company.save()
-
 			# client information
 			type_of_client = client_form.cleaned_data['type_of_client']
 			first_name = client_form.cleaned_data['first_name'].title()
@@ -159,11 +212,20 @@ def add_market(request):
 			number_1 = client_form.cleaned_data['contact_number_1']
 			number_2 = client_form.cleaned_data['contact_number_2']
 			email = client_form.cleaned_data['email']
-			charge = client_form.cleaned_data['charge'].title()
+			position = client_form.cleaned_data['position'].title()
 			obs = client_form.cleaned_data['observations'].strip(' \t\n\r')
 
+			# company information
+			company = company_form.cleaned_data['excisting_company']
+			if company is None:
+				company_name = company_form.cleaned_data['name'].title()
+				company_rut = company_form.cleaned_data['rut']
+
+				company = CompanyMarket(name=company_name, rut=company_rut)
+				company.save()
+
 			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, contact_number_1=number_1, 
-				contact_number_2=number_2, email=email, charge=charge, observations=obs, company=company)
+				contact_number_2=number_2, email=email, position=position, observations=obs, company=company)
 			new_client.save()
 
 			# geographical information
@@ -178,9 +240,9 @@ def add_market(request):
 			new_geomarker.save()
 
 			# all done -- success
-			messages.success(request, 'Cliente agregado exitosamente.')
+			messages.success(request, "Cliente agregado exitosamente.")
 		else:
-			messages.error(request, 'Error en el formulario.')
+			messages.error(request, "Error en el formulario.")
 
 	return render_to_response("markets/add_market.html", locals(), context_instance=RequestContext(request))
 

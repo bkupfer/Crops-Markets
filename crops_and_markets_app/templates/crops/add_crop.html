@@ -57,21 +57,22 @@
 							<h3>Información de cliente</h3>
 							<!-- use known owner -->
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="first_name">Propietario <label style="color:red">*</label></label>
+								<label class="control-label col-sm-4" for="first_name">Propietario <label id="prop-asterisk" style="color:red">*</label></label>
 								<div class="col-sm-8">
 									{{ owner_form.old_owner }}
 										<input type="checkbox" id="new-owner"> agregar nuevo propietario
 								</div>
+								{% if owner_form.errors %}<ul id="prop-error"><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 							</div>
-							
-							<!-- use new owner -->
+						
+								<!-- use new owner -->
 							<span  id="owner-form" style="display: none;">
 								<div class="col-sm-12">
 									<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>
 									<div class="col-sm-8">
 										{{ owner_form.first_name }}
 									</div>
-								{% if owner_form.first_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								{% if owner_form.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 								</div>
 								
 								<div class="col-sm-12">
@@ -79,7 +80,7 @@
 									<div class="col-sm-8">
 										{{ owner_form.last_name }}
 									</div>
-								{% if owner_form.last_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								{% if owner_form.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 								</div>
 								
 								<div class="col-sm-12">
@@ -103,10 +104,10 @@
 									</div>
 								</div>
 
-								<div class="col-sm-12" id="charge"style="display: none;">
-									<label class="control-label col-sm-4" for="charge">Cargo</label>
+								<div class="col-sm-12" id="position"style="display: none;">
+									<label class="control-label col-sm-4" for="position">Cargo</label>
 									<div class="col-sm-8">
-										{{ owner_form.charge }}
+										{{ owner_form.position }}
 									</div>
 								</div>
 
@@ -115,25 +116,30 @@
 									<label class="control-label col-sm-4" for="company_member"><h4>Miembro de empresa</h4></label>
 									<div class="col-sm-8">
 										<div class="checkbox">
-											<input type="checkbox" id="company-member"> si
+
+											{{ company_form.company_member }} si
+
+											<!-- <input type="checkbox" id="company-member"> si -->
 										</div>
 									</div>
 								</div>
 
 								<div class="col-sm-12" id="company-info" style="display: none;">
 									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="excisting_company">Compañía</label>
+										<label class="control-label col-sm-4" for="excisting_company">Compañía <label id="company-asterisk" style="color:red">*</label></label>
 										<div class="col-sm-8">
 											{{ company_form.excisting_company }}
 											<input type="checkbox" id="new-company"> otra compañía
 										</div>
+										{% if company_form.excisting_company.errors %}<ul id="new-company-error"><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 									</div>
 
 									<div class="col-sm-12" style="display: none;" id="company-name">
-										<label class="control-label col-sm-4" for="name">Nombre compañía</label>
+										<label class="control-label col-sm-4" for="name">Nombre compañía <label style="color:red">*</label></label>
 										<div class="col-sm-8">
 											{{ company_form.name }}
 										</div>
+										{% if company_form.name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 									</div>
 
 									<div class="col-sm-12" style="display: none;" id="company-rut">
@@ -152,10 +158,11 @@
 						<div class="row">
 							<h3>Información geográfica</h3>
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="zone">Región</label>
+								<label class="control-label col-sm-4" for="zone">Región <label style="color:red">*</label></label>
 								<div class="col-sm-8">
 									{{ crop_form.region }}
 								</div>
+								{% if crop_form.region.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 							</div>
 
 							<div class="col-sm-12">
@@ -242,7 +249,7 @@
 						<div class="row">
 							<h3>Observaciones</h3>
 							<div class="col-sm-12">
-								{{ owner_form.observations }}
+								{{ crop_form.observations }}
 							</div>
 							{{ owner_form.observations.errors }}
 						</div>
@@ -273,24 +280,35 @@
 
 	<script type="text/javascript">
 	$("#new-owner").click(function(e){
-		if ($("#new-owner").prop("checked"))
+		if ($("#new-owner").prop("checked")){
+			$("#prop-error").fadeOut(100);
 			$("#id_old_owner").prop('disabled', true);
-		else
+			$("#prop-asterisk").fadeOut(200);
+		}
+		else {
+			$("#prop-error").fadeIn(100);
 			$("#id_old_owner").prop('disabled', false);
+			$("#prop-asterisk").fadeIn(200);
+		}
 		$("#owner-form").toggle(300);
 	});
 
-	$("#company-member").click(function(e){
-		$("#charge").toggle(300);
+	$("#id_company_member").click(function(e){
+		$("#position").toggle(300);
 		$("#company-info").toggle(300);
 	});
 
 	$("#new-company").click(function(e){
-		if ($("#new-company").prop("checked"))
+		if ($("#new-company").prop("checked")) {
+			$("#new-company-error").fadeOut(100);
 			$("#id_excisting_company").prop('disabled', true);
-		else
+			$("#company-asterisk").fadeOut(200);
+		}
+		else {
+			$("#new-company-error").fadeIn(100);
 			$("#id_excisting_company").prop('disabled', false);
-		
+			$("#company-asterisk").fadeIn(200);
+		}
 		$("#company-name").toggle(200);
 		$("#company-rut").toggle(200);
 	});
