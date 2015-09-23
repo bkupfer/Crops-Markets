@@ -26,95 +26,243 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+	<!-- Google maps -->
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+
+	<script>
+	/** shows or hides map */
+	var map_init = false;
+	function displayMap(){
+		var button = $("#mapButton");
+		button.text(button.text() == "Mostrar mapa" ? "Ocultar mapa" : "Mostrar mapa");
+
+		var mapCanvas = $("#map-canvas");
+		mapCanvas.slideToggle("slow");
+
+		if (! map_init) {
+			initialize();
+			map_init = true;
+		}
+	}
+
+	/* initializes the map and places marker */
+	function initialize(){
+		var address = "{{ crop.address }}, {{ crop.region }}, Chile";
+		var mapCanvas = $("#map-canvas")[0];
+		if (address != ""){
+			var mapOptions = {
+				zoom: 10,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({'address': address}, function(results, status){
+				if (status == google.maps.GeocoderStatus.OK){
+					mapOptions.center = results[0].geometry.location;
+					var map = new google.maps.Map(mapCanvas, mapOptions);
+
+					var marker = new google.maps.Marker({
+						position: results[0].geometry.location, 
+						map: map
+					});
+				}
+				else {
+					alert('Geocode was not succesful for the following reason:' + status); 
+				}
+			});
+		}
+		else mapCanvas.text("No se tiene información geográfica respecto de este cliente.");
+	}
+	//google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+
+	<style>
+	#map-canvas {
+		width: 100%;
+		height: 250px;
+		border-style: solid;
+	}
+	</style>
+
 </head>
 
 <body>
 
 	<div id="wrapper">
 
-		<!-- Sidebar -->
 		{% include "sidebar.html" %}
 
 		<!-- Page Content -->
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-lg-12">
-						<h1>Predio {{ name }}</h1>
+					<h1>Predio #{{ id }}</h1>
 
-						<!-- Contact information -->
-						<h3>Contactos</h3>
-						<table class="table table-hover">
-							<tr>
-								<td>Dueño</td>
-								<td>{{ owner }}</td>
-							</tr>
-							<tr>
-								<td>Números</td>
-								<td>-- list of numbers --</td>
-							</tr>
-							<tr>
-						</table>
+					<!-- Contact information -->
+					<h3>Contacto</h3>
+					<table class="table table-hover">
+						<tr>
+							<td class="col-sm-4">Dueño</td>
+							<td class="col-sm-8">{{ owner }}</td>
+						</tr>
+						<tr>
+							<td>Número{% if owner.contact_number_2 %}s{% endif %}</td>
+							<td>{% if owner.contact_number_1 %}
+								<a href="{{ owner.contact_number_1 }}">{{ owner.contact_number_1 }}</a>
+								{% if owner.contact_number_2 %}
+									<br><a href="{{ owner.contact_number_2 }}">{{ owner.contact_number_2 }}</a>
+								{% endif %}
+							{% endif %}
+						</td>
+						<tr>
+							<td>Email</td>
+							<td><a href="mailto:{{ owner.email }}">{{ owner.email }}</a></td>
+						</tr>
+						{% if owner.company %}
+						<tr>
+							<td>Cargo</td>
+							<td>{{ owner.position }}</td>
+						</tr>
+						{% endif %}
+					</table>
 
-						<!-- General information about the area -->
-						<h3>Datos generales del predio</h3>
-						<table class="table table-hover">
-							<tr>
-								<td>Localización geografica</td>
-								<td>{{ coordenada_x }}, {{ coordenada_y }}</td>
-							</tr>
-							<tr>
-								<td>Hectareas</td>
-								<td>{{ has }} [has]</td>
-							</tr>
-							<tr>
-								<td>Agua</td>
-								<td>{{ water }}</td>
-							</tr>
-							<tr>
-								<td>Observaciones</td>
-								<td>{{ obs }}</td>
-							</tr>
-							<tr>
-								<td><a href="">Ver registro fotográfico</a></td>
-							</tr>
-						</table>
+					{% if owner.company %}
+					<h3>Información de empresa</h3>
+					<table class="table table-hover">
+						<tr>
+							<td class="col-sm-4">Compañía</td>
+							<td class="col-sm-8">{{ owner.company }}</td>
+						</tr>
+						<tr>
+							<td>Rut empresa</td>
+							<td>{{ owner.company.rut }}</td>
+						</tr>
+					</table>
+					{% endif %}
 
-						<!-- For each potrero give information -->
-						<h3>Potreros</h3>
-						<table class="table table-hover">
-							<tr>
-								<td>Nombre</td>
-								<td>{{ pot.name }}</td>
-							</tr>
-							<tr>
-								<td>Hectareas</td>
-								<td>{{ pot.has }}</td>
-							</tr>
-						</table>
+					<!-- General information about the area -->
+					<h3>Datos generales del predio</h3>
+					<table class="table table-hover">
+						<tr>
+							<td>Hectareas</td>
+							<td>{{ crop.has }} {% if crop.has %}[has]{% endif %}</td><td></td>
+						</tr>
+						<tr>
+							<td class="col-sm-4">Agua</td>
+							<td class="col-sm-1">
+								{% if crop.water %}
+									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
+								{% else %}
+									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
+								{% endif %}
+							</td>
+							<td class="col-sm-7">{{ crop.water_cmnt }}</td>
+						</tr>
 
-						<!-- Plantations in the area -->
-						<h3>Plantaciones</h3>
-						<table class="table table-hover">
-							<tr>
-								<td>Id</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Fecha</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Variedad</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td><a href="paddock_detail">Ver detalle</a></td>
-							</tr>
-						</table>
+						<tr>
+							<td class="col-sm-4">Calidad de suelo</td>
+							<td class="col-sm-2">
+								{% if crop.soil %}
+									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
+								{% else %}
+									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
+								{% endif %}
+							</td>
+							<td class="col-sm-6">{{ crop.soil_cmnt }}</td>
+						</tr>
 
-						<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+						<tr>
+							<td class="col-sm-4">Topografía</td>
+							<td class="col-sm-2">
+								{% if topography.water %}
+									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
+								{% else %}
+									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
+								{% endif %}
+							</td>
+							<td class="col-sm-6">{{ crop.topography_cmnt }}</td>
+						</tr>
+
+						<tr>
+							<td class="col-sm-4">Temperaturas</td>
+							<td class="col-sm-2">
+								{% if crop.temperatures %}
+									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
+								{% else %}
+									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
+								{% endif %}
+							</td>
+							<td class="col-sm-6">{{ crop.temperatures_cmnt }}</td>
+						</tr>
+					</table>
+
+					<h3>Observaciones</h3>
+					<div style="border: 1px solid #CCCCCC">
+						<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ crop.observations }}</p>
 					</div>
+
+					<!-- <a href="" class="btn btn-default disabled">Ver registro fotográfico</a> -->
+
+					<h3>Información geográfica</h3>
+					<table class="table table-hover">
+						<tr>
+							<td class="col-sm-4">Región</td>
+							<td class="col-sm-8">{{ crop.region }}</td>
+						</tr>
+						<tr>
+							<td>Provincia</td>
+							<td>{{ crop.province }}</td>
+						</tr>
+						<tr>
+							<td>Comuna</td>
+							<td>{{ crop.commune }}</td>
+						</tr>
+						<tr>
+							<td>Dirección</td>
+							<td>{{ crop.address }}</td>
+						</tr>
+					</table>
+					<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
+					<button class="btn btn-default" id="mapButton" onclick="displayMap()">Mostrar mapa</button>
+
+					<!-- For each potrero give information -->
+					<!-- commint soon.. this summer !
+					<h3>Potreros</h3>
+					<table class="table table-hover">
+						<tr>
+							<td>Nombre</td>
+							<td>{{ pot.name }}</td>
+						</tr>
+						<tr>
+							<td>Hectareas</td>
+							<td>{{ pot.has }}</td>
+						</tr>
+					</table> -->
+
+					<!-- Plantations in the area -->
+				<!-- hum.. let me tell you something.. 
+					<h3>Plantaciones</h3>
+					<table class="table table-hover">
+						<tr>
+							<td>Id</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Fecha</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Variedad</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><a href="paddock_detail">Ver detalle</a></td>
+						</tr>
+					</table>
+				-->
+
+					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+					<a href="crop_table" class="btn btn-default" id="return">Volver</a>
 				</div>
 			</div>
 		</div>

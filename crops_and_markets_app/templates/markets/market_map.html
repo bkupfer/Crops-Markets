@@ -60,7 +60,7 @@
 		// Geocoding and markets
 		var geocoder = new google.maps.Geocoder();
 		{% for geomarker in geomarkers %}
-		geocodeAddress(geocoder, map, "{{ geomarker.address }}, Region {{ geomarker.region }}, Chile", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}", "{{ geomarker.client.pk }}");
+			geocodeAddress(geocoder, map, "{{ geomarker.address }}, Region {{ geomarker.region }}, Chile", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}", "{{ geomarker.client.pk }}");
 		{% endfor %}
 
 		// Try HTML5 geolocation.
@@ -74,7 +74,7 @@
 				var myCurrentLocationMarker = new google.maps.Marker({
 					position: pos,
 					map: map, 
-					icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+					icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
 				});
 				var myCurrentLocationInfoWindow = new google.maps.InfoWindow({
 					content: "mi ubicación actual"
@@ -111,7 +111,7 @@
 					title: title
 				});
 				if (typeOfClient == "Actual")
-					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
 				if (typeOfClient == "Potencial")
 					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 				
@@ -156,7 +156,7 @@
 
 					<div class="col-bg-12" id="map-canvas"><!-- map goes here --></div>
 					<div class="col-sm-12">
-						<p class="text-right small">Los marcadores de color <label style="color:red">rojo</label> y <label style="color:blue">azul</label> representan los clientes <label style="color:red">actuales</label> y <label style="color:blue">potenciales</label> respectivamente.</p>
+						<p class="text-right small">Los marcadores de color <label style="color:green">verde</label> y <label style="color:blue">azul</label> representan los clientes <label style="color:green">actuales</label> y <label style="color:blue">potenciales</label> respectivamente. El marcador <label style="color: #B0B034">amarillo</label> representa su posición actual.</p>
 					</div>
 
 					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>

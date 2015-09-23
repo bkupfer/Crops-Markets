@@ -33,6 +33,8 @@ class CropForm(forms.Form):
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
+	has = forms.IntegerField(required=False, min_value=0, max_value=32767, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+
 	# information about crop core characteristics
 	# Los factores claves son:
 	# 1.- agua
@@ -44,10 +46,10 @@ class CropForm(forms.Form):
 	topography = forms.BooleanField(required=False)
 	temperatures = forms.BooleanField(required=False)
 
-	water_cmnt = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	soil_cmnt = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	topography_cmnt = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	temperatures_cmnt = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	water_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	soil_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	topography_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	temperatures_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 
 	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
 

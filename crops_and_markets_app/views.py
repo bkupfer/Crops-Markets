@@ -104,6 +104,8 @@ def add_crop(request):
 			lng = crop_form.cleaned_data['longitude']
 
 			# terrain characteristics information
+			has = crop_form.cleaned_data['has']
+
 			bwater = crop_form.cleaned_data['water']
 			bsoil = crop_form.cleaned_data['soil']
 			btopo = crop_form.cleaned_data['topography']
@@ -116,7 +118,7 @@ def add_crop(request):
 
 			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
 
-			crop = Crop(region=region,    address=address, latitude=lat, longitude=lng,
+			crop = Crop(region=region,    address=address, latitude=lat, longitude=lng, has=has,
 				water=bwater, soil=bsoil, topography=btopo, temperatures=btemp,
 				water_cmnt=cwater, soil_cmnt=csoil, topography_cmnt=ctopo, temperatures_cmnt=ctemp,
 				observations=obs)
@@ -174,8 +176,14 @@ def crops(request):
 
 @login_required
 def crop_info(request):
-	name = "Frutillar"
-	owner = "Don Graph"
+	if request.method == "GET" and 'id' in request.GET:
+		id = request.GET['id']
+		crop = Crop.objects.get(pk=id)
+		owner = crop.crop_owner.first()
+		comp = owner.company
+		
+
+
 	return render_to_response("crops/crop_info.html", locals(), context_instance=RequestContext(request))
 
 

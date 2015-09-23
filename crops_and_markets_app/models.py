@@ -54,6 +54,10 @@ class Crop(models.Model):
 	#distance_to_hq	# refered to the distance to hq. this could be automatically calculated
 					# (lat, lng) of sz >> (xx, yy) 
 
+	# general characterisitcs
+	# CANTIDAD DE HECTAREAS! 
+	has = models.PositiveSmallIntegerField(blank=True, null=True)
+
 	# terrain characteristics 
 	# Los factores claves son:
 	# 1.- agua

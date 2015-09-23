@@ -205,6 +205,15 @@
 							<h3>Información del terreno</h3>
 
 							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="contact_number_1">Número de hectáreas</label>
+								<div class="col-sm-8">
+									{{ crop_form.has }}
+								</div>
+								{% if crop_form.has.errors %}<ul><li><label style="color:red">Debe ingresar un valor entre [0, 32767].</label></li></ui>{% endif %}
+							</div>
+
+
+							<div class="col-sm-12">
 								<div class="col-sm-4">
 									<label class="control-label">Disponibilidad de agua <label style="color:red">*</label></label>
 									<label style="float: right;">{{ crop_form.water }}</label>
