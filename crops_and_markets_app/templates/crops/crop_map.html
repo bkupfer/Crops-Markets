@@ -59,10 +59,10 @@
 
 		// Geocoding and markets
 		var geocoder = new google.maps.Geocoder();
-	// Use geocodeAddress() method to add markers
-	//	{% for geomarker in geomarkers %}
-	//	geocodeAddress(geocoder, map, "{{ geomarker.address }}", "{{ geomarker.client }}", "{{ geomarker.client.type_of_client }}", "{{ geomarker.client.pk }}");
-	//	{% endfor %}
+		// Use geocodeAddress() method to add markers
+		{% for geomarker in geomarkers %}
+		geocodeAddress(geocoder, map, "{{ geomarker.address }}", "{{ geomarker.client }}", "{{ geomarker.client.pk }}");
+		{% endfor %}
 
 		// Try HTML5 geolocation.
 		if (navigator.geolocation) {
@@ -102,7 +102,7 @@
 	  * @ address: the address to be geocoded.
 	  * @ title: title of the marker that will be created in the map.
 	  * @ typeOfClient: reduntant definition is redundant. */
-	function geocodeAddress(geocoder, map, address, title, typeOfClient, idClient){
+	function geocodeAddress(geocoder, map, address, title, idClient){
 		geocoder.geocode({'address': address}, function(results, status){
 			if (status == google.maps.GeocoderStatus.OK){
 				var marker = new google.maps.Marker({
@@ -110,14 +110,9 @@
 					map: map,
 					title: title
 				});
-
-//				if (typeOfClient == "Actual")
-//					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
-//				if (typeOfClient == "Potencial")
-//					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 				
 				// creating information window
-				var contentString = createInfoWindowContent(title, [address], 'market_info?id='+idClient);
+				var contentString = createInfoWindowContent(title, [address], 'crop_info?id='+idClient);
 				var infoWindow = new google.maps.InfoWindow({
 					content: contentString
 				});
@@ -183,6 +178,7 @@
 	#map-canvas {
 		width: 100%;
 		height: 700px;
+		border-style: solid;
 	}
 	</style>
 
@@ -217,5 +213,4 @@
 	<script src="static/js/googleanalytics.js"></script>
 
 </body>
-
 </html>

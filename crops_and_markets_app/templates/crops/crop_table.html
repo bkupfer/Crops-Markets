@@ -57,40 +57,39 @@
 
 				<h3>Información de contacto</h3>
 
-				<div id="clients">
+				<div id="crops">
 
 					<input class="search" placeholder="Buscar"/>
-					<button class="btn btn-default sort" data-sort="name">Ordenar por nombre</button>
-					<button class="btn btn-default sort" data-sort="last_name">Ordenar por apellido</button>
-					<button class="btn btn-default sort" data-sort="zone">Ordenar por zona</button>
+					<button class="btn btn-default sort" data-sort="owner">Ordenar por propietario</button>
+					<button class="btn btn-default sort" data-sort="region">Ordenar por región</button>
+					<button class="btn btn-default sort" data-sort="req">Ordenar por requisitos</button>
 
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>Nombre</th>
-								<th>Apellido</th>
-								<th>Número contacto</th>
-								<th>Zona</th>
-								<th>Tamaño</th>
+								<th>Propietario</th>
+								<th>Región</th>
+								<th style="text-align: center;">Requisitos clave</th>
 								<th><!-- view detail --></th>
 							</tr>
 						</thead>
 						<tbody class="list">
-							{% for client in clients %}
+							{% for crop in crops %}
 							<tr>
-								<td class="name">{{ client.first_name }}</td>
-								<td class="last_name">{{ client.last_name }}</td>
-								<td>{% if client.contact_number_1 %}
-										<a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
-									{% else %}-- -- --{% endif %}
-								</td>
-								<td class="zone">
-									{% for gm in client.geomarker_set.all %}
-									{{ gm.zone }} 
+								<td class="owner">
+									{% for owner in crop.crop_owner.all %}
+										{{ owner }}
 									{% endfor %}
 								</td>
-								<td> -- -- -- </td>
-								<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>
+								<td class="region">{{ crop.region }}</td>
+								<td class="req" style="text-align: center;">
+									{% if crop.water and crop.soil and crop.topography and crop.temperatures %}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
+									{% else %}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
+									{% endif %}
+								</td>
+								<td><a href="crop_info?id={{ crop.pk }}">ver detalle</a></td>
 							</tr>
 							{% endfor %}
 						</tbody>
@@ -104,9 +103,9 @@
 
 	<script type="text/javascript">
 	var options = {
-		valueNames: [ 'name', 'last_name', 'zone' ]
+		valueNames: [ 'owner', 'region', 'req' ]
 	};
-	var userList = new List('clients', options);
+	var userList = new List('crops', options);
 	</script>
 
 	<script src="static/js/jquery.js"></script>

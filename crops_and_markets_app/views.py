@@ -181,11 +181,17 @@ def crop_info(request):
 
 @login_required
 def crop_map(request):
+
+	geomarkers = Crop.objects.all()
+
 	return render_to_response("crops/crop_map.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
 def crop_table(request):
+
+	crops = Crop.objects.all()
+
 	return render_to_response("crops/crop_table.html", locals(), context_instance=RequestContext(request))
 
 
