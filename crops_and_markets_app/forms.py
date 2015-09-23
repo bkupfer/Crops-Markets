@@ -36,11 +36,6 @@ class CropForm(forms.Form):
 	has = forms.IntegerField(required=False, min_value=0, max_value=32767, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 
 	# information about crop core characteristics
-	# Los factores claves son:
-	# 1.- agua
-	# 2.- calidad de tierra
-	# 3.- topologia
-	# 4.- no-heloso (temperaturas)
 	water = forms.BooleanField(required=False)
 	soil = forms.BooleanField(required=False)
 	topography = forms.BooleanField(required=False)
@@ -60,7 +55,6 @@ class CropForm(forms.Form):
 class CropOwnerForm(forms.Form):
 	# excisting owner
 	old_owner = forms.ModelChoiceField(required=False, queryset=CropOwner.objects.all(), empty_label="Propietario registrado", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-
 	# new owner
 	first_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
@@ -72,7 +66,6 @@ class CropOwnerForm(forms.Form):
 
 	class Meta: 
 		model = CropOwner
-
 
 	# def clean_old_owner(self):
 	# 	print "clean old owner"
@@ -86,23 +79,12 @@ class CropOwnerForm(forms.Form):
 	# 	print "clean last name"
 	# 	return self.clean()
 
-
 	def clean(self):
-		print "clean"
 		old_owner = self.cleaned_data.get('old_owner')
 		first_name = self.cleaned_data.get('first_name')
 		last_name = self.cleaned_data.get('last_name')
 
-		print old_owner
-		print first_name
-		print last_name
-
-
-		print old_owner is not None
-		print (first_name != "" and last_name != "")
-
 		if old_owner is not None or (first_name != "" and last_name != ""):
-			print "clean: formulario valido"
 			return self.cleaned_data
 		
 		raise forms.ValidationError('Error validating CropOwnerForm')

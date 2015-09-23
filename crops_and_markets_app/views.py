@@ -53,19 +53,6 @@ def add_crop(request):
 	crop_form = CropForm(request.POST or None)
 
 	if request.method == "POST":
-
-		# if owner_form.is_valid():
-		# 	messages.success(request, "owner form valido!.")
-		# 	print "views: formulario valido"
-		# else:
-		# 	print "views: formulario invalido" 
-		# 	print owner_form.errors
-
-		# if company_form.is_valid():
-		# 	print "company form is valid"
-		# if crop_form.is_valid():
-		# 	print "crop_form is valid"
-
 		if owner_form.is_valid() and company_form.is_valid() and crop_form.is_valid():
 			# owner information
 			owner = owner_form.cleaned_data['old_owner']
@@ -181,25 +168,19 @@ def crop_info(request):
 		crop = Crop.objects.get(pk=id)
 		owner = crop.crop_owner.first()
 		comp = owner.company
-		
-
 
 	return render_to_response("crops/crop_info.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
 def crop_map(request):
-
 	geomarkers = Crop.objects.all()
-
 	return render_to_response("crops/crop_map.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
 def crop_table(request):
-
 	crops = Crop.objects.all()
-
 	return render_to_response("crops/crop_table.html", locals(), context_instance=RequestContext(request))
 
 

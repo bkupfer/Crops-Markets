@@ -51,11 +51,8 @@ class Crop(models.Model):
 	address = models.CharField(max_length=256, blank=True, null=True)
 	latitude = models.FloatField(blank=True, null=True)
 	longitude = models.FloatField(blank=True, null=True)
-	#distance_to_hq	# refered to the distance to hq. this could be automatically calculated
-					# (lat, lng) of sz >> (xx, yy) 
 
 	# general characterisitcs
-	# CANTIDAD DE HECTAREAS! 
 	has = models.PositiveSmallIntegerField(blank=True, null=True)
 
 	# terrain characteristics 
