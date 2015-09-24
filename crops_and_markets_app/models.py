@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.encoding import smart_text
 
 # ######## #
@@ -116,8 +117,10 @@ class Client(models.Model):
 	# contact information
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
-	contact_number_1 = models.IntegerField(blank=True, null=True)
-	contact_number_2 = models.IntegerField(blank=True, null=True)
+	#phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+	#contact_number_1 = models.CharField(blank=True, null=True, validators=[phone_regex], blank=True)
+	contact_number_1 = models.CharField(max_length=12, blank=True, null=True)
+	contact_number_2 = models.CharField(max_length=12, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
 	position = models.CharField(max_length=100, blank=True, null=True)
 	observations = models.TextField(blank=True, null=True)
@@ -178,24 +181,29 @@ class GeoMarker(models.Model):
 
 class Sale(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
+	user = models.ForeignKey(User)
 	client = models.ForeignKey('Client')
-	# date ~~ fecha en la que se realizo la venta
+	date = models.DateField()
+	observations = models.TextField(blank=True, null=True)
+
+
+class SaleDetail(models.Model):
+	sale = models.ForeignKey('Sale')
 	price = models.IntegerField()
 	volume = models.IntegerField()
 	variety = models.ForeignKey('PotatoVariety')
-	observations = models.TextField(blank=True, null=True)
-	# user 
 
 
 class Reserve(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	client = models.ForeignKey('Client')
-
-	reserve_date = models.DateTimeField()
+	date = models.DateField()
+	reserve_date = models.DateField()
 	price = models.IntegerField()
 	variety = models.ForeignKey('PotatoVariety')
 	volume = models.IntegerField()
 	observations = models.TextField(blank=True, null=True)
+	# user
 
 
 class TypeOfClient(models.Model):

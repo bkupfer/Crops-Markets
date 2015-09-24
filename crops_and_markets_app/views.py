@@ -245,29 +245,35 @@ def add_market(request):
 @login_required
 def add_sale(request):
 	sale_form = SaleForm(request.POST or None)
+	sale_detail_formset = SaleDetailFormSet(request.POST or None, prefix="sales")
 
 	if request.method == 'GET':
 		client_id = request.GET['id']
-		print "CLIENT ID (GET): " + client_id
 		client = Client.objects.get(pk=client_id)
 
 	if request.method == 'POST':
 		client_id = request.GET['id']
-		if sale_form.is_valid():
-			print "CLIENT ID (POST): " + client_id
-			variety = sale_form.cleaned_data['variety']
-			volume = sale_form.cleaned_data['volume']
-			price = sale_form.cleaned_data['price']
+		if sale_form.is_valid() and sale_detail_formset.is_valid():
+			user = request.user
+			date = sale_form.cleaned_data['date']
 			obs = sale_form.cleaned_data['observations'].strip(' \t\n\r')
-
-			new_sale = Sale(client=Client.objects.get(pk=client_id), price=price, variety=variety, volume=volume, observations=obs)
+			
+			new_sale = Sale(user=user, client=Client.objects.get(pk=client_id), date=date, observations=obs)
 			new_sale.save()
 
-			messages.success(request, 'Venta de ' + str(variety) + ' agregada con éxtio.')
+			for sale_detail in sale_detail_formset:
+				price = sale_detail.cleaned_data['price']
+				volume = sale_detail.cleaned_data['volume']
+				variety = sale_detail.cleaned_data['variety']
+
+				sdetail = SaleDetail(sale=new_sale, price=price, volume=volume, variety=variety)
+				sdetail.save()
+
+			# success
+			messages.success(request, 'Venta de agregada con éxtio.')
 		else:
 			messages.error(request, 'Error en el formulario')
-	
-	print "CLIENT ID (BEFORE RENDER):" + client_id
+
 	return render_to_response("markets/add_sale.html", locals(), context_instance=RequestContext(request))
 
 
@@ -293,23 +299,26 @@ def market_info(request):
 
 		if client.type_of_client.type == "Actual":
 			sales = Sale.objects.filter(client=client)
-			
-			if len(sales) != 0:
+
+			n = len(sales)
+			if n != 0:
 				total_price = 0
 				total_volume = 0
 				varieties = {}
 				
-				for s in sales:
-					total_price += s.price
-					total_volume += s.volume
-					if s.variety not in varieties:
-						varieties[s.variety] = s.volume
-					else:
-						varieties[s.variety] += s.volume
+				for sale in sales:
+					for s in sale.saledetail_set.all():
+						total_price += s.price
+						total_volume += s.volume
+						if s.variety not in varieties:
+							varieties[s.variety] = s.volume
+						else:
+							varieties[s.variety] += s.volume
+
 				for var in varieties:
 					varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
-				avg_price = total_price / len(sales)
-				avg_volume = total_volume / len(sales)
+				avg_price = total_price / n
+				avg_volume = total_volume / n
 			else:
 				avg_price = avg_volume = 0
 

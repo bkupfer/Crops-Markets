@@ -145,7 +145,7 @@
 						</tr>
 						<tr>
 							<td>Rut empresa</td>
-							<td>{{ client.company.rut }}</td>
+							<td id="rut">{{ client.company.rut }}</td>
 						</tr>
 						<tr>
 							<td>Cargo</td>
@@ -157,8 +157,12 @@
 					<h3>Información de comercial</h3>
 					<table class="table table-hover">
 						<tr>
-							<td class="col-sm-4">Precio Promedio</td>
-							<td class="col-sm-8">$ {{ avg_price }}</td>
+							<td class="col-sm-4">Número de compras</td>
+							<td class="col-sm-8">{{ n }} </td>
+						</tr>
+						<tr>
+							<td>Precio Promedio</td>
+							<td>$ {{ avg_price }}</td>
 						</tr>
 						<tr>
 							<td>Volumen Promedio</td>

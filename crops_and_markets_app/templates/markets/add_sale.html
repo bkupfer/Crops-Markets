@@ -55,28 +55,54 @@
 					<form action="" method="POST"> {% csrf_token %}
 
 						<div class="row">
-							<h3>Información de venta</h3>
+							<h3>Fecha de venta</h3>
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="observations">Variedad <label style="color:red">*</label></label>
+								<div class="col-sm-4">
+									<label class="control-label">Fecha <label style="color:red">*</label></label>
+								</div>
 								<div class="col-sm-8">
-									{{ sale_form.variety }}
+									{{ sale_form.date }}
 								</div>
 							</div>
-
-							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="observations">Volumen <label style="color:red">*</label></label>
-								<div class="col-sm-8">
-									{{ sale_form.volume }}
-								</div>
-							</div>
-
-							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="observations">Precio <label style="color:red">*</label></label>
-								<div class="col-sm-8">
-									{{ sale_form.price }}
-								</div>
-							</div>
+							{% if sale_form.date.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 						</div>
+
+
+						<!-- Sale information -->
+						<div class="row">
+							<h3>Información de venta</h3>
+							{{ sale_detail_formset.management_form }}
+							{% for sale in sale_detail_formset %}
+							<div id="sale_detail_form">
+								<div class="col-sm-12">
+									<div class="col-sm-12">
+										<label class="control-label col-sm-4">Variedad <label style="color:red">*</label></label>
+										<div class="col-sm-8">
+											{{ sale.variety }}
+										</div>
+									</div>
+
+									<div class="col-sm-12">
+										<label class="control-label col-sm-4">Volumen <label style="color:red">*</label></label>
+										<div class="col-sm-8">
+											{{ sale.volume }}
+										</div>
+									</div>
+
+									<div class="col-sm-12">
+										<label class="control-label col-sm-4">Precio <label style="color:red">*</label></label>
+										<div class="col-sm-8">
+											{{ sale.price }}
+										</div>
+									</div>
+								</div>
+								<br>
+							</div>
+							{% endfor %}
+							
+						</div>
+
+
 
 						<!-- Observations -->
 						<div class="row">
@@ -112,18 +138,19 @@
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
 
-	<!-- javascript validator - ->
-	<script src="static/js/gen_validatorv4.js"></script>
-	
-	<script type="text/javascript">
-	function validateForm(){
-		console.log("okei, validando !");
-		var validator = new Validator("saleForm");
-		validator.addValidation("id_variety", "req");
-		validator.addValidation("id_volume", "req");
-		validator.addValidation("id_price", "req");
-	}
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<script>
+	$(document).ready(function() {
+		$('.datepicker').datepicker();
+	});
 	</script>
-	-->
+
+	<script src="static/js/jquery.formset.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$('#sale_detail_form').formset();
+	})
+	</script>
 </body>
 </html>

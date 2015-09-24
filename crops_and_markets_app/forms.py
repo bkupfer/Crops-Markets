@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django import forms
+from django.forms.formsets import formset_factory
 from crops_and_markets_app.models import *
+
+from functools import partial
+DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
 # ######## #
 # Crops
@@ -58,8 +62,12 @@ class CropOwnerForm(forms.Form):
 	# new owner
 	first_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	contact_number_1 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
-	contact_number_2 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	contact_number_1 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
+		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
+		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	contact_number_2 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
+		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
+		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={"class": "form-control input-sm"}))
 	position = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	#observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
@@ -96,8 +104,13 @@ class ClientForm(forms.Form):
 	type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	contact_number_1 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
-	contact_number_2 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	#contact_number_1 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	contact_number_1 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
+		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
+		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	contact_number_2 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
+		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
+		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={"class": "form-control input-sm"}))
 	position = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
@@ -139,18 +152,26 @@ class GeoMarkerForm(forms.Form):
 
 
 class SaleForm(forms.Form):
-	day = forms.DateField(initial=datetime.date.today)
-	price = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
-	variety = forms.ModelChoiceField(queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	volume = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	date = forms.DateField(widget=DateInput())
 	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) #to add a placeholder, place this into Textarea() > attrs={'placeholder': u'Observaciones'}
 
 	class Meta: 
 		model = Sale
 
 
+class SaleDetailForm(forms.Form):
+	price = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	variety = forms.ModelChoiceField(required=True, queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	volume = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+
+	class Meta:
+		model = SaleDetail
+
+SaleDetailFormSet = formset_factory(SaleDetailForm)
+
+
 class ReserveForm(forms.Form):
-	day = forms.DateField(initial=datetime.date.today)
+#	day = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}))#initial=datetime.date.today)
 	price = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	variety = forms.ModelChoiceField(queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	volume = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))

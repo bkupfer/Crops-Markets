@@ -74,7 +74,7 @@
 								<div class="col-sm-8">
 									{{ client_form.first_name }}
 								</div>
-							{% if client_form.first_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								{% if client_form.first_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 							</div>
 							
 							<div class="col-sm-12">
@@ -82,7 +82,7 @@
 								<div class="col-sm-8">
 									{{ client_form.last_name }}
 								</div>
-							{% if client_form.last_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								{% if client_form.last_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 							</div>
 							
 							<div class="col-sm-12">
@@ -90,6 +90,7 @@
 								<div class="col-sm-8">
 									{{ client_form.contact_number_1 }}
 								</div>
+								{% if client_form.contact_number_1.errors %}<ul><li><label style="color:red">Número telefónico debe ser ingresado en formato '+9 9999 9999'.</label></li></ui>{% endif %}
 							</div>
 						
 							<div class="col-sm-12">
@@ -188,19 +189,16 @@
 									</div>
 
 									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="lat">Latitud</label>
-										<div class="col-sm-8">
+										<div class="col-sm-4">
+											<label class="control-label">Latitud, Longitud</label>
+										</div>
+										<div class="col-sm-4">
 											{{ geographical_form.latitude }}
 										</div>
-									</div>
-
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="lng">Longitud</label>
-										<div class="col-sm-8">
+										<div class="col-sm-4">
 											{{ geographical_form.longitude }}
 										</div>
 									</div>
-
 								</div>
 							</div>
 
