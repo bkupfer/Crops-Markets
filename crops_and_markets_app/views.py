@@ -245,7 +245,7 @@ def add_market(request):
 @login_required
 def add_sale(request):
 	sale_form = SaleForm(request.POST or None)
-	sale_detail_formset = SaleDetailFormSet(request.POST or None, prefix="sales")
+	sale_detail_formset = SaleDetailFormSet(request.POST or None, prefix="form")
 
 	if request.method == 'GET':
 		client_id = request.GET['id']
@@ -261,10 +261,12 @@ def add_sale(request):
 			new_sale = Sale(user=user, client=Client.objects.get(pk=client_id), date=date, observations=obs)
 			new_sale.save()
 
+			print sale_detail_formset
 			for sale_detail in sale_detail_formset:
 				price = sale_detail.cleaned_data['price']
 				volume = sale_detail.cleaned_data['volume']
 				variety = sale_detail.cleaned_data['variety']
+				print variety
 
 				sdetail = SaleDetail(sale=new_sale, price=price, volume=volume, variety=variety)
 				sdetail.save()

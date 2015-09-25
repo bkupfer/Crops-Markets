@@ -167,7 +167,7 @@ class SaleDetailForm(forms.Form):
 	class Meta:
 		model = SaleDetail
 
-SaleDetailFormSet = formset_factory(SaleDetailForm)
+SaleDetailFormSet = formset_factory(SaleDetailForm, min_num=1, extra=0, validate_min=True)
 
 
 class ReserveForm(forms.Form):
