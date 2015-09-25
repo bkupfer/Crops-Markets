@@ -91,8 +91,8 @@ class CropOwner(models.Model):
 	# crop_owner.crop_set.all() -- this should give all the crops for this owner.
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
-	contact_number_1 = models.IntegerField(blank=True, null=True)
-	contact_number_2 = models.IntegerField(blank=True, null=True)
+	contact_number_1 = models.CharField(max_length=12, blank=True, null=True)
+	contact_number_2 = models.CharField(max_length=12, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
 	position = models.CharField(max_length=100, blank=True, null=True)
 

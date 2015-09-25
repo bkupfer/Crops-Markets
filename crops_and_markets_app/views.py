@@ -77,6 +77,7 @@ def add_crop(request):
 						company = CompanyCrop(name=company_name, rut=company_rut)
 						company.save()
 
+				
 				owner = CropOwner(first_name=name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
 					email=email, position=position, company=company)
 				owner.save()
