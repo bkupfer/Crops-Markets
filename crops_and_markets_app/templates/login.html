@@ -118,7 +118,19 @@
 				<p>Ingrese su nombre de usuario y contraseña.</p>
 			</div>
 
-			<div class="sep"></div>
+			<div class="sep">
+			{% if messages %}
+			<div class="row">
+				<div class="col-sm-12">
+				{% for message in messages %}
+					<p class="alert alert-{% if message.tags == 'error' %}danger{% endif %} text-center">
+						{{ message }}
+					</p>
+				{% endfor %}
+				</div>
+			</div> 
+			{% endif %}
+			</div>
 
 			<div class="inputs">
 				<label for="username">Nombre de usuario</label>

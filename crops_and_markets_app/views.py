@@ -33,7 +33,8 @@ def login(request):
 		if user is not None and user.is_active:
 			auth.login(request, user)
 			return redirect('home')
-		# else:
+		else:
+			messages.error(request, "Nombre de usuario o contraseña incorrecto.")
 			# print("invalid user/password combination.")
 
 	return render_to_response("login.html", locals(), context_instance=RequestContext(request))
