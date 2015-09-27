@@ -63,6 +63,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th><!-- sale || reservation --></th>
 								<th>Fecha</th>
 								<th>Volúmen Total</th>
 								<th>Variedades</th>
@@ -73,6 +74,13 @@
 						<tbody class="list">
 							{% for sale in sales %}
 							<tr>
+								<td class="reservation">
+									{% if sale.reservation %}
+										<label style="color: blue">(Reserva)</label>
+									{% else %}
+										<label style="color: green">(Venta)</label>
+									{% endif %}
+								</td>
 								<td class="date">{{ sale.date }}</td>
 								<td class="volume">{{ sale.total_volume }} [ton]</td>
 								<td class="variety">

@@ -168,14 +168,3 @@ class SaleDetailForm(forms.Form):
 		model = SaleDetail
 
 SaleDetailFormSet = formset_factory(SaleDetailForm, min_num=1, extra=0, validate_min=True)
-
-
-class ReserveForm(forms.Form):
-#	day = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}))#initial=datetime.date.today)
-	price = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
-	variety = forms.ModelChoiceField(queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	volume = forms.IntegerField(widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
-	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) #to add a placeholder, place this into Textarea() > attrs={'placeholder': u'Observaciones'}
-
-	class Meta:
-		model = Reserve

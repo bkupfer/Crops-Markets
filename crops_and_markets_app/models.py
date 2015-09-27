@@ -185,6 +185,7 @@ class Sale(models.Model):
 	client = models.ForeignKey('Client')
 	date = models.DateField()
 	observations = models.TextField(blank=True, null=True)
+	reservation = models.BooleanField()
 
 
 class SaleDetail(models.Model):
@@ -194,21 +195,8 @@ class SaleDetail(models.Model):
 	variety = models.ForeignKey('PotatoVariety')
 
 
-class Reserve(models.Model):
-	timestamp = models.DateTimeField(auto_now_add=True)
-	client = models.ForeignKey('Client')
-	date = models.DateField()
-	reserve_date = models.DateField()
-	price = models.IntegerField()
-	variety = models.ForeignKey('PotatoVariety')
-	volume = models.IntegerField()
-	observations = models.TextField(blank=True, null=True)
-	# user
-
-
 class TypeOfClient(models.Model):
 	type = models.CharField(max_length=10)
 
 	def __str__(self):
 		return self.type
-

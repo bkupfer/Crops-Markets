@@ -11,7 +11,7 @@ from forms import *
 # Neutral pages
 @login_required
 def about(request):
-	return render_to_response("about.html", locals(), context_instance=RequestContext(request))
+	return render_to_response("about.html", [], context_instance=RequestContext(request))
 
 
 def access_denied(request):
@@ -122,42 +122,6 @@ def add_crop(request):
 	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 
 
-# @login_required
-# def add_owner(request):
-# 	owner_form = CropOwnerForm(request.POST or None)
-# 	company_form = CompanyCropFrom(request.POST or None)
-
-# 	if request.method == 'POST':
-# 		if owner_form.is_valid() and company_form.is_valid():
-# 			# company information
-# 			# excisting company
-# 			company = company_form.cleaned_data['excisting_company']
-# 			if company is None:
-# 				# new company
-# 				company_name = company_form.cleaned_data['name']
-# 				company_rut = company_form.cleaned_data['rut']
-
-# 				company = CompanyCrop(name=company_name, rut=company_rut)
-# 				company.save()
-
-# 			first_name = owner_form.cleaned_data['first_name']
-# 			last_name = owner_form.cleaned_data['last_name']
-# 			number_1 = owner_form.cleaned_data['contact_number_1']
-# 			number_2 = owner_form.cleaned_data['contact_number_2']
-# 			email = owner_form.cleaned_data['email']
-# 			position = owner_form.cleaned_data['position']
-# 			obs = owner_form.cleaned_data['observations']
-
-# 			new_owner = CropOwner(company=company, first_name=first_name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
-# 				email=email, position=position, observations=obs)
-# 			new_owner.save()
-
-# 			# all done -- success
-# 			messages.success(request, 'Propietario agregado exitosamente.')
-
-# 	return render_to_response("crops/add_owner.html", locals(), context_instance=RequestContext(request))
-
-
 @login_required
 def crops(request):
 	return render_to_response("crops/crops.html", locals(), context_instance=RequestContext(request))
@@ -260,15 +224,13 @@ def add_sale(request):
 			date = sale_form.cleaned_data['date']
 			obs = sale_form.cleaned_data['observations'].strip(' \t\n\r')
 			
-			new_sale = Sale(user=user, client=Client.objects.get(pk=client_id), date=date, observations=obs)
+			new_sale = Sale(user=user, client=Client.objects.get(pk=client_id), reservation=False, date=date, observations=obs)
 			new_sale.save()
 
-			print sale_detail_formset
 			for sale_detail in sale_detail_formset:
 				price = sale_detail.cleaned_data['price']
 				volume = sale_detail.cleaned_data['volume']
 				variety = sale_detail.cleaned_data['variety']
-				print variety
 
 				sdetail = SaleDetail(sale=new_sale, price=price, volume=volume, variety=variety)
 				sdetail.save()
@@ -276,15 +238,43 @@ def add_sale(request):
 			# success
 			messages.success(request, 'Venta de agregada con éxtio.')
 		else:
-			messages.error(request, 'Error en el formulario')
+			messages.error(request, 'Error en el formulario.')
 
 	return render_to_response("markets/add_sale.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
 def add_reservation(request):
+	reservation_form = SaleForm(request.POST or None)
+	reservation_detail_formset = SaleDetailFormSet(request.POST or None, prefix="form")
+
 	if request.method == 'GET':
-		id = request.GET['id']
+		client_id = request.GET['id']
+		client = Client.objects.get(pk=client_id)
+
+	if request.method == 'POST':
+		client_id = request.GET['id']
+		if reservation_form.is_valid() and reservation_detail_formset.is_valid():
+			user = request.user
+			date = reservation_form.cleaned_data['date']
+			obs = reservation_form.cleaned_data['observations'].strip(' \t\n\r')
+			
+			new_reservation = Sale(user=user, client=Client.objects.get(pk=client_id), reservation=True, date=date, observations=obs)
+			new_reservation.save()
+
+			for reservation_detail in reservation_detail_formset:
+				price = reservation_detail.cleaned_data['price']
+				volume = reservation_detail.cleaned_data['volume']
+				variety = reservation_detail.cleaned_data['variety']
+
+				rdetail = SaleDetail(sale=new_reservation, price=price, volume=volume, variety=variety)
+				rdetail.save()
+
+			# success
+			messages.success(request, 'Reserva de agregada con éxtio.')
+		else:
+			messages.error(request, 'Error en el formulario.')
+
 	return render_to_response("markets/add_reservation.html", locals(), context_instance=RequestContext(request))
 
 
@@ -302,7 +292,7 @@ def market_info(request):
 		#comercial_info = ComercialInformation.objects.filter(client = id)
 
 		if client.type_of_client.type == "Actual":
-			sales = Sale.objects.filter(client=client)
+			sales = Sale.objects.filter(client=client, reservation=False)
 
 			n = len(sales)
 			if n != 0:
