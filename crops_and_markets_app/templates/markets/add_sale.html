@@ -6,7 +6,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
 	<meta name="author" content="bkupfer">
 	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
@@ -35,7 +36,7 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 
-				<h2>Registrar venta {{ client }}</h2>
+				<h2>Registrar <span id="title-reservation">reserva</span><span id="title-separation"> o </span><span id="title-sale">venta</span> para {{ client }}.</h2>
 
 				<!-- For message to user -->
 				{% if messages %}
@@ -54,6 +55,20 @@
 					<!-- Add new client form -->
 					<form action="" method="POST"> {% csrf_token %}
 
+						<!-- What are you? -->
+						<div class="row">
+							<div class="col-sm-4">
+								<label class="control-label"><h4>Tipo de transaccion <label style="color:red">*</label></h4></label>
+							</div>
+							<div class="col-sm-8">
+								{{ sale_form.type_of_transaction }}
+							</div>
+							<div class="col-sm-12">
+								{% if sale_form.type_of_client.errors %}<ul><li><label style="color:red">Este campo es muy obligatorio.</label></li></ui>{% endif %}
+							</div>
+						</div>
+
+						<!-- Dates -->
 						<div class="row">
 							<h3>Fecha de venta</h3>
 							<div class="col-sm-12">
@@ -66,7 +81,6 @@
 							</div>
 							{% if sale_form.date.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 						</div>
-
 
 						<!-- Sale information -->
 						<div class="row">
@@ -99,10 +113,7 @@
 								<br>
 							</div>
 							{% endfor %}
-							
 						</div>
-
-
 
 						<!-- Observations -->
 						<div class="row">
@@ -117,7 +128,7 @@
 						<div class="row">
 							<div class="col-sm-4">
 								<input type="submit" value="Agregar" class="btn btn-default">
-								<a href="market_info?id={{ client_id }}" class="btn btn-default">Cancelar</a>
+								<a href="sales_history?id={{ client_id }}" class="btn btn-default">Cancelar</a>
 							</div>
 							<div class="col-sm-8">
 								<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
@@ -138,16 +149,38 @@
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
 
-	<!-- serving from external server
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
 	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-	-->
+	<!-- serving from external server
 	<link rel="stylesheet" href="static/css/jquery-ui.css">
 	<script src="static/js/jquery-ui.js"></script>
+	-->
 	
 	<script>
 	$(document).ready(function() {
 		$('.datepicker').datepicker();
+	});
+
+	$("#id_type_of_transaction").change(function(){
+		var reservation = $("#title-reservation");
+		var separator = $("#title-separation");
+		var sale = $("#title-sale");
+		switch( $(this).val() ){
+			case "1": // reserva 
+				reservation.fadeIn(0);
+				sale.fadeOut(0);
+				separator.fadeOut(0);
+				break;
+			case "2": // venta
+				reservation.fadeOut(0);
+				separator.fadeOut(0);
+				sale.fadeIn(0);
+				break;
+			default:
+				sale.fadeIn(0);
+				separator.fadeIn(0);
+				reservation.fadeIn(0);
+		}
 	});
 	</script>
 
@@ -157,5 +190,6 @@
 		$('#sale_detail_form').formset();
 	})
 	</script>
+
 </body>
 </html>

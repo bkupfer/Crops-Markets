@@ -5,7 +5,7 @@ from django.forms.formsets import formset_factory
 from crops_and_markets_app.models import *
 
 from functools import partial
-DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+DateInput = partial(forms.DateInput, {'class': 'datepicker', 'placeholder': u'mm/dd/aaaa'})
 
 # ######## #
 # Crops
@@ -120,15 +120,6 @@ class ClientForm(forms.Form):
 		# exclude = ('campo_a', 'campo_b', 'campo_c')
 
 
-#class ComercialInformationForm(forms.Form):
-#	#volume = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-#	#varieties = forms.CharField(max_length=256, required=False, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-#	#price (...)
-
-#	class Meta:
-#		model = ComercialInformation
-
-
 class CompanyMarketForm(forms.Form):
 	excisting_company = forms.ModelChoiceField(queryset=CompanyMarket.objects.all(), empty_label="Compañía", required=False, widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	# new company
@@ -151,9 +142,10 @@ class GeoMarkerForm(forms.Form):
 		model = GeoMarker
 
 
-class SaleForm(forms.Form):
+class TransactionForm(forms.Form):
+	type_of_transaction = forms.ModelChoiceField(queryset=TypeOfTransaction.objects.all(), empty_label="venta | reserva", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	date = forms.DateField(widget=DateInput())
-	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) #to add a placeholder, place this into Textarea() > attrs={'placeholder': u'Observaciones'}
+	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"}))
 
 	class Meta: 
 		model = Sale

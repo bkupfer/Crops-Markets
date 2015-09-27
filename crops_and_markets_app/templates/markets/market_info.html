@@ -6,7 +6,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
 	<meta name="author" content="bkupfer">
 	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
@@ -139,6 +140,7 @@
 
 					<h3>Información de empresa</h3>
 					<table class="table table-hover">
+					{% if client.company %}
 						<tr>
 							<td class="col-sm-4">Compañía</td>
 							<td class="col-sm-8">{{ client.company }}</td>
@@ -151,6 +153,9 @@
 							<td>Cargo</td>
 							<td>{{ client.position }}</td>
 						</tr>
+					{% else %}
+						<tr><td>Persona natural</td></tr>
+					{% endif %}
 					</table>
 
 					{% if client.type_of_client.type == "Actual" %}
@@ -177,10 +182,9 @@
 							</td>
 						</tr>
 					</table>
-					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar venta</a>
-					<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction">Registrar reserva</a>
-					<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial ventas</a>
-					<a href="reservation_history?id={{ client.id }}" class="btn btn-default" id="view-historic-reservations" disabled="true">Ver historial reservas</a>
+					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
+					<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction" disabled="">Registrar reserva</a>
+					<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial</a>
 					{% endif %}
 
 					<h3>Información geográfica</h3>
@@ -201,9 +205,14 @@
 							<td>Dirección</td>
 							<td>{{ geo_info.address }}</td>
 						</tr>
+						<tr id="latlng" style="display: none">
+							<td>(lat, lng)</td>
+							<td>({{ geo_info.latitude }}, {{ geo_info.longitude }})</td>
+						</tr>
 					</table>
 					<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
 					<button class="btn btn-default" id="mapButton" onclick="displayMap()">Mostrar mapa</button>
+					<button class="btn btn-default" id="latlng-btn">Mostrar latitud-longitud</button>
 
 					<h3>Observaciones</h3>
 					<div style="border: 1px solid #CCCCCC">
@@ -221,6 +230,14 @@
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
+
+	<script>
+	$("#latlng-btn").on('click', function(){
+		var button = $("#latlng-btn");
+		button.text(button.text() == "Mostrar latitud-longitud" ? "Ocultar latitud-longitud" : "Mostrar latitud-longitud");
+		$("#latlng").toggle(200);
+	});
+	</script>
 
 </body>
 </html>

@@ -6,7 +6,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
 	<meta name="author" content="bkupfer">
 	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
@@ -59,6 +60,7 @@
 				<div id="clients">
 					<input class="search" placeholder="Buscar"/>
 					<button class="btn btn-default sort" data-sort="date">Ordenar por fecha</button>
+					<button class="btn btn-default" id="hideReservationsBtn">Ocultar reservas</button>
 
 					<table class="table table-hover">
 						<thead>
@@ -73,9 +75,9 @@
 						</thead>
 						<tbody class="list">
 							{% for sale in sales %}
-							<tr>
-								<td class="reservation">
-									{% if sale.reservation %}
+							<tr class="{% if sale.type_of_transaction.pk = 1 %}reservation{% else %}actual{% endif %}">
+								<td>
+									{% if sale.type_of_transaction.pk == 1 %}
 										<label style="color: blue">(Reserva)</label>
 									{% else %}
 										<label style="color: green">(Venta)</label>
@@ -95,6 +97,10 @@
 							{% endfor %}
 						</tbody>
 					</table>
+
+					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
+					<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction" disabled="">Registrar reserva</a>
+
 				</div>
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 				<a href="market_info?id={{ client.pk }}" class="btn btn-default" id="return">Volver</a>
@@ -114,6 +120,15 @@
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
+
+	<script>
+	$("#hideReservationsBtn").on('click', function(){
+
+	var button = $("#hideReservationsBtn");
+	button.text(button.text() == "Ocultar reservas" ? "Mostrar latitud-longitud" : "Ocultar reservas");
+	$(".reservation").toggle(100);
+	})
+	</script>
 
 </body>
 </html>

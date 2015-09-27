@@ -24,7 +24,7 @@ urlpatterns = patterns('',
 
 	# markets
 	url(r'^add_market', 'crops_and_markets_app.views.add_market', name='add_market'),
-	url(r'^add_reservation', 'crops_and_markets_app.views.add_reservation', name='add_reservation'),
+	#url(r'^add_reservation', 'crops_and_markets_app.views.add_reservation', name='add_reservation'),
 	url(r'^add_sale', 'crops_and_markets_app.views.add_sale', name='add_sale'),
 	url(r'^market_info', 'crops_and_markets_app.views.market_info', name='market_info'),
 	url(r'^market_map', 'crops_and_markets_app.views.market_map', name='market_map'),

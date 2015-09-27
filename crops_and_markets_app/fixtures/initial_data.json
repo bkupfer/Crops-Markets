@@ -14,6 +14,20 @@
 		"pk": 2
 	},
 
+	{
+		"fields": {
+			"type": "Reserva"
+		},
+		"model": "crops_and_markets_app.TypeOfTransaction",
+		"pk": 1
+	},
+	{
+		"fields": {
+			"type": "Venta"
+		},
+		"model": "crops_and_markets_app.TypeOfTransaction",
+		"pk": 2
+	},
 
 	{
 		"fields": {

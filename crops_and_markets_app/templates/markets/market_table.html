@@ -6,7 +6,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
 	<meta name="author" content="bkupfer">
 	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
@@ -52,8 +53,7 @@
 
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
-
-				<h2>Tabla de clientes</h2>
+				<h2>Tabla de {% if potential_table %} potenciales {% endif %}clientes</h2>
 
 				<h3>Información de contacto</h3>
 
@@ -70,8 +70,7 @@
 								<th>Cliente</th>
 								<th>Compañía</th>
 								<th>Región</th>
-								<th>Tamaño</th>
-								<!--<th>Número contacto</th>-->
+								{% if not potential_table %}<th>Tamaño</th>{% endif %}
 								<th><!-- view detail --></th>
 							</tr>
 						</thead>
@@ -80,20 +79,22 @@
 							<tr>
 								<td class="client">{{ client }}</td>
 								<td class="company">
-									{{ client.company }}
+									{% if client.company %}
+										{{ client.company }}
+									{% else %}
+										Persona natural
+									{% endif %}
 								</td>
 								<td class="region">
 									{% for gm in client.geomarker_set.all %}
 									{{ gm.region }} 
 									{% endfor %}
 								</td>
-								<td class="size"> -- -- -- <!-- tamanno --></td>
-								<!--<td>{% if client.contact_number_1 %}
-										<a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
-									{% else %}-- -- --{% endif %}
-								</td>-->
+								{% if not potential_table %}<td class="size"> -- -- -- <!-- tamanno --></td>{% endif %}
 								<td><a href="market_info?id={{ client.pk }}">ver detalle</a></td>
 							</tr>
+							{% empty %}
+							<tr><td>No hay clientes en la base de datos.</td></tr>
 							{% endfor %}
 						</tbody>
 					</table>

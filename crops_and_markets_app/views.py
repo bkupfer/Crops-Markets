@@ -181,9 +181,9 @@ def add_market(request):
 			if company is None:
 				company_name = company_form.cleaned_data['name'].title()
 				company_rut = company_form.cleaned_data['rut']
-
-				company = CompanyMarket(name=company_name, rut=company_rut)
-				company.save()
+				if company_name != "":
+					company = CompanyMarket(name=company_name, rut=company_rut)
+					company.save()
 
 			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, contact_number_1=number_1, 
 				contact_number_2=number_2, email=email, position=position, observations=obs, company=company)
@@ -210,7 +210,7 @@ def add_market(request):
 
 @login_required
 def add_sale(request):
-	sale_form = SaleForm(request.POST or None)
+	sale_form = TransactionForm(request.POST or None)
 	sale_detail_formset = SaleDetailFormSet(request.POST or None, prefix="form")
 
 	if request.method == 'GET':
@@ -222,9 +222,10 @@ def add_sale(request):
 		if sale_form.is_valid() and sale_detail_formset.is_valid():
 			user = request.user
 			date = sale_form.cleaned_data['date']
+			type_of_transaction = sale_form.cleaned_data['type_of_transaction']
 			obs = sale_form.cleaned_data['observations'].strip(' \t\n\r')
 			
-			new_sale = Sale(user=user, client=Client.objects.get(pk=client_id), reservation=False, date=date, observations=obs)
+			new_sale = Sale(user=user, client=Client.objects.get(pk=client_id), type_of_transaction=type_of_transaction, date=date, observations=obs)
 			new_sale.save()
 
 			for sale_detail in sale_detail_formset:
@@ -292,7 +293,7 @@ def market_info(request):
 		#comercial_info = ComercialInformation.objects.filter(client = id)
 
 		if client.type_of_client.type == "Actual":
-			sales = Sale.objects.filter(client=client, reservation=False)
+			sales = Sale.objects.filter(client=client, type_of_transaction=2) # ventas
 
 			n = len(sales)
 			if n != 0:
@@ -332,13 +333,18 @@ def market_map(request):
 @login_required
 def market_table(request):
 	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
+	#total_sales = 0
+	#for client in clients:
+	#	client_sales = client.sale_set.filter(type_of_transaction=TypeOfTransaction.objects.get(type="Venta"))
+
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
 def market_table_potential(request):
+	potential_table = True
 	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Potencial"))
-	return render_to_response("markets/market_table_potential.html", locals(), context_instance=RequestContext(request))
+	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
@@ -370,6 +376,7 @@ def sales_history(request):
 			
 			for var in sale.varieties:
 				sale.varieties[var] = "{0:.2f}".format(100.0 * sale.varieties[var] / sale.total_volume)
+
 
 	return render_to_response("markets/sales_history.html", locals(), context_instance=RequestContext(request))
 

@@ -117,8 +117,6 @@ class Client(models.Model):
 	# contact information
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
-	#phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-	#contact_number_1 = models.CharField(blank=True, null=True, validators=[phone_regex], blank=True)
 	contact_number_1 = models.CharField(max_length=16, blank=True, null=True)
 	contact_number_2 = models.CharField(max_length=16, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
@@ -183,9 +181,10 @@ class Sale(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	user = models.ForeignKey(User)
 	client = models.ForeignKey('Client')
+	#type_of_transaction = models.BooleanField() # {1: Reserva, 2: Venta}
+	type_of_transaction = models.ForeignKey('TypeOfTransaction')
 	date = models.DateField()
 	observations = models.TextField(blank=True, null=True)
-	reservation = models.BooleanField()
 
 
 class SaleDetail(models.Model):
@@ -196,7 +195,14 @@ class SaleDetail(models.Model):
 
 
 class TypeOfClient(models.Model):
-	type = models.CharField(max_length=10)
+	type = models.CharField(max_length=8)
+
+	def __str__(self):
+		return self.type
+
+
+class TypeOfTransaction(models.Model):
+	type = models.CharField(max_length=8)
 
 	def __str__(self):
 		return self.type
