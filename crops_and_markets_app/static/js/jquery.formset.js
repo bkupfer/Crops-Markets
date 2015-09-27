@@ -160,7 +160,7 @@
 		formTemplate: null,              // The jQuery selection cloned to generate new form instances
 		addText: 'agregar otro',          // Text for the add link
 		deleteText: 'borrar',            // Text for the delete link
-		addCssClass: 'add-row',          // CSS class applied to the add link
+		addCssClass: 'add-row btn btn-default',          // CSS class applied to the add link
 		deleteCssClass: 'delete-row',    // CSS class applied to the delete link
 		formCssClass: 'dynamic-form',    // CSS class applied to each form in a formset
 		extraClasses: [],                // Additional CSS classes, which will be applied to each form in turn

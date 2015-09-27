@@ -59,30 +59,30 @@
 				<div id="clients">
 					<input class="search" placeholder="Buscar"/>
 					<button class="btn btn-default sort" data-sort="date">Ordenar por fecha</button>
-					<button class="btn btn-default sort" data-sort="variety">Ordenar por variedades</button>
-					<button class="btn btn-default sort" data-sort="price">Ordenar por precio</button>
 
 					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Fecha</th>
+								<th>Volúmen Total</th>
 								<th>Variedades</th>
-								<th>Volúmen</th>
-								<th>Precio</th>
-								<th>Observaciones</th>
+								<!--<th>Precio</th>-->
+								<th>Detalle</th>
 							</tr>
 						</thead>
 						<tbody class="list">
 							{% for sale in sales %}
 							<tr>
 								<td class="date">{{ sale.date }}</td>
-								<td class="variety">{{ sale.variety }}</td>
-								<td class="volume">{{ sale.volume }}</td>
-								<td class="price">$ {{ sale.price }}</td>
-								<td>{% if sale.observations %}
-									<a href="sales_detail?id={{ sale.pk }}">obs</a>
-									{% endif %}
+								<td class="volume">{{ sale.total_volume }} [ton]</td>
+								<td class="variety">
+									{% for key, values in sale.varieties.items %}
+										{{ key }}
+										({{ values }}%), 
+									{% endfor %}
 								</td>
+								<!--<td class="price">$ {{ sale.price }}</td>-->
+								<td><a href="sales_detail?id={{ sale.pk }}">ver detalle</a></td>
 							</tr>
 							{% endfor %}
 						</tbody>

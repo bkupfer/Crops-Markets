@@ -34,11 +34,44 @@
 
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
+				<div class="row">
+					<h2>Detalle venta #{{ sale.pk }}</h2>
 
-				<h3>Observaciones</h3>
+					<h3>Información de venta</h3>
+					<table class="table table-hover">
+						<tr>
+							<td class="col-sm-4">Fecha de la venta</td>
+							<td class="col-sm-8">{{ sale.date }}</td>
+						</tr>
+						<tr>
+							<td>Usuario</td>
+							<td>{{ sale.user }}</td>
+						</tr>
+					</table>
 
-				<div class="row" style="margin-left: 3%; margin-top: 3%;">
-					<p style="white-space: pre-wrap">{{ sale.observations }}</p>
+					{% for detail in sale_details %}
+					<table class="table table-hover">
+						<tr>
+							<td class="col-sm-4">Variedad</td>
+							<td class="col-sm-8">{{ detail.variety }}</td>
+						</tr>
+						<tr>
+							<td>Volumen</td>
+							<td>{{ detail.volume }} [ton]</td>
+						</tr>
+						<tr>
+							<td>Precio</td>
+							<td>$ {{ detail.price }}</td>
+						</tr>
+					</table>
+					{% endfor %}
+
+
+					<h3>Observaciones</h3>
+					<div style="border: 1px solid #CCCCCC">
+						<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ sale.observations }}</p>
+					</div>
+
 				</div>
 
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>

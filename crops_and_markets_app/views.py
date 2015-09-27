@@ -356,6 +356,7 @@ def sales_detail(request):
 	if request.method == 'GET':
 		sale_id = request.GET['id']
 		sale = Sale.objects.get(pk=sale_id)
+		sale_details = sale.saledetail_set.all()
 		previous_id = sale.client.pk
 	return render_to_response("markets/sales_detail.html", locals(), context_instance=RequestContext(request))
 
@@ -366,6 +367,19 @@ def sales_history(request):
 		id = request.GET['id']
 		client = Client.objects.get(pk = id)
 		sales = Sale.objects.filter(client = id)
+
+		for sale in sales:
+			sale.total_volume = 0
+			sale.varieties = {}
+			for sd in sale.saledetail_set.all():
+				sale.total_volume += sd.volume
+				if sd.variety not in sale.varieties:
+					sale.varieties[sd.variety] = sd.volume
+				else:
+					sale.varieties[sd.variety] += sd.volume
+			
+			for var in sale.varieties:
+				sale.varieties[var] = "{0:.2f}".format(100.0 * sale.varieties[var] / sale.total_volume)
 
 	return render_to_response("markets/sales_history.html", locals(), context_instance=RequestContext(request))
 

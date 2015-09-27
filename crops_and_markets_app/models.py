@@ -91,8 +91,8 @@ class CropOwner(models.Model):
 	# crop_owner.crop_set.all() -- this should give all the crops for this owner.
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
-	contact_number_1 = models.CharField(max_length=12, blank=True, null=True)
-	contact_number_2 = models.CharField(max_length=12, blank=True, null=True)
+	contact_number_1 = models.CharField(max_length=16, blank=True, null=True)
+	contact_number_2 = models.CharField(max_length=16, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
 	position = models.CharField(max_length=100, blank=True, null=True)
 
@@ -119,8 +119,8 @@ class Client(models.Model):
 	last_name = models.CharField(max_length=100)
 	#phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 	#contact_number_1 = models.CharField(blank=True, null=True, validators=[phone_regex], blank=True)
-	contact_number_1 = models.CharField(max_length=12, blank=True, null=True)
-	contact_number_2 = models.CharField(max_length=12, blank=True, null=True)
+	contact_number_1 = models.CharField(max_length=16, blank=True, null=True)
+	contact_number_2 = models.CharField(max_length=16, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
 	position = models.CharField(max_length=100, blank=True, null=True)
 	observations = models.TextField(blank=True, null=True)

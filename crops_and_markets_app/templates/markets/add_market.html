@@ -276,11 +276,11 @@
 		for (var i=0; i<products.length; i++)
 			sum += products[i];
 		var rem = 11 - (sum % 11);
+		if (rem == verifyingDigit)
+			return true;
 		if (rem == 0 && verifyingDigit == '0')
 			return true;
 		if (rem == 10 && verifyingDigit == 'k')
-			return true;
-		if (rem == verifyingDigit)
 			return true;
 		return false;
 	}
