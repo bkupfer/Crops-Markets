@@ -66,6 +66,12 @@
 						position: results[0].geometry.location, 
 						map: map
 					});
+
+					{% if crop.water and crop.soil and crop.topography and crop.temperatures %}
+						marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+					{% else %}
+						marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+					{% endif %}
 				}
 				else {
 					alert('Geocode was not succesful for the following reason:' + status); 

@@ -44,6 +44,11 @@ def login(request):
 #	auth.logout(request)
 #	return redirect(login)
 
+# Semillas SZ - HQ information
+#semillas_sz.address = "V-25, Los Lagos Region, Chile"
+#semillas_sz.lat = -41.11949
+#semillas_sz.lng = -73.05709
+
 
 ############
 # Crops
