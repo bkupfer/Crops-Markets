@@ -4,23 +4,135 @@ var regions = [
 		name: "Seleccione una region"
 	},
 	{
-		name: "Arica y Parinacota", 
-		provinces: [{name: "Arica", communes: ["Arica", "Camarones"]},
-					{name: "Parinacota", communes: ["Putre", "General Lagos"]}]
+		name: "ARICA Y PARINACOTA",
+		provinces: [
+			{name: "Arica",			 communes: ["Arica", "Camarones"]},
+			{name: "Parinacota",	 communes: ["Putre", "General Lagos"]}
+		]
 	},
 	{
-		name: "Tarapacá",
-		provinces: [{name: "Iquique", communes: ["Iquique", "Alto Hospicio"]},
-					{name: "Tamarugal", communes: ["Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]}]
+		name: "TARAPACÁ",
+		provinces: [
+			{name: "Iquique",		 communes: ["Iquique", "Alto Hospicio"]},
+			{name: "Tamarugal",		 communes: ["Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]}
+		]
 	},
 	{
-		name: "Antofagasta",
-		provinces: [{name: "Antofagasta", communes: ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal"]},
-					{name: "El Loa", communes: ["Calama", "Ollagüe", "San Pedro de Atacama"]},
-					{name: "Tocopilla", communes: ["Tocopilla", "María Elena"]}]
+		name: "ANTOFAGASTA",
+		provinces: [
+			{name: "Antofagasta",	 communes: ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal"]},
+			{name: "El Loa",		 communes: ["Calama", "Ollagüe", "San Pedro de Atacama"]},
+			{name: "Tocopilla",		 communes: ["Tocopilla", "María Elena"]}
+		]
+	},
+	{
+		name: "ATACAMA",
+		provinces: [
+			{name: "Copiapó",		 communes: ["Copiapó", "Caldera", "Tierra Amarilla"]},
+			{name: "Chañaral",		 communes: ["Chañaral", "Diego de Almagro"]},
+			{name: "Huasco",		 communes: ["Vallenar", "Alto del Carmen", "Freirina", "Huasco"]}
+		]
+	},
+	{
+		name: "COQUIMBO",
+		provinces: [
+			{name: "Elqui",			 communes: ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña"]},
+			{name: "Choapa",		 communes: ["Illapel", "Canela", "Los Vilos", "Salamanca"]},
+			{name: "Limarí",		 communes: ["Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"]}
+		]
+	},
+	{
+		name: "VALPARAÍSO",
+		provinces: [
+			{name: "Valparaíso",	 communes: ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar"]},
+			{name: "Isla de Pascua", communes: ["Isla de Pascua"]},
+			{name: "Los Andes",		 communes: ["Los Andes", "Calle Larga", "Rinconada", "San Esteban"]},
+			{name: "Petorca",		 communes: ["La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar"]},
+			{name: "Quillota",		 communes: ["Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales"]},
+			{name: "San Antonio",	 communes: ["San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo"]},
+			{name: "San Felipe de Aconcagua",	 communes: ["San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María"]},
+			{name: "Marga Marga",	 communes: ["Limache", "Quilpué", "Villa Alemana", "Olmué"]}
+		]
+	},
+	{
+		name: "DEL LIBERTADOR GRAL. BERNARDO O'HIGGINS",
+		provinces: [
+			{name: "Cachapoal",		 communes: ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente"]},
+			{name: "Cardenal Caro",	 communes: ["Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones"]},
+			{name: "Colchagua",		 communes: ["San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"]}
+		]
+	},
+	{
+		name: "DEL MAULE",
+		provinces: [
+			{name: "Talca",			 communes: ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael"]},
+			{name: "Cauquenes",		 communes: ["Cauquenes", "Chanco", "Pelluhue", ]},
+			{name: "Curicó",		 communes: ["Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén"]},
+			{name: "Linares",		 communes: ["Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas"]}
+		]
+	},
+	{
+		name: "DEL BIOBÍO",
+		provinces: [
+			{name: "Concepción",	 communes: ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén"]},
+			{name: "Arauco",		 communes: ["Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Alamos", "Tirúa"]},
+			{name: "Biobío",		 communes: ["Los Angeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío"]},
+			{name: "Ñuble",			 communes: ["Chillán", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "Chillán Viejo", "El Carmen", "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ránquil", "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay"]}
+		]
+	},
+	{
+		name: "DE LA ARAUCANÍA",
+		provinces: [
+			{name: "Cautín",		 communes: ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol"]},
+			{name: "Malleco",		 communes: ["Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"]}
+		]
+	},
+	{
+		name: "DE LOS RÍOS",
+		provinces: [
+			{name: "Valdivia",		 communes: ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli"]},
+			{name: "Ranco",			 communes: ["La Unión", "Futrono", "Lago Ranco", "Río Bueno"]}
+		]
+	},
+	{
+		name: "DE LOS LAGOS",
+		provinces: [
+			{name: "Llanquihue",	 communes: ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas"]},
+			{name: "Chiloé",		 communes: ["Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao"]},
+			{name: "Osorno",		 communes: ["Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo"]},
+			{name: "Palena",		 communes: ["Chaitén", "Futaleufú", "Hualaihué", "Palena"]}
+		]
+	},
+	{
+		name: "AISÉN DEL GRAL. CARLOS IBAÑEZ DEL CAMPO",
+		provinces: [
+			{name: "Coihaique",		 communes: ["Coihaique", "Lago Verde"]},
+			{name: "Aisén",			 communes: ["Aisén", "Cisnes", "Guaitecas"]},
+			{name: "Capitán Prat",	 communes: ["Cochrane", "O'Higgins", "Tortel"]},
+			{name: "General Carrera",communes: ["Chile Chico", "Río Ibáñez"]}
+		]
+	},
+	{
+		name: "MAGALLANES Y DE LA ANTÁRTICA CHILENA",
+		provinces: [
+			{name: "Magallanes",		 communes: ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio"]},
+			{name: "Antártica Chilena",	 communes: ["Cabo de Hornos (Ex-Navarino)", "Antártica"]},
+			{name: "Tierra del Fuego",	 communes: ["Porvenir", "Primavera", "Timaukel"]},
+			{name: "Ultima Esperanza",	 communes: ["Natales", "Torres del Paine"]}
+		]
+	},
+	{
+		name: "REGIÓN METROPOLITANA DE SANTIAGO",
+		provinces: [
+			{name: "Santiago",		 communes: ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura"]},
+			{name: "Cordillera",	 communes: ["Puente Alto", "Pirque", "San José de Maipo"]},
+			{name: "Chacabuco",		 communes: ["Colina", "Lampa", "Tiltil"]},
+			{name: "Maipo",			 communes: ["San Bernardo", "Buin", "Calera de Tango", "Paine", ]},
+			{name: "Melipilla",		 communes: ["Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro"]},
+			{name: "Talagante",		 communes: ["Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"]}
+		]
 	}
 ];
-
 
 
 $("#id_region").change( function(){
@@ -46,86 +158,3 @@ $("#id_province").change( function(){
 		communeSelector.options[i+1] = new Option( province.communes[i], province.communes[i] );
 	}
 });
-
-/*
-var chile = new Array[15];
-
-chile[0] = "";
-chile[1] = Region(
-	
-	)
-
-
-
-
-////////////////////////////////////
-
-var region_arr = new Array["ARICA Y PARINACOTA ", "TARAPACÁ ","TARAPACÁ ", "ANTOFAGASTA "]; 
-
-var s_a = new Array();
-s_a[0] = "Arica|Parinacota";
-s_a[1] = "Iquique|Tamarugal";
-s_a[2] = "Iquique|Alto Hospicio";
-s_a[3] = "Pozo Almonte";
-s_a[4] = "";
-s_a[5] = "";
-s_a[6] = "";
-s_a[7] = "";
-s_a[8] = "";
-s_a[9] = "";
-s_a[10] = "";
-s_a[11] = "";
-s_a[12] = "";
-s_a[13] = "";
-// s_a[] = "";
-// s_a[] = "";
-
-function print_region(region){
-
-}
-
-
-function print_province(province, selectedIntex){
-
-
-}
-
-
-function print_commune(commune, selectedIndex){
-
-}
-
-
-
-var country_arr = new Array("Afghanistan", "India", "USA", "Vietnam");
-
-var s_a = new Array();
-s_a[0]="";
-s_a[1]="Badakhshan|Badghis|Baghlan|Balkh|Bamian|Farah|Faryab|Ghazni|Ghowr|Helmand|Herat|Jowzjan|Kabol|Kandahar|Kapisa|Konar|Kondoz|Laghman|Lowgar|Nangarhar|Nimruz|Oruzgan|Paktia|Paktika|Parvan|Samangan|Sar-e Pol|Takhar|Vardak|Zabol";
-s_a[2]="Andhra Pradesh|Arunachal Pradesh|Assam|Bihar|Chhattisgarh|Goa|Gujarat|Haryana|Himachal Pradesh|Jammu and Kashmir|Jharkhand|Karnataka|Kerala|Madhya Pradesh|Maharashtra|Manipur|Meghalaya|Mizoram|Nagaland|Odisha(Orissa)|Punjab|Rajasthan|Sikkim|Tamil Nadu|Tripura|Uttar Pradesh|Uttarakhand|West Bengal";
-s_a[3]="Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|ansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming";
-
-s_a[4]="Ba Ria|Bạc Liêu|Bắc Giang|Bắc Ninh|Bảo Lộc|Biên Hòa|Bến Tre|Buôn Ma Thuột|Cà Mau|Cam Pha|Cao Lãnh|Đà Lạt|Điện Biên Phủ|Đông Hà|Đồng Hới|Hà Tĩnh|Hạ Long|Hải Dương|Hòa Bình|Hội An|Huế|Hưng Yên|Kon Tum|Lạng Sơn|Lào Cai|Long Xuyên|Móng Cái|Mỹ Tho|Nam Định|Ninh Bình|Nha Trang|Cam Ranh|Phan Rang-Tháp Chàm|Phan Thiết|Phủ Lý|Pleiku|Quảng Ngãi|Quy Nhơn|Rạch Giá|Sóc Trăng|Sơn La|Tam Kỳ|Tân An|Thái Bình|Thái Nguyên|Thanh Hóa|Trà Vinh|Tuy Hòa|Tuyen Quang|Uong Bi|Việt Trì|Vinh|Vĩnh Yên|Vĩnh Lon|Vũng Tàu|Yên Bái";
-
-function print_country(country){
-	//given the id of the <select> tag as function argument, it inserts <option> tags
-	var option_str = document.getElementById(country);
-	option_str.length=0;
-	option_str.options[0] = new Option('Select Country','');
-	option_str.selectedIndex = 0;
-	for (var i=0; i<country_arr.length; i++) {
-	option_str.options[option_str.length] = new Option(country_arr[i],country_arr[i]);
-	}
-}
-
-function print_state(state, selectedIndex){
-	var option_str = document.getElementById(state);
-	option_str.length=0;    // Fixed by Julian Woods
-	option_str.options[0] = new Option('Select State','');
-	option_str.selectedIndex = 0;
-	var state_arr = s_a[selectedIndex].split("|");
-	for (var i=0; i<state_arr.length; i++) {
-	option_str.options[option_str.length] = new Option(state_arr[i],state_arr[i]);
-	}
-}
-*/

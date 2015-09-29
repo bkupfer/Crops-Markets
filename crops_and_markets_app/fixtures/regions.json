@@ -1,0 +1,3307 @@
+[
+	{
+		"fields": {
+			"name": "ARICA Y PARINACOTA"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 1
+	},
+	{
+		"fields": {
+			"name": "Arica",
+			"region": 1
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 1
+	},
+	{
+		"fields": {
+			"name": "Arica",
+			"province": 1
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 1
+	},
+	{
+		"fields": {
+			"name": "Camarones",
+			"province": 1
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 2
+	},
+	{
+		"fields": {
+			"name": "Parinacota",
+			"region": 1
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 2
+	},
+	{
+		"fields": {
+			"name": "Putre",
+			"province": 2
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 3
+	},
+	{
+		"fields": {
+			"name": "General Lagos",
+			"province": 2
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 4
+	},
+	{
+		"fields": {
+			"name": "TARAPACÁ"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 2
+	},
+	{
+		"fields": {
+			"name": "Iquique",
+			"region": 2
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 3
+	},
+	{
+		"fields": {
+			"name": "Iquique",
+			"province": 3
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 5
+	},
+	{
+		"fields": {
+			"name": "Alto Hospicio",
+			"province": 3
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 6
+	},
+	{
+		"fields": {
+			"name": "Tamarugal",
+			"region": 2
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 4
+	},
+	{
+		"fields": {
+			"name": "Pozo Almonte",
+			"province": 4
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 7
+	},
+	{
+		"fields": {
+			"name": "Camiña",
+			"province": 4
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 8
+	},
+	{
+		"fields": {
+			"name": "Colchane",
+			"province": 4
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 9
+	},
+	{
+		"fields": {
+			"name": "Huara",
+			"province": 4
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 10
+	},
+	{
+		"fields": {
+			"name": "Pica",
+			"province": 4
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 11
+	},
+	{
+		"fields": {
+			"name": "ANTOFAGASTA"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 3
+	},
+	{
+		"fields": {
+			"name": "Antofagasta",
+			"region": 3
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 5
+	},
+	{
+		"fields": {
+			"name": "Antofagasta",
+			"province": 5
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 12
+	},
+	{
+		"fields": {
+			"name": "Mejillones",
+			"province": 5
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 13
+	},
+	{
+		"fields": {
+			"name": "Sierra Gorda",
+			"province": 5
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 14
+	},
+	{
+		"fields": {
+			"name": "Taltal",
+			"province": 5
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 15
+	},
+	{
+		"fields": {
+			"name": "El Loa",
+			"region": 3
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 6
+	},
+	{
+		"fields": {
+			"name": "Calama",
+			"province": 6
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 16
+	},
+	{
+		"fields": {
+			"name": "Ollagüe",
+			"province": 6
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 17
+	},
+	{
+		"fields": {
+			"name": "San Pedro de Atacama",
+			"province": 6
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 18
+	},
+	{
+		"fields": {
+			"name": "Tocopilla",
+			"region": 3
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 7
+	},
+	{
+		"fields": {
+			"name": "Tocopilla",
+			"province": 7
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 19
+	},
+	{
+		"fields": {
+			"name": "María Elena",
+			"province": 7
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 20
+	},
+	{
+		"fields": {
+			"name": "ATACAMA"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 4
+	},
+	{
+		"fields": {
+			"name": "Copiapó",
+			"region": 4
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 8
+	},
+	{
+		"fields": {
+			"name": "Copiapó",
+			"province": 8
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 21
+	},
+	{
+		"fields": {
+			"name": "Caldera",
+			"province": 8
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 22
+	},
+	{
+		"fields": {
+			"name": "Tierra Amarilla",
+			"province": 8
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 23
+	},
+	{
+		"fields": {
+			"name": "Chañaral",
+			"region": 4
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 9
+	},
+	{
+		"fields": {
+			"name": "Chañaral",
+			"province": 9
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 24
+	},
+	{
+		"fields": {
+			"name": "Diego de Almagro",
+			"province": 9
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 25
+	},
+	{
+		"fields": {
+			"name": "Huasco",
+			"region": 4
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 10
+	},
+	{
+		"fields": {
+			"name": "Vallenar",
+			"province": 10
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 26
+	},
+	{
+		"fields": {
+			"name": "Alto del Carmen",
+			"province": 10
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 27
+	},
+	{
+		"fields": {
+			"name": "Freirina",
+			"province": 10
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 28
+	},
+	{
+		"fields": {
+			"name": "Huasco",
+			"province": 10
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 29
+	},
+	{
+		"fields": {
+			"name": "COQUIMBO"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 5
+	},
+	{
+		"fields": {
+			"name": "Elqui",
+			"region": 5
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 11
+	},
+	{
+		"fields": {
+			"name": "La Serena",
+			"province": 11
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 30
+	},
+	{
+		"fields": {
+			"name": "Coquimbo",
+			"province": 11
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 31
+	},
+	{
+		"fields": {
+			"name": "Andacollo",
+			"province": 11
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 32
+	},
+	{
+		"fields": {
+			"name": "La Higuera",
+			"province": 11
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 33
+	},
+	{
+		"fields": {
+			"name": "Paiguano",
+			"province": 11
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 34
+	},
+	{
+		"fields": {
+			"name": "Vicuña",
+			"province": 11
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 35
+	},
+	{
+		"fields": {
+			"name": "Choapa",
+			"region": 5
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 12
+	},
+	{
+		"fields": {
+			"name": "Illapel",
+			"province": 12
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 36
+	},
+	{
+		"fields": {
+			"name": "Canela",
+			"province": 12
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 37
+	},
+	{
+		"fields": {
+			"name": "Los Vilos",
+			"province": 12
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 38
+	},
+	{
+		"fields": {
+			"name": "Salamanca",
+			"province": 12
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 39
+	},
+	{
+		"fields": {
+			"name": "Limarí",
+			"region": 5
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 13
+	},
+	{
+		"fields": {
+			"name": "Ovalle",
+			"province": 13
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 40
+	},
+	{
+		"fields": {
+			"name": "Combarbalá",
+			"province": 13
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 41
+	},
+	{
+		"fields": {
+			"name": "Monte Patria",
+			"province": 13
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 42
+	},
+	{
+		"fields": {
+			"name": "Punitaqui",
+			"province": 13
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 43
+	},
+	{
+		"fields": {
+			"name": "Río Hurtado",
+			"province": 13
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 44
+	},
+	{
+		"fields": {
+			"name": "VALPARAÍSO"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 6
+	},
+	{
+		"fields": {
+			"name": "Valparaíso",
+			"region": 6
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 14
+	},
+	{
+		"fields": {
+			"name": "Valparaíso",
+			"province": 14
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 45
+	},
+	{
+		"fields": {
+			"name": "Casablanca",
+			"province": 14
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 46
+	},
+	{
+		"fields": {
+			"name": "Concón",
+			"province": 14
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 47
+	},
+	{
+		"fields": {
+			"name": "Juan Fernández",
+			"province": 14
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 48
+	},
+	{
+		"fields": {
+			"name": "Puchuncaví",
+			"province": 14
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 49
+	},
+	{
+		"fields": {
+			"name": "Quintero",
+			"province": 14
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 50
+	},
+	{
+		"fields": {
+			"name": "Viña del Mar",
+			"province": 14
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 51
+	},
+	{
+		"fields": {
+			"name": "Isla de Pascua",
+			"region": 6
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 15
+	},
+	{
+		"fields": {
+			"name": "Isla de Pascua",
+			"province": 15
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 52
+	},
+	{
+		"fields": {
+			"name": "Los Andes",
+			"region": 6
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 16
+	},
+	{
+		"fields": {
+			"name": "Los Andes",
+			"province": 16
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 53
+	},
+	{
+		"fields": {
+			"name": "Calle Larga",
+			"province": 16
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 54
+	},
+	{
+		"fields": {
+			"name": "Rinconada",
+			"province": 16
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 55
+	},
+	{
+		"fields": {
+			"name": "San Esteban",
+			"province": 16
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 56
+	},
+	{
+		"fields": {
+			"name": "Petorca",
+			"region": 6
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 17
+	},
+	{
+		"fields": {
+			"name": "La Ligua",
+			"province": 17
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 57
+	},
+	{
+		"fields": {
+			"name": "Cabildo",
+			"province": 17
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 58
+	},
+	{
+		"fields": {
+			"name": "Papudo",
+			"province": 17
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 59
+	},
+	{
+		"fields": {
+			"name": "Petorca",
+			"province": 17
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 60
+	},
+	{
+		"fields": {
+			"name": "Zapallar",
+			"province": 17
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 61
+	},
+	{
+		"fields": {
+			"name": "Quillota",
+			"region": 6
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 18
+	},
+	{
+		"fields": {
+			"name": "Quillota",
+			"province": 18
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 62
+	},
+	{
+		"fields": {
+			"name": "Calera",
+			"province": 18
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 63
+	},
+	{
+		"fields": {
+			"name": "Hijuelas",
+			"province": 18
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 64
+	},
+	{
+		"fields": {
+			"name": "La Cruz",
+			"province": 18
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 65
+	},
+	{
+		"fields": {
+			"name": "Nogales",
+			"province": 18
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 66
+	},
+	{
+		"fields": {
+			"name": "San Antonio",
+			"region": 6
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 19
+	},
+	{
+		"fields": {
+			"name": "San Antonio",
+			"province": 19
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 67
+	},
+	{
+		"fields": {
+			"name": "Algarrobo",
+			"province": 19
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 68
+	},
+	{
+		"fields": {
+			"name": "Cartagena",
+			"province": 19
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 69
+	},
+	{
+		"fields": {
+			"name": "El Quisco",
+			"province": 19
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 70
+	},
+	{
+		"fields": {
+			"name": "El Tabo",
+			"province": 19
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 71
+	},
+	{
+		"fields": {
+			"name": "Santo Domingo",
+			"province": 19
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 72
+	},
+	{
+		"fields": {
+			"name": "San Felipe de Aconcagua",
+			"region": 6
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 20
+	},
+	{
+		"fields": {
+			"name": "San Felipe",
+			"province": 20
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 73
+	},
+	{
+		"fields": {
+			"name": "Catemu",
+			"province": 20
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 74
+	},
+	{
+		"fields": {
+			"name": "Llaillay",
+			"province": 20
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 75
+	},
+	{
+		"fields": {
+			"name": "Panquehue",
+			"province": 20
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 76
+	},
+	{
+		"fields": {
+			"name": "Putaendo",
+			"province": 20
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 77
+	},
+	{
+		"fields": {
+			"name": "Santa María",
+			"province": 20
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 78
+	},
+	{
+		"fields": {
+			"name": "Marga Marga",
+			"region": 6
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 21
+	},
+	{
+		"fields": {
+			"name": "Limache",
+			"province": 21
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 79
+	},
+	{
+		"fields": {
+			"name": "Quilpué",
+			"province": 21
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 80
+	},
+	{
+		"fields": {
+			"name": "Villa Alemana",
+			"province": 21
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 81
+	},
+	{
+		"fields": {
+			"name": "Olmué",
+			"province": 21
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 82
+	},
+	{
+		"fields": {
+			"name": "DEL LIBERTADOR GRAL. BERNARDO O'HIGGINS"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 7
+	},
+	{
+		"fields": {
+			"name": "Cachapoal",
+			"region": 7
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 22
+	},
+	{
+		"fields": {
+			"name": "Rancagua",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 83
+	},
+	{
+		"fields": {
+			"name": "Codegua",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 84
+	},
+	{
+		"fields": {
+			"name": "Coinco",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 85
+	},
+	{
+		"fields": {
+			"name": "Coltauco",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 86
+	},
+	{
+		"fields": {
+			"name": "Doñihue",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 87
+	},
+	{
+		"fields": {
+			"name": "Graneros",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 88
+	},
+	{
+		"fields": {
+			"name": "Las Cabras",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 89
+	},
+	{
+		"fields": {
+			"name": "Machalí",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 90
+	},
+	{
+		"fields": {
+			"name": "Malloa",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 91
+	},
+	{
+		"fields": {
+			"name": "Mostazal",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 92
+	},
+	{
+		"fields": {
+			"name": "Olivar",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 93
+	},
+	{
+		"fields": {
+			"name": "Peumo",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 94
+	},
+	{
+		"fields": {
+			"name": "Pichidegua",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 95
+	},
+	{
+		"fields": {
+			"name": "Quinta de Tilcoco",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 96
+	},
+	{
+		"fields": {
+			"name": "Rengo",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 97
+	},
+	{
+		"fields": {
+			"name": "Requínoa",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 98
+	},
+	{
+		"fields": {
+			"name": "San Vicente",
+			"province": 22
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 99
+	},
+	{
+		"fields": {
+			"name": "Cardenal Caro",
+			"region": 7
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 23
+	},
+	{
+		"fields": {
+			"name": "Pichilemu",
+			"province": 23
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 100
+	},
+	{
+		"fields": {
+			"name": "La Estrella",
+			"province": 23
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 101
+	},
+	{
+		"fields": {
+			"name": "Litueche",
+			"province": 23
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 102
+	},
+	{
+		"fields": {
+			"name": "Marchihue",
+			"province": 23
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 103
+	},
+	{
+		"fields": {
+			"name": "Navidad",
+			"province": 23
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 104
+	},
+	{
+		"fields": {
+			"name": "Paredones",
+			"province": 23
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 105
+	},
+	{
+		"fields": {
+			"name": "Colchagua",
+			"region": 7
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 24
+	},
+	{
+		"fields": {
+			"name": "San Fernando",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 106
+	},
+	{
+		"fields": {
+			"name": "Chépica",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 107
+	},
+	{
+		"fields": {
+			"name": "Chimbarongo",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 108
+	},
+	{
+		"fields": {
+			"name": "Lolol",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 109
+	},
+	{
+		"fields": {
+			"name": "Nancagua",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 110
+	},
+	{
+		"fields": {
+			"name": "Palmilla",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 111
+	},
+	{
+		"fields": {
+			"name": "Peralillo",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 112
+	},
+	{
+		"fields": {
+			"name": "Placilla",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 113
+	},
+	{
+		"fields": {
+			"name": "Pumanque",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 114
+	},
+	{
+		"fields": {
+			"name": "Santa Cruz",
+			"province": 24
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 115
+	},
+	{
+		"fields": {
+			"name": "DEL MAULE"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 8
+	},
+	{
+		"fields": {
+			"name": "Talca",
+			"region": 8
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 25
+	},
+	{
+		"fields": {
+			"name": "Talca",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 116
+	},
+	{
+		"fields": {
+			"name": "Constitución",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 117
+	},
+	{
+		"fields": {
+			"name": "Curepto",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 118
+	},
+	{
+		"fields": {
+			"name": "Empedrado",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 119
+	},
+	{
+		"fields": {
+			"name": "Maule",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 120
+	},
+	{
+		"fields": {
+			"name": "Pelarco",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 121
+	},
+	{
+		"fields": {
+			"name": "Pencahue",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 122
+	},
+	{
+		"fields": {
+			"name": "Río Claro",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 123
+	},
+	{
+		"fields": {
+			"name": "San Clemente",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 124
+	},
+	{
+		"fields": {
+			"name": "San Rafael",
+			"province": 25
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 125
+	},
+	{
+		"fields": {
+			"name": "Cauquenes",
+			"region": 8
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 26
+	},
+	{
+		"fields": {
+			"name": "Cauquenes",
+			"province": 26
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 126
+	},
+	{
+		"fields": {
+			"name": "Chanco",
+			"province": 26
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 127
+	},
+	{
+		"fields": {
+			"name": "Pelluhue",
+			"province": 26
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 128
+	},
+	{
+		"fields": {
+			"name": "Curicó",
+			"region": 8
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 27
+	},
+	{
+		"fields": {
+			"name": "Curicó",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 129
+	},
+	{
+		"fields": {
+			"name": "Hualañé",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 130
+	},
+	{
+		"fields": {
+			"name": "Licantén",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 131
+	},
+	{
+		"fields": {
+			"name": "Molina",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 132
+	},
+	{
+		"fields": {
+			"name": "Rauco",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 133
+	},
+	{
+		"fields": {
+			"name": "Romeral",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 134
+	},
+	{
+		"fields": {
+			"name": "Sagrada Familia",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 135
+	},
+	{
+		"fields": {
+			"name": "Teno",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 136
+	},
+	{
+		"fields": {
+			"name": "Vichuquén",
+			"province": 27
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 137
+	},
+	{
+		"fields": {
+			"name": "Linares",
+			"region": 8
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 28
+	},
+	{
+		"fields": {
+			"name": "Linares",
+			"province": 28
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 138
+	},
+	{
+		"fields": {
+			"name": "Colbún",
+			"province": 28
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 139
+	},
+	{
+		"fields": {
+			"name": "Longaví",
+			"province": 28
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 140
+	},
+	{
+		"fields": {
+			"name": "Parral",
+			"province": 28
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 141
+	},
+	{
+		"fields": {
+			"name": "Retiro",
+			"province": 28
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 142
+	},
+	{
+		"fields": {
+			"name": "San Javier",
+			"province": 28
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 143
+	},
+	{
+		"fields": {
+			"name": "Villa Alegre",
+			"province": 28
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 144
+	},
+	{
+		"fields": {
+			"name": "Yerbas Buenas",
+			"province": 28
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 145
+	},
+	{
+		"fields": {
+			"name": "DEL BIOBÍO"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 9
+	},
+	{
+		"fields": {
+			"name": "Concepción",
+			"region": 9
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 29
+	},
+	{
+		"fields": {
+			"name": "Concepción",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 146
+	},
+	{
+		"fields": {
+			"name": "Coronel",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 147
+	},
+	{
+		"fields": {
+			"name": "Chiguayante",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 148
+	},
+	{
+		"fields": {
+			"name": "Florida",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 149
+	},
+	{
+		"fields": {
+			"name": "Hualqui",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 150
+	},
+	{
+		"fields": {
+			"name": "Lota",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 151
+	},
+	{
+		"fields": {
+			"name": "Penco",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 152
+	},
+	{
+		"fields": {
+			"name": "San Pedro de la Paz",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 153
+	},
+	{
+		"fields": {
+			"name": "Santa Juana",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 154
+	},
+	{
+		"fields": {
+			"name": "Talcahuano",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 155
+	},
+	{
+		"fields": {
+			"name": "Tomé",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 156
+	},
+	{
+		"fields": {
+			"name": "Hualpén",
+			"province": 29
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 157
+	},
+	{
+		"fields": {
+			"name": "Arauco",
+			"region": 9
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 30
+	},
+	{
+		"fields": {
+			"name": "Lebu",
+			"province": 30
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 158
+	},
+	{
+		"fields": {
+			"name": "Arauco",
+			"province": 30
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 159
+	},
+	{
+		"fields": {
+			"name": "Cañete",
+			"province": 30
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 160
+	},
+	{
+		"fields": {
+			"name": "Contulmo",
+			"province": 30
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 161
+	},
+	{
+		"fields": {
+			"name": "Curanilahue",
+			"province": 30
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 162
+	},
+	{
+		"fields": {
+			"name": "Los Alamos",
+			"province": 30
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 163
+	},
+	{
+		"fields": {
+			"name": "Tirúa",
+			"province": 30
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 164
+	},
+	{
+		"fields": {
+			"name": "Biobío",
+			"region": 9
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 31
+	},
+	{
+		"fields": {
+			"name": "Los Angeles",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 165
+	},
+	{
+		"fields": {
+			"name": "Antuco",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 166
+	},
+	{
+		"fields": {
+			"name": "Cabrero",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 167
+	},
+	{
+		"fields": {
+			"name": "Laja",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 168
+	},
+	{
+		"fields": {
+			"name": "Mulchén",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 169
+	},
+	{
+		"fields": {
+			"name": "Nacimiento",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 170
+	},
+	{
+		"fields": {
+			"name": "Negrete",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 171
+	},
+	{
+		"fields": {
+			"name": "Quilaco",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 172
+	},
+	{
+		"fields": {
+			"name": "Quilleco",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 173
+	},
+	{
+		"fields": {
+			"name": "San Rosendo",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 174
+	},
+	{
+		"fields": {
+			"name": "Santa Bárbara",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 175
+	},
+	{
+		"fields": {
+			"name": "Tucapel",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 176
+	},
+	{
+		"fields": {
+			"name": "Yumbel",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 177
+	},
+	{
+		"fields": {
+			"name": "Alto Biobío",
+			"province": 31
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 178
+	},
+	{
+		"fields": {
+			"name": "Ñuble",
+			"region": 9
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 32
+	},
+	{
+		"fields": {
+			"name": "Chillán",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 179
+	},
+	{
+		"fields": {
+			"name": "Bulnes",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 180
+	},
+	{
+		"fields": {
+			"name": "Cobquecura",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 181
+	},
+	{
+		"fields": {
+			"name": "Coelemu",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 182
+	},
+	{
+		"fields": {
+			"name": "Coihueco",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 183
+	},
+	{
+		"fields": {
+			"name": "Chillán Viejo",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 184
+	},
+	{
+		"fields": {
+			"name": "El Carmen",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 185
+	},
+	{
+		"fields": {
+			"name": "Ninhue",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 186
+	},
+	{
+		"fields": {
+			"name": "Ñiquén",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 187
+	},
+	{
+		"fields": {
+			"name": "Pemuco",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 188
+	},
+	{
+		"fields": {
+			"name": "Pinto",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 189
+	},
+	{
+		"fields": {
+			"name": "Portezuelo",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 190
+	},
+	{
+		"fields": {
+			"name": "Quillón",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 191
+	},
+	{
+		"fields": {
+			"name": "Quirihue",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 192
+	},
+	{
+		"fields": {
+			"name": "Ránquil",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 193
+	},
+	{
+		"fields": {
+			"name": "San Carlos",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 194
+	},
+	{
+		"fields": {
+			"name": "San Fabián",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 195
+	},
+	{
+		"fields": {
+			"name": "San Ignacio",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 196
+	},
+	{
+		"fields": {
+			"name": "San Nicolás",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 197
+	},
+	{
+		"fields": {
+			"name": "Treguaco",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 198
+	},
+	{
+		"fields": {
+			"name": "Yungay",
+			"province": 32
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 199
+	},
+	{
+		"fields": {
+			"name": "DE LA ARAUCANÍA"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 10
+	},
+	{
+		"fields": {
+			"name": "Cautín",
+			"region": 10
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 33
+	},
+	{
+		"fields": {
+			"name": "Temuco",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 200
+	},
+	{
+		"fields": {
+			"name": "Carahue",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 201
+	},
+	{
+		"fields": {
+			"name": "Cunco",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 202
+	},
+	{
+		"fields": {
+			"name": "Curarrehue",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 203
+	},
+	{
+		"fields": {
+			"name": "Freire",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 204
+	},
+	{
+		"fields": {
+			"name": "Galvarino",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 205
+	},
+	{
+		"fields": {
+			"name": "Gorbea",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 206
+	},
+	{
+		"fields": {
+			"name": "Lautaro",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 207
+	},
+	{
+		"fields": {
+			"name": "Loncoche",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 208
+	},
+	{
+		"fields": {
+			"name": "Melipeuco",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 209
+	},
+	{
+		"fields": {
+			"name": "Nueva Imperial",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 210
+	},
+	{
+		"fields": {
+			"name": "Padre Las Casas",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 211
+	},
+	{
+		"fields": {
+			"name": "Perquenco",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 212
+	},
+	{
+		"fields": {
+			"name": "Pitrufquén",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 213
+	},
+	{
+		"fields": {
+			"name": "Pucón",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 214
+	},
+	{
+		"fields": {
+			"name": "Saavedra",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 215
+	},
+	{
+		"fields": {
+			"name": "Teodoro Schmidt",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 216
+	},
+	{
+		"fields": {
+			"name": "Toltén",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 217
+	},
+	{
+		"fields": {
+			"name": "Vilcún",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 218
+	},
+	{
+		"fields": {
+			"name": "Villarrica",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 219
+	},
+	{
+		"fields": {
+			"name": "Cholchol",
+			"province": 33
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 220
+	},
+	{
+		"fields": {
+			"name": "Malleco",
+			"region": 10
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 34
+	},
+	{
+		"fields": {
+			"name": "Angol",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 221
+	},
+	{
+		"fields": {
+			"name": "Collipulli",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 222
+	},
+	{
+		"fields": {
+			"name": "Curacautín",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 223
+	},
+	{
+		"fields": {
+			"name": "Ercilla",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 224
+	},
+	{
+		"fields": {
+			"name": "Lonquimay",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 225
+	},
+	{
+		"fields": {
+			"name": "Los Sauces",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 226
+	},
+	{
+		"fields": {
+			"name": "Lumaco",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 227
+	},
+	{
+		"fields": {
+			"name": "Purén",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 228
+	},
+	{
+		"fields": {
+			"name": "Renaico",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 229
+	},
+	{
+		"fields": {
+			"name": "Traiguén",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 230
+	},
+	{
+		"fields": {
+			"name": "Victoria",
+			"province": 34
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 231
+	},
+	{
+		"fields": {
+			"name": "DE LOS RÍOS"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 11
+	},
+	{
+		"fields": {
+			"name": "Valdivia",
+			"region": 11
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 35
+	},
+	{
+		"fields": {
+			"name": "Valdivia",
+			"province": 35
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 232
+	},
+	{
+		"fields": {
+			"name": "Corral",
+			"province": 35
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 233
+	},
+	{
+		"fields": {
+			"name": "Lanco",
+			"province": 35
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 234
+	},
+	{
+		"fields": {
+			"name": "Los Lagos",
+			"province": 35
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 235
+	},
+	{
+		"fields": {
+			"name": "Máfil",
+			"province": 35
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 236
+	},
+	{
+		"fields": {
+			"name": "Mariquina",
+			"province": 35
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 237
+	},
+	{
+		"fields": {
+			"name": "Paillaco",
+			"province": 35
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 238
+	},
+	{
+		"fields": {
+			"name": "Panguipulli",
+			"province": 35
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 239
+	},
+	{
+		"fields": {
+			"name": "Ranco",
+			"region": 11
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 36
+	},
+	{
+		"fields": {
+			"name": "La Unión",
+			"province": 36
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 240
+	},
+	{
+		"fields": {
+			"name": "Futrono",
+			"province": 36
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 241
+	},
+	{
+		"fields": {
+			"name": "Lago Ranco",
+			"province": 36
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 242
+	},
+	{
+		"fields": {
+			"name": "Río Bueno",
+			"province": 36
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 243
+	},
+	{
+		"fields": {
+			"name": "DE LOS LAGOS"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 12
+	},
+	{
+		"fields": {
+			"name": "Llanquihue",
+			"region": 12
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 37
+	},
+	{
+		"fields": {
+			"name": "Puerto Montt",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 244
+	},
+	{
+		"fields": {
+			"name": "Calbuco",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 245
+	},
+	{
+		"fields": {
+			"name": "Cochamó",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 246
+	},
+	{
+		"fields": {
+			"name": "Fresia",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 247
+	},
+	{
+		"fields": {
+			"name": "Frutillar",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 248
+	},
+	{
+		"fields": {
+			"name": "Los Muermos",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 249
+	},
+	{
+		"fields": {
+			"name": "Llanquihue",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 250
+	},
+	{
+		"fields": {
+			"name": "Maullín",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 251
+	},
+	{
+		"fields": {
+			"name": "Puerto Varas",
+			"province": 37
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 252
+	},
+	{
+		"fields": {
+			"name": "Chiloé",
+			"region": 12
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 38
+	},
+	{
+		"fields": {
+			"name": "Castro",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 253
+	},
+	{
+		"fields": {
+			"name": "Ancud",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 254
+	},
+	{
+		"fields": {
+			"name": "Chonchi",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 255
+	},
+	{
+		"fields": {
+			"name": "Curaco de Vélez",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 256
+	},
+	{
+		"fields": {
+			"name": "Dalcahue",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 257
+	},
+	{
+		"fields": {
+			"name": "Puqueldón",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 258
+	},
+	{
+		"fields": {
+			"name": "Queilén",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 259
+	},
+	{
+		"fields": {
+			"name": "Quellón",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 260
+	},
+	{
+		"fields": {
+			"name": "Quemchi",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 261
+	},
+	{
+		"fields": {
+			"name": "Quinchao",
+			"province": 38
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 262
+	},
+	{
+		"fields": {
+			"name": "Osorno",
+			"region": 12
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 39
+	},
+	{
+		"fields": {
+			"name": "Osorno",
+			"province": 39
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 263
+	},
+	{
+		"fields": {
+			"name": "Puerto Octay",
+			"province": 39
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 264
+	},
+	{
+		"fields": {
+			"name": "Purranque",
+			"province": 39
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 265
+	},
+	{
+		"fields": {
+			"name": "Puyehue",
+			"province": 39
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 266
+	},
+	{
+		"fields": {
+			"name": "Río Negro",
+			"province": 39
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 267
+	},
+	{
+		"fields": {
+			"name": "San Juan de la Costa",
+			"province": 39
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 268
+	},
+	{
+		"fields": {
+			"name": "San Pablo",
+			"province": 39
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 269
+	},
+	{
+		"fields": {
+			"name": "Palena",
+			"region": 12
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 40
+	},
+	{
+		"fields": {
+			"name": "Chaitén",
+			"province": 40
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 270
+	},
+	{
+		"fields": {
+			"name": "Futaleufú",
+			"province": 40
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 271
+	},
+	{
+		"fields": {
+			"name": "Hualaihué",
+			"province": 40
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 272
+	},
+	{
+		"fields": {
+			"name": "Palena",
+			"province": 40
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 273
+	},
+	{
+		"fields": {
+			"name": "AISÉN DEL GRAL. CARLOS IBAÑEZ DEL CAMPO"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 13
+	},
+	{
+		"fields": {
+			"name": "Coihaique",
+			"region": 13
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 41
+	},
+	{
+		"fields": {
+			"name": "Coihaique",
+			"province": 41
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 274
+	},
+	{
+		"fields": {
+			"name": "Lago Verde",
+			"province": 41
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 275
+	},
+	{
+		"fields": {
+			"name": "Aisén",
+			"region": 13
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 42
+	},
+	{
+		"fields": {
+			"name": "Aisén",
+			"province": 42
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 276
+	},
+	{
+		"fields": {
+			"name": "Cisnes",
+			"province": 42
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 277
+	},
+	{
+		"fields": {
+			"name": "Guaitecas",
+			"province": 42
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 278
+	},
+	{
+		"fields": {
+			"name": "Capitán Prat",
+			"region": 13
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 43
+	},
+	{
+		"fields": {
+			"name": "Cochrane",
+			"province": 43
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 279
+	},
+	{
+		"fields": {
+			"name": "O'Higgins",
+			"province": 43
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 280
+	},
+	{
+		"fields": {
+			"name": "Tortel",
+			"province": 43
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 281
+	},
+	{
+		"fields": {
+			"name": "General Carrera",
+			"region": 13
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 44
+	},
+	{
+		"fields": {
+			"name": "Chile Chico",
+			"province": 44
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 282
+	},
+	{
+		"fields": {
+			"name": "Río Ibáñez",
+			"province": 44
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 283
+	},
+	{
+		"fields": {
+			"name": "MAGALLANES Y DE LA ANTÁRTICA CHILENA"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 14
+	},
+	{
+		"fields": {
+			"name": "Magallanes",
+			"region": 14
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 45
+	},
+	{
+		"fields": {
+			"name": "Punta Arenas",
+			"province": 45
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 284
+	},
+	{
+		"fields": {
+			"name": "Laguna Blanca",
+			"province": 45
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 285
+	},
+	{
+		"fields": {
+			"name": "Río Verde",
+			"province": 45
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 286
+	},
+	{
+		"fields": {
+			"name": "San Gregorio",
+			"province": 45
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 287
+	},
+	{
+		"fields": {
+			"name": "Antártica Chilena",
+			"region": 14
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 46
+	},
+	{
+		"fields": {
+			"name": "Cabo de Hornos (Ex-Navarino)",
+			"province": 46
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 288
+	},
+	{
+		"fields": {
+			"name": "Antártica",
+			"province": 46
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 289
+	},
+	{
+		"fields": {
+			"name": "Tierra del Fuego",
+			"region": 14
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 47
+	},
+	{
+		"fields": {
+			"name": "Porvenir",
+			"province": 47
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 290
+	},
+	{
+		"fields": {
+			"name": "Primavera",
+			"province": 47
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 291
+	},
+	{
+		"fields": {
+			"name": "Timaukel",
+			"province": 47
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 292
+	},
+	{
+		"fields": {
+			"name": "Ultima Esperanza",
+			"region": 14
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 48
+	},
+	{
+		"fields": {
+			"name": "Natales",
+			"province": 48
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 293
+	},
+	{
+		"fields": {
+			"name": "Torres del Paine",
+			"province": 48
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 294
+	},
+	{
+		"fields": {
+			"name": "15. REGIÓN METROPOLITANA DE SANTIAGO"
+		},
+		"model": "crops_and_markets_app.region",
+		"pk": 15
+	},
+	{
+		"fields": {
+			"name": "Santiago",
+			"region": 15
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 49
+	},
+	{
+		"fields": {
+			"name": "Santiago",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 295
+	},
+	{
+		"fields": {
+			"name": "Cerrillos",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 296
+	},
+	{
+		"fields": {
+			"name": "Cerro Navia",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 297
+	},
+	{
+		"fields": {
+			"name": "Conchalí",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 298
+	},
+	{
+		"fields": {
+			"name": "El Bosque",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 299
+	},
+	{
+		"fields": {
+			"name": "Estación Central",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 300
+	},
+	{
+		"fields": {
+			"name": "Huechuraba",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 301
+	},
+	{
+		"fields": {
+			"name": "Independencia",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 302
+	},
+	{
+		"fields": {
+			"name": "La Cisterna",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 303
+	},
+	{
+		"fields": {
+			"name": "La Florida",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 304
+	},
+	{
+		"fields": {
+			"name": "La Granja",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 305
+	},
+	{
+		"fields": {
+			"name": "La Pintana",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 306
+	},
+	{
+		"fields": {
+			"name": "La Reina",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 307
+	},
+	{
+		"fields": {
+			"name": "Las Condes",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 308
+	},
+	{
+		"fields": {
+			"name": "Lo Barnechea",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 309
+	},
+	{
+		"fields": {
+			"name": "Lo Espejo",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 310
+	},
+	{
+		"fields": {
+			"name": "Lo Prado",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 311
+	},
+	{
+		"fields": {
+			"name": "Macul",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 312
+	},
+	{
+		"fields": {
+			"name": "Maipú",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 313
+	},
+	{
+		"fields": {
+			"name": "Ñuñoa",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 314
+	},
+	{
+		"fields": {
+			"name": "Pedro Aguirre Cerda",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 315
+	},
+	{
+		"fields": {
+			"name": "Peñalolén",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 316
+	},
+	{
+		"fields": {
+			"name": "Providencia",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 317
+	},
+	{
+		"fields": {
+			"name": "Pudahuel",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 318
+	},
+	{
+		"fields": {
+			"name": "Quilicura",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 319
+	},
+	{
+		"fields": {
+			"name": "Quinta Normal",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 320
+	},
+	{
+		"fields": {
+			"name": "Recoleta",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 321
+	},
+	{
+		"fields": {
+			"name": "Renca",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 322
+	},
+	{
+		"fields": {
+			"name": "San Joaquín",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 323
+	},
+	{
+		"fields": {
+			"name": "San Miguel",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 324
+	},
+	{
+		"fields": {
+			"name": "San Ramón",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 325
+	},
+	{
+		"fields": {
+			"name": "Vitacura",
+			"province": 49
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 326
+	},
+	{
+		"fields": {
+			"name": "Cordillera",
+			"region": 15
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 50
+	},
+	{
+		"fields": {
+			"name": "Puente Alto",
+			"province": 50
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 327
+	},
+	{
+		"fields": {
+			"name": "Pirque",
+			"province": 50
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 328
+	},
+	{
+		"fields": {
+			"name": "San José de Maipo",
+			"province": 50
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 329
+	},
+	{
+		"fields": {
+			"name": "Chacabuco",
+			"region": 15
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 51
+	},
+	{
+		"fields": {
+			"name": "Colina",
+			"province": 51
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 330
+	},
+	{
+		"fields": {
+			"name": "Lampa",
+			"province": 51
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 331
+	},
+	{
+		"fields": {
+			"name": "Tiltil",
+			"province": 51
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 332
+	},
+	{
+		"fields": {
+			"name": "Maipo",
+			"region": 15
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 52
+	},
+	{
+		"fields": {
+			"name": "San Bernardo",
+			"province": 52
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 333
+	},
+	{
+		"fields": {
+			"name": "Buin",
+			"province": 52
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 334
+	},
+	{
+		"fields": {
+			"name": "Calera de Tango",
+			"province": 52
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 335
+	},
+	{
+		"fields": {
+			"name": "Paine",
+			"province": 52
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 336
+	},
+	{
+		"fields": {
+			"name": "Melipilla",
+			"region": 15
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 53
+	},
+	{
+		"fields": {
+			"name": "Melipilla",
+			"province": 53
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 337
+	},
+	{
+		"fields": {
+			"name": "Alhué",
+			"province": 53
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 338
+	},
+	{
+		"fields": {
+			"name": "Curacaví",
+			"province": 53
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 339
+	},
+	{
+		"fields": {
+			"name": "María Pinto",
+			"province": 53
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 340
+	},
+	{
+		"fields": {
+			"name": "San Pedro",
+			"province": 53
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 341
+	},
+	{
+		"fields": {
+			"name": "Talagante",
+			"region": 15
+		},
+		"model": "crops_and_markets_app.province",
+		"pk": 54
+	},
+	{
+		"fields": {
+			"name": "Talagante",
+			"province": 54
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 342
+	},
+	{
+		"fields": {
+			"name": "El Monte",
+			"province": 54
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 343
+	},
+	{
+		"fields": {
+			"name": "Isla de Maipo",
+			"province": 54
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 344
+	},
+	{
+		"fields": {
+			"name": "Padre Hurtado",
+			"province": 54
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 345
+	},
+	{
+		"fields": {
+			"name": "Peñaflor",
+			"province": 54
+		},
+		"model": "crops_and_markets_app.commune",
+		"pk": 346
+	}
+]
