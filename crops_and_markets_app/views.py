@@ -62,6 +62,7 @@ def add_crop(request):
 		if owner_form.is_valid() and company_form.is_valid() and crop_form.is_valid():
 			# owner information
 			owner = owner_form.cleaned_data['old_owner']
+			print owner
 			if owner is None:
 				name = owner_form.cleaned_data['first_name'].title()
 				last_name = owner_form.cleaned_data['last_name'].title()
@@ -83,7 +84,6 @@ def add_crop(request):
 						company = CompanyCrop(name=company_name, rut=company_rut)
 						company.save()
 
-				
 				owner = CropOwner(first_name=name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
 					email=email, position=position, company=company)
 				owner.save()
@@ -91,8 +91,16 @@ def add_crop(request):
 			# crop information
 			# geographical information
 			region = crop_form.cleaned_data['region']
-			#province = crop_form.cleaned_data['province']
-			#commune = crop_form.cleaned_data['commune']
+			
+			# security update: check if 'province' and 'commune' are valid entries. (db check)
+			province = None
+			commune = None
+			try:
+				province = Province.objects.get(name= request.POST['province_trick'])
+				commune = Commune.objects.get(name= request.POST['commune'])
+			except:
+				messages.error(request, "Error en el formulario")
+
 			address = crop_form.cleaned_data['address']
 			lat = crop_form.cleaned_data['latitude']
 			lng = crop_form.cleaned_data['longitude']
@@ -112,7 +120,7 @@ def add_crop(request):
 
 			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
 
-			crop = Crop(region=region,    address=address, latitude=lat, longitude=lng, has=has,
+			crop = Crop(region=region, province=province, commune=commune, address=address, latitude=lat, longitude=lng, has=has,
 				water=bwater, soil=bsoil, topography=btopo, temperatures=btemp,
 				water_cmnt=cwater, soil_cmnt=csoil, topography_cmnt=ctopo, temperatures_cmnt=ctemp,
 				observations=obs)
@@ -123,6 +131,7 @@ def add_crop(request):
 			messages.success(request, "Predio agregado exitosamente.")
 		else:
 			messages.error(request, "Error en el formulario.")
+			
 
 	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
 

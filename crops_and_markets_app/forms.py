@@ -20,8 +20,6 @@ class CompanyCropFrom(forms.Form): # todo, add required false to required fields
 
 	def clean(self):
 		checkbox = self.cleaned_data.get('company_member')
-		print "CHECK BOX!"
-		print checkbox
 		if not checkbox:
 			return self.cleaned_data
 		if self.cleaned_data.get('excisting_company') is not None or self.cleaned_data.get('name') != "":
@@ -30,9 +28,9 @@ class CompanyCropFrom(forms.Form): # todo, add required false to required fields
 
 
 class CropForm(forms.Form):
-	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	#province =forms.ModelChoiceField(queryset=Province.objects.all(), empty_label="Provincia", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	#commune = todo	... 
+	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	#province =forms.ModelChoiceField(required=False, queryset=Region.objects.none(), empty_label="Seleccione provincia", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	#commune =forms.ModelChoiceField(required=False, queryset=Region.objects.none(), empty_label="Seleccione comuna", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))

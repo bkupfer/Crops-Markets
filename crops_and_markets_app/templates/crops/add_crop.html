@@ -156,7 +156,7 @@
 						<div class="row">
 							<h3>Información geográfica</h3>
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="zone">Región <label style="color:red">*</label></label>
+								<label class="control-label col-sm-4">Región <label style="color:red">*</label></label>
 								<div class="col-sm-8">
 									{{ crop_form.region }}
 								</div>
@@ -164,21 +164,26 @@
 							</div>
 
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="zone">Provincia</label>
+								<label class="control-label col-sm-4">Provincia</label>
 								<div class="col-sm-8">
-									
+									<select name="province" id="id_province" class="form-control input-sm">
+										<option selected="selected" value="">Seleccione provincia</option>
+									</select>
+									 <input type="hidden" id="province_trick" name="province_trick" value="">
 								</div>
 							</div>
 
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="zone">Comuna</label>
+								<label class="control-label col-sm-4">Comuna</label>
 								<div class="col-sm-8">
-									
+									<select name="commune" id="id_commune" class="form-control input-sm">
+										<option selected="selected" value="">Seleccione comuna</option>
+									</select>
 								</div>
 							</div>
 
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="direction">Dirección</label>
+								<label class="control-label col-sm-4">Dirección</label>
 								<div class="col-sm-8">
 									{{ crop_form.address }}
 								</div>
@@ -285,6 +290,7 @@
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
 
+	<script src="static/js/regions.js"></script>
 	<script src="static/js/rut_validator.js"></script>
 
 	<script type="text/javascript">
