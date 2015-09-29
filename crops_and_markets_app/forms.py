@@ -129,7 +129,7 @@ class CompanyMarketForm(forms.Form):
 
 
 class GeoMarkerForm(forms.Form):
-	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	#province = todo
 	#commune = todo
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))

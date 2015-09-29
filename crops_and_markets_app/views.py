@@ -91,15 +91,13 @@ def add_crop(request):
 			# crop information
 			# geographical information
 			region = crop_form.cleaned_data['region']
-			
-			# security update: check if 'province' and 'commune' are valid entries. (db check)
 			province = None
 			commune = None
 			try:
 				province = Province.objects.get(name= request.POST['province_trick'])
 				commune = Commune.objects.get(name= request.POST['commune'])
 			except:
-				messages.error(request, "Error en el formulario")
+				pass
 
 			address = crop_form.cleaned_data['address']
 			lat = crop_form.cleaned_data['latitude']
@@ -205,13 +203,19 @@ def add_market(request):
 
 			# geographical information
 			region = geographical_form.cleaned_data['region']
-			#province = geographical_form.cleaned_data['province']
-			#commune = geographical_form.cleaned_data['commune']
+			province = None
+			commune = None
+			try:
+				province = Province.objects.get(name= request.POST['province_trick'])
+				commune = Commune.objects.get(name= request.POST['commune'])
+			except:
+				pass
+
 			address = geographical_form.cleaned_data['address']
 			latitude = geographical_form.cleaned_data['latitude']
 			longitude = geographical_form.cleaned_data['longitude']
 
-			new_geomarker = GeoMarker(client=new_client, region=region, address=address, latitude=latitude, longitude=longitude)
+			new_geomarker = GeoMarker(client=new_client, region=region, province=province, commune=commune, address=address, latitude=latitude, longitude=longitude)
 			new_geomarker.save()
 
 			# all done -- success
