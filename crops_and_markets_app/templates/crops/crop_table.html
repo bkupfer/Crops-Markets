@@ -94,6 +94,8 @@
 								</td>
 								<td><a href="crop_info?id={{ crop.pk }}">ver detalle</a></td>
 							</tr>
+							{% empty %}
+							<tr><td>No hay clientes en la base de datos.</td></tr>
 							{% endfor %}
 						</tbody>
 					</table>
