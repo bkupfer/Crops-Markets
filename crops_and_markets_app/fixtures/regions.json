@@ -2835,7 +2835,7 @@
 	},
 	{
 		"fields": {
-			"name": "15. REGIÓN METROPOLITANA DE SANTIAGO"
+			"name": "METROPOLITANA DE SANTIAGO"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 15
