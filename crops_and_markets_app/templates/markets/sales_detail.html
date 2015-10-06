@@ -36,9 +36,9 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<h3>Detalle {% if not sale.reservation %}venta{% else %}reserva{% endif %} #{{ sale.pk }}</h3>
+					<h3>Detalle {% if sale.type_of_transaction.pk == 1 %}reserva{% else %}venta{% endif %} #{{ sale.pk }}</h3>
 
-					<h3>Información de {% if not sale.reservation %}venta{% else %}reserva{% endif %}</h3>
+					<h3>Información de {% if sale.type_of_transaction.pk == 1 %}reserva{% else %}venta{% endif %}</h3>
 					<table class="table table-hover">
 						<tr>
 							<td class="col-sm-4">Fecha de la venta</td>

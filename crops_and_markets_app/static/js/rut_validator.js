@@ -26,7 +26,7 @@ function validateRut(input){
 }
 
 function formatDigits(digits){
-	return (digits.length < 3) ? digits : formatDigits(digits.substring(0, digits.length-3)) + "." + digits.substring(digits.length-3, digits.length);
+	return (digits.length <= 3) ? digits : formatDigits(digits.substring(0, digits.length-3)) + "." + digits.substring(digits.length-3, digits.length);
 }
 
 /* transforms a rut into xx.xxx.xxx-x format */

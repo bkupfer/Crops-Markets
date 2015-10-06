@@ -208,7 +208,7 @@
 							<h3>Información del terreno</h3>
 
 							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="contact_number_1">Número de hectáreas</label>
+								<label class="control-label col-sm-4" for="contact_number_1">Número de hectáreas [Ha]</label>
 								<div class="col-sm-8">
 									{{ crop_form.has }}
 								</div>
@@ -294,6 +294,7 @@
 	<script src="static/js/rut_validator.js"></script>
 
 	<script type="text/javascript">
+	/* Toggle logic */
 	$("#new-owner").click(function(e){
 		if ($("#new-owner").prop("checked")){
 			$("#prop-error").fadeOut(100);
@@ -329,6 +330,19 @@
 	});
 	</script>
 	
+	<script type="text/javascript">
+	// capitalises name and lastname
+	$("#id_first_name").change(function(){
+		var name = $(this).val();
+		var uc = name.charAt(0).toUpperCase();
+		$(this).val(uc + name.substring(1));
+	});
+	$("#id_last_name").change(function(){
+		var lastName = $(this).val();
+		var uc = lastName.charAt(0).toUpperCase();
+		$(this).val(uc + lastName.substring(1));
+	});
+	</script>
 </body>
 
 </html>
