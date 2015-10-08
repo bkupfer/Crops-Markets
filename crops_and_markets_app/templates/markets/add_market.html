@@ -60,10 +60,10 @@
 								<label class="control-label" for="type_of_client"><h4>Tipo de cliente <label style="color:red">*</label></h4></label>
 							</div>
 							<div class="col-sm-8">
-								{{ client_form.type_of_client }}
+								{{ client_type_form.type_of_client }}
 							</div>
 							<div class="col-sm-12">
-								{% if client_form.type_of_client.errors %}<ul><li><label style="color:red">Este campo es muy obligatorio.</label></li></ui>{% endif %}
+								{% if client_type_form.type_of_client.errors %}<ul><li><label style="color:red">Este campo es muy obligatorio.</label></li></ui>{% endif %}
 							</div>
 						</div>
 
@@ -226,7 +226,8 @@
 						<!-- Submit button -->
 						<div class="row">
 							<div class="col-sm-4">
-								<input type="submit" value="Agregar" class="btn btn-default">
+								<button type="submit" class="btn btn-default">Agregar</button>
+								<button type="reset" class="btn btn-default">Limpiar formulario</button>
 							</div>
 							<div class="col-sm-8">
 								<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>

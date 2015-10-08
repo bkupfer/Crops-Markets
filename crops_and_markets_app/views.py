@@ -172,13 +172,14 @@ def paddock_detail(request):
 @login_required
 def add_market(request):
 	client_form = ClientForm(request.POST or None)
+	client_type_form = ClientTypeForm(request.POST or None)
 	geographical_form = GeoMarkerForm(request.POST or None)
 	company_form = CompanyMarketForm(request.POST or None)
 
 	if request.method == 'POST':
-		if client_form.is_valid() and geographical_form.is_valid() and company_form.is_valid():
+		if client_form.is_valid() and client_type_form.is_valid() and geographical_form.is_valid() and company_form.is_valid():
 			# client information
-			type_of_client = client_form.cleaned_data['type_of_client']
+			type_of_client = client_type_form.cleaned_data['type_of_client']
 			first_name = client_form.cleaned_data['first_name'].title()
 			last_name = client_form.cleaned_data['last_name'].title()
 			number_1 = client_form.cleaned_data['contact_number_1']
@@ -313,6 +314,7 @@ def market_info(request):
 	client = Client.objects.get(pk = id)
 	geo_info = GeoMarker.objects.get(client = id) # change to filter. this should allow multiple locations.
 
+	# Delete client
 	if 'delete' in request.POST:
 		print "BORRAMOS"
 		type_of_client = client.type_of_client.type
@@ -330,8 +332,7 @@ def market_info(request):
 		else: 
 			return redirect("market_table_potential")
 
-
-
+	# Calculate variaty distribution
 	if client.type_of_client.type == "Actual":
 		sales = Sale.objects.filter(client=client, type_of_transaction=2) # todo: modificar a ventas de los ultimos 3 años!
 		n = len(sales)
@@ -354,9 +355,13 @@ def market_info(request):
 		else:
 			avg_price = avg_volume = 0
 
-	# edit section
+
+	# Edit section
 	if request.method == "POST" and 'id' in request.GET:
 		if client_form.is_valid() and geographical_form.is_valid(): # and company_form.is_valid():
+			# Upgrades client from potential to actual
+			if 'upgrade' in request.POST:
+				client.type_of_client = TypeOfClient.objects.get(type="Actual")
 			client.first_name = client_form.cleaned_data['first_name'].title()
 			client.last_name = client_form.cleaned_data['last_name'].title()
 			client.contact_number_1 = client_form.cleaned_data['contact_number_1']

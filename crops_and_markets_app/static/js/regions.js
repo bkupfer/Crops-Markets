@@ -141,9 +141,12 @@ $("#id_region").change( function(){
 	provinceSelector.length = 0;
 	provinceSelector.options[0] = new Option('Seleccione provincia', '');
 	provinceSelector.selectedIndex = 0;
-	for (var i=0; i<region.provinces.length; i++){
+	for (var i=0; i<region.provinces.length; i++)
 		provinceSelector.options[i+1] = new Option( region.provinces[i].name, i );
-	}
+	var communeSelector = document.getElementById("id_commune");
+	communeSelector.length = 0;
+	communeSelector.options[0] = new Option('Seleccione comuna', '');
+	communeSelector.selectedIndex = 0;
 });
 
 $("#id_province").change( function(){
@@ -154,7 +157,6 @@ $("#id_province").change( function(){
 	communeSelector.length = 0;
 	communeSelector.options[0] = new Option('Seleccione comuna', '');
 	communeSelector.selectedIndex = 0;
-	for (var i=0; i<province.communes.length; i++){
+	for (var i=0; i<province.communes.length; i++)
 		communeSelector.options[i+1] = new Option( province.communes[i], province.communes[i] );
-	}
 });

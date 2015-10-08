@@ -97,8 +97,6 @@ class CropOwnerForm(forms.Form):
 # ######## #
 # Markets
 class ClientForm(forms.Form):
-	# TO DO: REFACTOR THIS !! -- bugg introduced. type_of_client must be asked for !
-	#type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	contact_number_1 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
@@ -119,6 +117,8 @@ class ClientForm(forms.Form):
 		# exclude = ('campo_a', 'campo_b', 'campo_c')
 
 
+class ClientTypeForm(forms.Form):
+	type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 
 
 class CompanyMarketForm(forms.Form):
@@ -142,15 +142,6 @@ class GeoMarkerForm(forms.Form):
 		model = GeoMarker
 
 
-class TransactionForm(forms.Form):
-	type_of_transaction = forms.ModelChoiceField(queryset=TypeOfTransaction.objects.all(), empty_label="Eliga tipo de transacción", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	date = forms.DateField(widget=DateInput())
-	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"}))
-
-	class Meta: 
-		model = Sale
-
-
 class SaleDetailForm(forms.Form):
 	price = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	variety = forms.ModelChoiceField(required=True, queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
@@ -160,3 +151,13 @@ class SaleDetailForm(forms.Form):
 		model = SaleDetail
 
 SaleDetailFormSet = formset_factory(SaleDetailForm, min_num=1, extra=0, validate_min=True)
+
+
+class TransactionForm(forms.Form):
+	type_of_transaction = forms.ModelChoiceField(queryset=TypeOfTransaction.objects.all(), empty_label="Eliga tipo de transacción", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	date = forms.DateField(widget=DateInput())
+	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"}))
+
+	class Meta: 
+		model = Sale
+

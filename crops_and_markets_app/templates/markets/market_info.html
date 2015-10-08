@@ -246,6 +246,9 @@
 							{{ client_form.observations }}
 						</div>
 						<br><button type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;">Guardar</button>
+						{% if client.type_of_client.type == "Potencial" %}
+							<button name="upgrade" type="submit" class="btn btn-warning write" style="display: none;" onclick="return confirm('Está seguro que desea convertir a {{ client }} en Cliente Actual?');">Transformar en cliente actual</button>
+						{% endif %}
 						<button name="delete" class="btn btn-danger pull-right write" style="display: none;" onclick="return confirm('Está seguro que desea eliminar a {{ client }} de la base de datos?\nEste proceso es irreversible.');">Borrar</button>
 					</form>
 				</div>

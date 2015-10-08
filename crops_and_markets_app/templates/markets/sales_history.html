@@ -20,16 +20,18 @@
 	<!-- Custom CSS -->
 	<link href="static/css/simple-sidebar.css" rel="stylesheet">
 
+	<script src="static/js/jquery.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
+	<!-- Data tables -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
-	<!-- List.js -->
-	<script src="static/js/list.js"></script>
-	<!-- <script src="http://listjs.com/no-cdn/list.js"></script> -->
 
 	<style type="text/css">
 	input {
@@ -55,53 +57,51 @@
 			<div class="container-fluid">
 
 				<h2>Historial de ventas {{ client }}</h2>
-
 				<br>
-				<div id="clients">
-					<input class="search" placeholder="Buscar"/>
-					<button class="btn btn-default sort" data-sort="date">Ordenar por fecha</button>
-					<button class="btn btn-default" id="hideReservationsBtn">Ocultar reservas</button>
 
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th><!-- sale || reservation --></th>
-								<th>Fecha</th>
-								<th>Volúmen Total</th>
-								<th>Variedades</th>
-								<!--<th>Precio</th>-->
-								<th>Detalle</th>
-							</tr>
-						</thead>
-						<tbody class="list">
-							{% for sale in sales %}
-							<tr class="{% if sale.type_of_transaction.pk = 1 %}reservation{% else %}actual{% endif %}">
-								<td>
-									{% if sale.type_of_transaction.pk == 1 %}
-										<label style="color: blue">(Reserva)</label>
-									{% else %}
-										<label style="color: green">(Venta)</label>
-									{% endif %}
-								</td>
-								<td class="date">{{ sale.date }}</td>
-								<td class="volume">{{ sale.total_volume }} [ton]</td>
-								<td class="variety">
-									{% for key, values in sale.varieties.items %}
-										{{ key }}
-										({{ values }}%), 
-									{% endfor %}
-								</td>
-								<!--<td class="price">$ {{ sale.price }}</td>-->
-								<td><a href="sales_detail?id={{ sale.pk }}">ver detalle</a></td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
+				<table id="sales-table" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>Fecha</th>
+							<th>Volúmen Total</th>
+							<th>Variedades</th>
+							<th>Detalle</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for sale in sales %}
+						<tr class="{% if sale.type_of_transaction.pk = 1 %}reservation{% else %}actual{% endif %}">
+							<td>
+								{% if sale.type_of_transaction.pk == 1 %}
+									<label style="color: blue">(Reserva)</label>
+								{% else %}
+									<label style="color: green">(Venta)</label>
+								{% endif %}
+							</td>
+							<td>{{ sale.date }}</td>
+							<td>{{ sale.total_volume }} [ton]</td>
+							<td>
+								{% for key, values in sale.varieties.items %}
+									{{ key }}
+									({{ values }}%), 
+								{% endfor %}
+							</td>
+							<!--<td class="price">$ {{ sale.price }}</td>-->
+							<td><a href="sales_detail?id={{ sale.pk }}">detalle</a></td>
+						</tr>
+						{% empty %}
+						<tr>
+							<td>No hay transacciones</td>
+							<td></td><td></td><td></td><td></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 
-					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
-					<!--<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction" disabled="">Registrar reserva</a>-->
-
-				</div>
+				<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
+				<button class="btn btn-default" id="hideReservationsBtn">Ocultar reservas</button>
+				
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 				<a href="market_info?id={{ client.pk }}" class="btn btn-default" id="return">Volver</a>
 			</div>
@@ -109,25 +109,23 @@
 
 	</div>
 
-	<script type="text/javascript">
-	var options = {
-		valueNames: [ 'date', 'variety','volume', 'price']
-	};
-	var userList = new List('clients', options);
-	</script>
-
-	<script src="static/js/jquery.js"></script>
-	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
 
 	<script>
-	$("#hideReservationsBtn").on('click', function(){
+	$(document).ready(function(){
+		$('#sales-table').DataTable({
+			 "language": {
+			 	"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+			}
+		});
+	});
 
-	var button = $("#hideReservationsBtn");
-	button.text(button.text() == "Ocultar reservas" ? "Mostrar reservas" : "Ocultar reservas");
-	$(".reservation").toggle(100);
-	})
+	$("#hideReservationsBtn").on('click', function(){
+		var button = $("#hideReservationsBtn");
+		button.text(button.text() == "Ocultar reservas" ? "Mostrar reservas" : "Ocultar reservas");
+		$(".reservation").toggle(100);
+	});
 	</script>
 
 </body>
