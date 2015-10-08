@@ -173,7 +173,6 @@ def paddock_detail(request):
 def add_market(request):
 	client_form = ClientForm(request.POST or None)
 	geographical_form = GeoMarkerForm(request.POST or None)
-	# comercial_info_form = ComercialInformationForm(request.POST or None)
 	company_form = CompanyMarketForm(request.POST or None)
 
 	if request.method == 'POST':
@@ -261,40 +260,40 @@ def add_sale(request):
 
 	return render_to_response("markets/add_sale.html", locals(), context_instance=RequestContext(request))
 
+# @deprecated
+# @login_required
+# def add_reservation(request):
+# 	reservation_form = SaleForm(request.POST or None)
+# 	reservation_detail_formset = SaleDetailFormSet(request.POST or None, prefix="form")
 
-@login_required
-def add_reservation(request):
-	reservation_form = SaleForm(request.POST or None)
-	reservation_detail_formset = SaleDetailFormSet(request.POST or None, prefix="form")
+# 	if request.method == 'GET':
+# 		client_id = request.GET['id']
+# 		client = Client.objects.get(pk=client_id)
 
-	if request.method == 'GET':
-		client_id = request.GET['id']
-		client = Client.objects.get(pk=client_id)
-
-	if request.method == 'POST':
-		client_id = request.GET['id']
-		if reservation_form.is_valid() and reservation_detail_formset.is_valid():
-			user = request.user
-			date = reservation_form.cleaned_data['date']
-			obs = reservation_form.cleaned_data['observations'].strip(' \t\n\r')
+# 	if request.method == 'POST':
+# 		client_id = request.GET['id']
+# 		if reservation_form.is_valid() and reservation_detail_formset.is_valid():
+# 			user = request.user
+# 			date = reservation_form.cleaned_data['date']
+# 			obs = reservation_form.cleaned_data['observations'].strip(' \t\n\r')
 			
-			new_reservation = Sale(user=user, client=Client.objects.get(pk=client_id), reservation=True, date=date, observations=obs)
-			new_reservation.save()
+# 			new_reservation = Sale(user=user, client=Client.objects.get(pk=client_id), reservation=True, date=date, observations=obs)
+# 			new_reservation.save()
 
-			for reservation_detail in reservation_detail_formset:
-				price = reservation_detail.cleaned_data['price']
-				volume = reservation_detail.cleaned_data['volume']
-				variety = reservation_detail.cleaned_data['variety']
+# 			for reservation_detail in reservation_detail_formset:
+# 				price = reservation_detail.cleaned_data['price']
+# 				volume = reservation_detail.cleaned_data['volume']
+# 				variety = reservation_detail.cleaned_data['variety']
 
-				rdetail = SaleDetail(sale=new_reservation, price=price, volume=volume, variety=variety)
-				rdetail.save()
+# 				rdetail = SaleDetail(sale=new_reservation, price=price, volume=volume, variety=variety)
+# 				rdetail.save()
 
-			# success
-			messages.success(request, 'Reserva de agregada con éxtio.')
-		else:
-			messages.error(request, 'Error en el formulario.')
+# 			# success
+# 			messages.success(request, 'Reserva de agregada con éxtio.')
+# 		else:
+# 			messages.error(request, 'Error en el formulario.')
 
-	return render_to_response("markets/add_reservation.html", locals(), context_instance=RequestContext(request))
+# 	return render_to_response("markets/add_reservation.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
@@ -304,37 +303,66 @@ def markets(request):
 
 @login_required
 def market_info(request):
-	if request.method == "GET" and 'id' in request.GET:
-		id = request.GET['id']
-		client = Client.objects.get(pk = id)
-		geo_info = GeoMarker.objects.get(client = id) # change to filter. this should allow multiple locations.
-		#comercial_info = ComercialInformation.objects.filter(client = id)
+	client_form = ClientForm(request.POST or None)
+	geographical_form = GeoMarkerForm(request.POST or None)
+	company_form = CompanyMarketForm(request.POST or None)
 
-		if client.type_of_client.type == "Actual":
-			sales = Sale.objects.filter(client=client, type_of_transaction=2) # ventas
+	if not 'id' in request.GET:
+		return redirect('market_table')
+	id = request.GET['id']
+	client = Client.objects.get(pk = id)
+	geo_info = GeoMarker.objects.get(client = id) # change to filter. this should allow multiple locations.
 
-			n = len(sales)
-			if n != 0:
-				total_price = 0
-				total_volume = 0
-				varieties = {}
-				
-				for sale in sales:
-					for s in sale.saledetail_set.all():
-						total_price += s.price
-						total_volume += s.volume
-						if s.variety not in varieties:
-							varieties[s.variety] = s.volume
-						else:
-							varieties[s.variety] += s.volume
+	if client.type_of_client.type == "Actual":
+		sales = Sale.objects.filter(client=client, type_of_transaction=2) # todo: modificar a ventas de los ultimos 3 años!
+		n = len(sales)
+		if n != 0:
+			total_price = 0
+			total_volume = 0
+			varieties = {}
+			for sale in sales:
+				for s in sale.saledetail_set.all():
+					total_price += s.price
+					total_volume += s.volume
+					if s.variety not in varieties:
+						varieties[s.variety] = s.volume
+					else:
+						varieties[s.variety] += s.volume
+			for var in varieties:
+				varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
+			avg_price = total_price / n
+			avg_volume = total_volume / n
+		else:
+			avg_price = avg_volume = 0
 
-				for var in varieties:
-					varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
-				avg_price = total_price / n
-				avg_volume = total_volume / n
-			else:
-				avg_price = avg_volume = 0
+	# edit section
+	if request.method == "POST" and 'id' in request.GET:
+		if client_form.is_valid() and geographical_form.is_valid(): # and company_form.is_valid():
+			client.first_name = client_form.cleaned_data['first_name'].title()
+			client.last_name = client_form.cleaned_data['last_name'].title()
+			client.contact_number_1 = client_form.cleaned_data['contact_number_1']
+			client.contact_number_2 = client_form.cleaned_data['contact_number_2']
+			client.email = client_form.cleaned_data['email']
+			client.observations = client_form.cleaned_data['observations'].strip(' \t\n\r')
+			client.save()
 
+			geo_info.region = geographical_form.cleaned_data['region']
+			province = commune = None
+			try:
+				province = Province.objects.get(name= request.POST['province_trick'])
+				commune = Commune.objects.get(name= request.POST['commune'])
+			except:
+				pass
+			geo_info.province = province
+			geo_info.commune = commune
+			geo_info.address = geographical_form.cleaned_data['address']
+			geo_info.latitude = geographical_form.cleaned_data['latitude']
+			geo_info.longitude = geographical_form.cleaned_data['longitude']
+			geo_info.save()
+
+			messages.success(request, 'Edicion guardada con éxito.')
+		else: 
+			messages.error(request, 'Error en la edición.')
 
 	return render_to_response("markets/market_info.html", locals(), context_instance=RequestContext(request))
 
@@ -421,6 +449,4 @@ def sales_history(request):
 			for var in sale.varieties:
 				sale.varieties[var] = "{0:.2f}".format(100.0 * sale.varieties[var] / sale.total_volume)
 
-
 	return render_to_response("markets/sales_history.html", locals(), context_instance=RequestContext(request))
-

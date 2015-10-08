@@ -89,17 +89,15 @@ class CropOwnerForm(forms.Form):
 		old_owner = self.cleaned_data.get('old_owner')
 		first_name = self.cleaned_data.get('first_name')
 		last_name = self.cleaned_data.get('last_name')
-
 		if old_owner is not None or (first_name != "" and last_name != ""):
 			return self.cleaned_data
-		
 		raise forms.ValidationError('Error validating CropOwnerForm')
 
 
 # ######## #
 # Markets
 class ClientForm(forms.Form):
-	type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	#type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	contact_number_1 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
@@ -112,9 +110,14 @@ class ClientForm(forms.Form):
 	position = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
 
+	# REFACTOR
+	# add geo_info/geo_marker_form here.
+
 	class Meta:
 		model = Client
 		# exclude = ('campo_a', 'campo_b', 'campo_c')
+
+
 
 
 class CompanyMarketForm(forms.Form):
@@ -129,8 +132,7 @@ class CompanyMarketForm(forms.Form):
 
 class GeoMarkerForm(forms.Form):
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	#province = done
-	#commune = done
+	# province, commune = done
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))

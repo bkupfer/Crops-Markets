@@ -137,7 +137,7 @@ var regions = [
 
 $("#id_region").change( function(){
 	var region = regions[$(this).val()];
-	var provinceSelector = document.getElementById("id_province"); // $("#id_province");
+	var provinceSelector = document.getElementById("id_province");
 	provinceSelector.length = 0;
 	provinceSelector.options[0] = new Option('Seleccione provincia', '');
 	provinceSelector.selectedIndex = 0;

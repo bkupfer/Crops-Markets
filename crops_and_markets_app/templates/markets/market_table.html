@@ -78,20 +78,20 @@
 					<tbody>
 						{% for client in clients %}
 						<tr>
-							<td class="client">{{ client }}</td>
-							<td class="company">
+							<td>{{ client }}</td>
+							<td>
 								{% if client.company %}
 									{{ client.company }}
 								{% else %}
 									Persona natural
 								{% endif %}
 							</td>
-							<td class="region">
+							<td>
 								{% for gm in client.geomarker_set.all %}
 								{{ gm.region }} 
 								{% endfor %}
 							</td>
-							{% if not potential_table %}<td class="size">{{ client.size }}</td>{% endif %}
+							{% if not potential_table %}<td>{{ client.size }}</td>{% endif %}
 							<td><a href="market_info?id={{ client.pk }}">detalle</a></td>
 						</tr>
 						{% empty %}

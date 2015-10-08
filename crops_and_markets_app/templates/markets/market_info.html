@@ -101,7 +101,10 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<h2>Detalle {{ client }}</h2>
+					<h2>Detalle {{ client }}
+						<button id="edit-button" class="btn btn-success pull-right">Editar</button>
+						<input type="submit" form="edit-form" class="btn btn-primary pull-right save-changes" style="display: none;" value="Guardar"/>
+					</h2>
 
 					{% if messages %}
 					<!-- For message to user -->
@@ -116,109 +119,136 @@
 					</div> 
 					{% endif %}
 
-					<h3>Información de contacto</h3>
-					<table class="table table-hover">
-						<tr>
-							<td class="col-sm-4">Nombre</td>
-							<td class="col-sm-8">{{ client }}</td>
-						</tr>
-						<tr>
-							<td>Número{% if client.contact_number_2 %}s{% endif %}</td>
-							<td>{% if client.contact_number_1 %}
-									<a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a>
-									{% if client.contact_number_2 %}
-										<br><a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a>
-									{% endif %}
-								{% endif %}
-							</td>
-						</tr>
-						<tr>
-							<td>Email</td>
-							<td><a href="mailto:{{ client.email }}">{{ client.email }}</a></td>
-						</tr>
-					</table>
+					<form action="market_info?id={{ client.pk }}" method="POST" id="edit-form"> {% csrf_token %}
+						<h3>Información de contacto</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-sm-4">Nombre</td>
+								<td class="read" class="col-sm-8">{{ client }}</td>
+								<td class="write" style="display: none;">
+									<span class="col-sm-6">{{ client_form.first_name }}</span>
+									<span class="col-sm-6">{{ client_form.last_name }}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Número</td>
+								<td class="read"><a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a></td>
+								<td class="write" style="display: none;">{{ client_form.contact_number_1 }}</td>
+							</tr>
+							<tr id="number-2" {% if client.contact_number_2 == "" %}style="display: none;"{% endif %}>
+								<td>Número 2</td>
+								<td class="read"><a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a></td>
+								<td class="write" style="display: none;">{{ client_form.contact_number_2 }}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td class="read"><a href="mailto:{{ client.email }}">{{ client.email }}</a></td>
+								<td class="write" style="display: none;">{{ client_form.email }}</td>
+							</tr>
+						</table>
 
-					<h3>Información de empresa</h3>
-					<table class="table table-hover">
-					{% if client.company %}
-						<tr>
-							<td class="col-sm-4">Compañía</td>
-							<td class="col-sm-8">{{ client.company }}</td>
-						</tr>
-						<tr>
-							<td>Rut empresa</td>
-							<td id="rut">{{ client.company.rut }}</td>
-						</tr>
-						<tr>
-							<td>Cargo</td>
-							<td>{{ client.position }}</td>
-						</tr>
-					{% else %}
-						<tr><td>Persona natural</td></tr>
-					{% endif %}
-					</table>
+						<h3>Información de empresa</h3>
+						<table class="table table-hover">
+						{% if client.company %}
+							<tr>
+								<td class="col-sm-4">Compañía</td>
+								<td class="col-sm-8">{{ client.company }}</td>
+							</tr>
+							<tr>
+								<td>Rut empresa</td>
+								<td id="rut">{{ client.company.rut }}</td>
+							</tr>
+							<tr>
+								<td>Cargo</td>
+								<td>{{ client.position }}</td>
+							</tr>
+						{% else %}
+							<tr><td>Persona natural</td></tr>
+						{% endif %}
+						</table>
 
-					{% if client.type_of_client.type == "Actual" %}
-					<h3>Información de comercial</h3>
-					<table class="table table-hover">
-						<tr>
-							<td class="col-sm-4">Número de compras</td>
-							<td class="col-sm-8">{{ n }} </td>
-						</tr>
-						<tr>
-							<td>Precio Promedio</td>
-							<td>$ {{ avg_price }}</td>
-						</tr>
-						<tr>
-							<td>Volumen Promedio</td>
-							<td>{{ avg_volume }} [ton]</td>
-						</tr>
-						<tr>
-							<td>Variedades</td>
-							<td>{% for key, values in varieties.items %}
-									{{ key }}
-									({{ values }}%), 
-								{% endfor %}
-							</td>
-						</tr>
-					</table>
-					<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
-					<!--<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction" disabled="">Registrar reserva</a>-->
-					<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial</a>
-					{% endif %}
+						{% if client.type_of_client.type == "Actual" %}
+						<h3>Información de comercial</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-sm-4">Número de compras</td>
+								<td class="col-sm-8">{{ n }} </td>
+							</tr>
+							<tr>
+								<td>Precio Promedio</td>
+								<td>$ {{ avg_price }}</td>
+							</tr>
+							<tr>
+								<td>Volumen Promedio</td>
+								<td>{{ avg_volume }} [ton]</td>
+							</tr>
+							<tr>
+								<td>Variedades</td>
+								<td>{% for key, values in varieties.items %}
+										{{ key }}
+										({{ values }}%), 
+									{% endfor %}
+								</td>
+							</tr>
+						</table>
+						<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
+						<!--<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction" disabled="">Registrar reserva</a>-->
+						<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial</a>
+						{% endif %}
 
-					<h3>Información geográfica</h3>
-					<table class="table table-hover">
-						<tr>
-							<td class="col-sm-4">Región</td>
-							<td class="col-sm-8">{{ geo_info.region }}</td>
-						</tr>
-						<tr>
-							<td>Provincia</td>
-							<td>{{ geo_info.province }}</td>
-						</tr>
-						<tr>
-							<td>Comuna</td>
-							<td>{{ geo_info.commune }}</td>
-						</tr>
-						<tr>
-							<td>Dirección</td>
-							<td>{{ geo_info.address }}</td>
-						</tr>
-						<tr id="latlng" style="display: none">
-							<td>(lat, lng)</td>
-							<td>({{ geo_info.latitude }}, {{ geo_info.longitude }})</td>
-						</tr>
-					</table>
-					<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
-					<button class="btn btn-default" id="mapButton" onclick="displayMap()">Mostrar mapa</button>
-					<button class="btn btn-default" id="latlng-btn">Mostrar latitud-longitud</button>
+						<h3>Información geográfica</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-sm-4">Región</td>
+								<td class="col-sm-8 read">{{ geo_info.region }}</td>
+								<td class="write" style="display: none;">{{ geographical_form.region }}</td>
+							</tr>
+							<tr>
+								<td>Provincia</td>
+								<td class="read">{{ geo_info.province }}</td>
+								<td class="write" style="display: none;">
+									<select name="province" id="id_province" class="form-control input-sm">
+										<option selected="selected" value="">Seleccione provincia</option>
+									</select>
+									<input type="hidden" id="province_trick" name="province_trick" value="">
+								</td>
+							</tr>
+							<tr>
+								<td>Comuna</td>
+								<td class="read">{{ geo_info.commune }}</td>
+								<td class="write" style="display: none;">
+									<select name="commune" id="id_commune" class="form-control input-sm">
+										<option selected="selected" value="">Seleccione comuna</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>Dirección</td>
+								<td class="read">{{ geo_info.address }}</td>
+								<td class="write" style="display: none;">{{ geographical_form.address }}</td>
+							</tr>
+							<tr id="latlng" style="display: none">
+								<td>(lat, lng)</td>
+								<td class="read">({{ geo_info.latitude }}, {{ geo_info.longitude }})</td>
+								<td class="col-sm-4 write" style="display: none;">{{ geographical_form.latitude }}</td>
+								<td class="col-sm-4 write" style="display: none;">{{ geographical_form.longitude }}</td>
+							</tr>
+						</table>
+						<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
+						<button type="button" class="btn btn-default" id="mapButton" onclick="displayMap();">Mostrar mapa</button>
+						<button type="button" class="btn btn-default" id="latlng-btn">Mostrar latitud-longitud</button>
 
-					<h3>Observaciones</h3>
-					<div style="border: 1px solid #CCCCCC">
-						<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ client.observations }}</p>
-					</div>
+						<h3>Observaciones</h3>
+						<div class="read" style="border: 1px solid #CCCCCC">
+							<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ client.observations }}</p>
+						</div>
+						<div class="write" style="display: none;">
+							{{ client_form.observations }}
+						</div>
+						<br><input type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;" value="Guardar"/>
+					</form>
 				</div>
+
 			</div>
 			<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 			<a href="market_table{% if client.type_of_client.type == 'Potencial' %}_potential{% endif %}" class="btn btn-default" id="return">Volver</a>
@@ -230,12 +260,47 @@
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
+	<script src="static/js/regions.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		$("#id_first_name").val("{{ client.first_name }}");
+		$("#id_last_name").val("{{ client.last_name }}");
+		$("#id_contact_number_1").val({{ client.contact_number_1 }});
+		$("#id_contact_number_2").val({{ client.contact_number_2 }});
+		$("#id_email").val("{{ client.email }}");
+		$("#id_observations").val("{{ client.observations }}");
+
+		$("#id_region")[0].selectedIndex = {{ geo_info.region.id }};
+
+		if ("{{ geo_info.province }}" != "None"){
+			var provinceSelector = document.getElementById("id_province");
+			provinceSelector.options[0] = new Option('{{ geo_info.province }}', '{{ geo_info.province.pk }}');
+			$("#province_trick").val("{{ geo_info.province }}");
+		}
+		if ("{{ geo_info.commune }}" != "None"){
+			var communeSelector = document.getElementById("id_commune");
+			communeSelector.options[0] = new Option('{{ geo_info.commune }}', '{{ geo_info.commune }}');
+		}
+		
+		$("#id_address").val("{{ geo_info.address }}");
+	});
+	</script>
 
 	<script>
 	$("#latlng-btn").on('click', function(){
 		var button = $("#latlng-btn");
 		button.text(button.text() == "Mostrar latitud-longitud" ? "Ocultar latitud-longitud" : "Mostrar latitud-longitud");
 		$("#latlng").toggle(200);
+	});
+	</script>
+
+	<script>
+	$("#edit-button").click(function (){
+		$(".save-changes").slideToggle("fast");
+		$("#number-2").show();
+		$(".read").toggle();
+		$(".write").toggle(100);
 	});
 	</script>
 
