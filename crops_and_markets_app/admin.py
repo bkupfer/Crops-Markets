@@ -11,7 +11,6 @@ admin.site.register(models.PotatoVariety)
 admin.site.register(models.CompanyCrop)
 admin.site.register(models.Crop)
 admin.site.register(models.CropOwner)
-admin.site.register(models.Paddock)
 
 # markets
 admin.site.register(models.Client)

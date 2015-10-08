@@ -4,21 +4,21 @@ var regions = [
 		name: "Seleccione una region"
 	},
 	{
-		name: "ARICA Y PARINACOTA",
+		name: "Arica y Parinacota",
 		provinces: [
 			{name: "Arica",			 communes: ["Arica", "Camarones"]},
 			{name: "Parinacota",	 communes: ["Putre", "General Lagos"]}
 		]
 	},
 	{
-		name: "TARAPACÁ",
+		name: "Tarapacá",
 		provinces: [
 			{name: "Iquique",		 communes: ["Iquique", "Alto Hospicio"]},
 			{name: "Tamarugal",		 communes: ["Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]}
 		]
 	},
 	{
-		name: "ANTOFAGASTA",
+		name: "Antofagasta",
 		provinces: [
 			{name: "Antofagasta",	 communes: ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal"]},
 			{name: "El Loa",		 communes: ["Calama", "Ollagüe", "San Pedro de Atacama"]},
@@ -26,7 +26,7 @@ var regions = [
 		]
 	},
 	{
-		name: "ATACAMA",
+		name: "Atacama",
 		provinces: [
 			{name: "Copiapó",		 communes: ["Copiapó", "Caldera", "Tierra Amarilla"]},
 			{name: "Chañaral",		 communes: ["Chañaral", "Diego de Almagro"]},
@@ -34,7 +34,7 @@ var regions = [
 		]
 	},
 	{
-		name: "COQUIMBO",
+		name: "Coquimbo",
 		provinces: [
 			{name: "Elqui",			 communes: ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña"]},
 			{name: "Choapa",		 communes: ["Illapel", "Canela", "Los Vilos", "Salamanca"]},
@@ -42,7 +42,7 @@ var regions = [
 		]
 	},
 	{
-		name: "VALPARAÍSO",
+		name: "Valparaíso",
 		provinces: [
 			{name: "Valparaíso",	 communes: ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar"]},
 			{name: "Isla de Pascua", communes: ["Isla de Pascua"]},
@@ -55,7 +55,7 @@ var regions = [
 		]
 	},
 	{
-		name: "DEL LIBERTADOR GRAL. BERNARDO O'HIGGINS",
+		name: "Del Libertador Gral. Bernardo O'Higgins",
 		provinces: [
 			{name: "Cachapoal",		 communes: ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente"]},
 			{name: "Cardenal Caro",	 communes: ["Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones"]},
@@ -63,7 +63,7 @@ var regions = [
 		]
 	},
 	{
-		name: "DEL MAULE",
+		name: "Del Maule",
 		provinces: [
 			{name: "Talca",			 communes: ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael"]},
 			{name: "Cauquenes",		 communes: ["Cauquenes", "Chanco", "Pelluhue", ]},
@@ -72,7 +72,7 @@ var regions = [
 		]
 	},
 	{
-		name: "DEL BIOBÍO",
+		name: "Del Biobío",
 		provinces: [
 			{name: "Concepción",	 communes: ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén"]},
 			{name: "Arauco",		 communes: ["Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Alamos", "Tirúa"]},
@@ -81,21 +81,21 @@ var regions = [
 		]
 	},
 	{
-		name: "DE LA ARAUCANÍA",
+		name: "De la Araucanía",
 		provinces: [
 			{name: "Cautín",		 communes: ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol"]},
 			{name: "Malleco",		 communes: ["Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"]}
 		]
 	},
 	{
-		name: "DE LOS RÍOS",
+		name: "De los Ríos",
 		provinces: [
 			{name: "Valdivia",		 communes: ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli"]},
 			{name: "Ranco",			 communes: ["La Unión", "Futrono", "Lago Ranco", "Río Bueno"]}
 		]
 	},
 	{
-		name: "DE LOS LAGOS",
+		name: "De los Lagos",
 		provinces: [
 			{name: "Llanquihue",	 communes: ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas"]},
 			{name: "Chiloé",		 communes: ["Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao"]},
@@ -104,7 +104,7 @@ var regions = [
 		]
 	},
 	{
-		name: "AISÉN DEL GRAL. CARLOS IBAÑEZ DEL CAMPO",
+		name: "Aisén del Gral. Carlos Ibañez del Campo",
 		provinces: [
 			{name: "Coihaique",		 communes: ["Coihaique", "Lago Verde"]},
 			{name: "Aisén",			 communes: ["Aisén", "Cisnes", "Guaitecas"]},
@@ -113,7 +113,7 @@ var regions = [
 		]
 	},
 	{
-		name: "MAGALLANES Y DE LA ANTÁRTICA CHILENA",
+		name: "Magallanes y de la Antártica Chilena",
 		provinces: [
 			{name: "Magallanes",		 communes: ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio"]},
 			{name: "Antártica Chilena",	 communes: ["Cabo de Hornos (Ex-Navarino)", "Antártica"]},
@@ -122,7 +122,7 @@ var regions = [
 		]
 	},
 	{
-		name: "METROPOLITANA DE SANTIAGO",
+		name: "Metropolitana de Santiago",
 		provinces: [
 			{name: "Santiago",		 communes: ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura"]},
 			{name: "Cordillera",	 communes: ["Puente Alto", "Pirque", "San José de Maipo"]},

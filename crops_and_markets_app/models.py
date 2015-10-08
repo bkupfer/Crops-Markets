@@ -103,11 +103,6 @@ class CropOwner(models.Model):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
 
 
-class Paddock(models.Model):
-	crop = models.ForeignKey('Crop')
-	# -- information --
-
-
 # ######## #
 # Markets
 class Client(models.Model):

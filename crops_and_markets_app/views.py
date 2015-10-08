@@ -313,6 +313,25 @@ def market_info(request):
 	client = Client.objects.get(pk = id)
 	geo_info = GeoMarker.objects.get(client = id) # change to filter. this should allow multiple locations.
 
+	if 'delete' in request.POST:
+		print "BORRAMOS"
+		type_of_client = client.type_of_client.type
+		# actually delete
+		sales = client.sale_set.all()
+		for sale in sales:
+			sale.saledetail_set.all().delete()
+		sales.delete()
+		geo_info.delete()
+		client.delete()
+		# done deleting
+		messages.success(request, "Cliente removido de la base de datos.")
+		if type_of_client == "Actual":
+			return redirect("market_table")
+		else: 
+			return redirect("market_table_potential")
+
+
+
 	if client.type_of_client.type == "Actual":
 		sales = Sale.objects.filter(client=client, type_of_transaction=2) # todo: modificar a ventas de los ultimos 3 años!
 		n = len(sales)

@@ -1,7 +1,7 @@
 [
 	{
 		"fields": {
-			"name": "ARICA Y PARINACOTA"
+			"name": "Arica y Parinacota"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 1
@@ -56,7 +56,7 @@
 	},
 	{
 		"fields": {
-			"name": "TARAPACÁ"
+			"name": "Tarapacá"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 2
@@ -135,7 +135,7 @@
 	},
 	{
 		"fields": {
-			"name": "ANTOFAGASTA"
+			"name": "Antofagasta"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 3
@@ -238,7 +238,7 @@
 	},
 	{
 		"fields": {
-			"name": "ATACAMA"
+			"name": "Atacama"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 4
@@ -341,7 +341,7 @@
 	},
 	{
 		"fields": {
-			"name": "COQUIMBO"
+			"name": "Coquimbo"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 5
@@ -492,7 +492,7 @@
 	},
 	{
 		"fields": {
-			"name": "VALPARAÍSO"
+			"name": "Valparaíso"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 6
@@ -867,7 +867,7 @@
 	},
 	{
 		"fields": {
-			"name": "DEL LIBERTADOR GRAL. BERNARDO O'HIGGINS"
+			"name": "Del Libertador Gral. Bernardo O'Higgins"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 7
@@ -1162,7 +1162,7 @@
 	},
 	{
 		"fields": {
-			"name": "DEL MAULE"
+			"name": "Del Maule"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 8
@@ -1441,7 +1441,7 @@
 	},
 	{
 		"fields": {
-			"name": "DEL BIOBÍO"
+			"name": "Del Biobío"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 9
@@ -1912,7 +1912,7 @@
 	},
 	{
 		"fields": {
-			"name": "DE LA ARAUCANÍA"
+			"name": "De la Araucanía"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 10
@@ -2191,7 +2191,7 @@
 	},
 	{
 		"fields": {
-			"name": "DE LOS RÍOS"
+			"name": "De los Ríos"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 11
@@ -2310,7 +2310,7 @@
 	},
 	{
 		"fields": {
-			"name": "DE LOS LAGOS"
+			"name": "De los Lagos"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 12
@@ -2589,7 +2589,7 @@
 	},
 	{
 		"fields": {
-			"name": "AISÉN DEL GRAL. CARLOS IBAÑEZ DEL CAMPO"
+			"name": "Aisén del Gral. Carlos Ibañez del Campo"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 13
@@ -2708,7 +2708,7 @@
 	},
 	{
 		"fields": {
-			"name": "MAGALLANES Y DE LA ANTÁRTICA CHILENA"
+			"name": "Magallanes y de la Antártica Chilena"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 14
@@ -2835,7 +2835,7 @@
 	},
 	{
 		"fields": {
-			"name": "METROPOLITANA DE SANTIAGO"
+			"name": "Metropolitana de Santiago"
 		},
 		"model": "crops_and_markets_app.region",
 		"pk": 15

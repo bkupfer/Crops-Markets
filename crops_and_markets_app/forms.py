@@ -97,6 +97,7 @@ class CropOwnerForm(forms.Form):
 # ######## #
 # Markets
 class ClientForm(forms.Form):
+	# TO DO: REFACTOR THIS !! -- bugg introduced. type_of_client must be asked for !
 	#type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))

@@ -103,7 +103,7 @@
 				<div class="row">
 					<h2>Detalle {{ client }}
 						<button id="edit-button" class="btn btn-success pull-right">Editar</button>
-						<input type="submit" form="edit-form" class="btn btn-primary pull-right save-changes" style="display: none;" value="Guardar"/>
+						<button type="submit" form="edit-form" class="btn btn-primary pull-right save-changes" style="display: none;">Guardar</button>
 					</h2>
 
 					{% if messages %}
@@ -245,7 +245,8 @@
 						<div class="write" style="display: none;">
 							{{ client_form.observations }}
 						</div>
-						<br><input type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;" value="Guardar"/>
+						<br><button type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;">Guardar</button>
+						<button name="delete" class="btn btn-danger pull-right write" style="display: none;" onclick="return confirm('Está seguro que desea eliminar a {{ client }} de la base de datos?\nEste proceso es irreversible.');">Borrar</button>
 					</form>
 				</div>
 
@@ -302,6 +303,13 @@
 		$(".read").toggle();
 		$(".write").toggle(100);
 	});
+	</script>
+
+	<script>
+	function confirmDelete(){
+		var r = confirm("Está seguro que desea eliminar a {{ client }} de la base de datos?");
+
+	}
 	</script>
 
 </body>

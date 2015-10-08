@@ -64,6 +64,19 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<h2>Tabla de {% if potential_table %} potenciales {% endif %}clientes</h2>
+				
+				<!-- For message to user -->
+				{% if messages %}
+				<div class="row">
+					<div class="col-sm-12">
+					{% for message in messages %}
+						<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+							{{ message }}
+						</p>
+					{% endfor %}
+					</div>
+				</div> 
+				{% endif %}
 
 				<table id="clients-table" class="display" cellspacing="0" width="100%">
 					<thead>
@@ -83,7 +96,7 @@
 								{% if client.company %}
 									{{ client.company }}
 								{% else %}
-									Persona natural
+									<abbr title="Persona Natural">P.N.</abbr>
 								{% endif %}
 							</td>
 							<td>
