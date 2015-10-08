@@ -122,7 +122,7 @@ var regions = [
 		]
 	},
 	{
-		name: "REGIÓN METROPOLITANA DE SANTIAGO",
+		name: "METROPOLITANA DE SANTIAGO",
 		provinces: [
 			{name: "Santiago",		 communes: ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura"]},
 			{name: "Cordillera",	 communes: ["Puente Alto", "Pirque", "San José de Maipo"]},

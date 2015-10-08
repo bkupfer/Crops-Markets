@@ -186,6 +186,12 @@ class Sale(models.Model):
 	date = models.DateField()
 	observations = models.TextField(blank=True, null=True)
 
+	def get_volume(self):
+		total_volume = 0
+		for detail in self.saledetail_set.all():
+			total_volume += detail.volume
+		return total_volume
+
 
 class SaleDetail(models.Model):
 	sale = models.ForeignKey('Sale')

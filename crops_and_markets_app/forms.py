@@ -102,7 +102,6 @@ class ClientForm(forms.Form):
 	type_of_client = forms.ModelChoiceField(queryset=TypeOfClient.objects.all(), empty_label="Tipo de cliente", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	#contact_number_1 = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	contact_number_1 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
 		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
 		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
@@ -130,8 +129,8 @@ class CompanyMarketForm(forms.Form):
 
 class GeoMarkerForm(forms.Form):
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	#province = todo
-	#commune = todo
+	#province = done
+	#commune = done
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
@@ -141,7 +140,7 @@ class GeoMarkerForm(forms.Form):
 
 
 class TransactionForm(forms.Form):
-	type_of_transaction = forms.ModelChoiceField(queryset=TypeOfTransaction.objects.all(), empty_label="venta | reserva", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	type_of_transaction = forms.ModelChoiceField(queryset=TypeOfTransaction.objects.all(), empty_label="Eliga tipo de transacción", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	date = forms.DateField(widget=DateInput())
 	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"}))
 

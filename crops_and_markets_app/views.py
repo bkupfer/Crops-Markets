@@ -299,7 +299,7 @@ def add_reservation(request):
 
 @login_required
 def markets(request):
-	return render_to_response("markets/markets.html", locals(), context_instance=RequestContext(request))
+	return render_to_response("markets/markets.html", [], context_instance=RequestContext(request))
 
 
 @login_required
@@ -351,12 +351,38 @@ def market_map(request):
 @login_required
 def market_table(request):
 	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
-	#total_sales = 0
-	#for client in clients:
-	#	client_sales = client.sale_set.filter(type_of_transaction=TypeOfTransaction.objects.get(type="Venta"))
+	total_sale_volume = 0
+	for client in clients:
+		sales_last_3_years = client.sale_set.filter(type_of_transaction=2) # not including current year
+		client.volume = 0
+		for sale in sales_last_3_years:
+			sale_volume = sale.get_volume()
+			total_sale_volume += sale_volume
+			client.volume += sale_volume
+
+	for client in clients:
+		client.size = translate_size(total_sale_volume, client.volume)
 
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
+
+def translate_size(total_volume, client_volume):
+	if total_volume == 0:
+		return "No se han realizado ventas"
+	ratio = client_volume / (total_volume * 1.0)
+	if ratio == 0:
+		return "--"
+	if ratio < 0.2:
+		tag_size = "XS" 
+	if 0.2 < ratio and ratio < 0.4:
+		tag_size = "S"
+	if 0.4 < ratio and ratio < 0.6:
+		tag_size = "M"
+	if 0.6 < ratio and ratio < 0.8:
+		tag_size = "L"
+	if 0.8 < ratio:
+		tag_size = "XL"
+	return tag_size
 
 @login_required
 def market_table_potential(request):
