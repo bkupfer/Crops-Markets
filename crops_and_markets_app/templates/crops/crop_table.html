@@ -106,7 +106,10 @@
 							<td><a href="crop_info?id={{ crop.pk }}">detalle</a></td>
 						</tr>
 						{% empty %}
-						<tr><td>No hay clientes en la base de datos.</td></tr>
+						<tr>
+							<td>No hay predios en la base de datos.</td>
+							<td></td><td></td><td></td><td></td>
+						</tr>
 						{% endfor %}
 					</tbody>
 				</table>
@@ -115,7 +118,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<script src="static/js/menu_toggle.js"></script>
 

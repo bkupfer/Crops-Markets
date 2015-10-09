@@ -318,9 +318,11 @@
 						<div class="write" style="display: none;">
 							{{ crop_form.observations }}
 						</div>
-					</form>
 
-					<br><button type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;">Guardar</button>
+						<br class="write">
+						<button type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;">Guardar</button>
+						<button name="delete" class="btn btn-danger pull-right write" style="display: none;" onclick="return confirm('Está seguro que desea eliminar a {{ client }} de la base de datos?\nEste proceso es irreversible.');">Borrar</button>
+					</form>
 
 					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 					<a href="crop_table" class="btn btn-default" id="return">Volver</a>
@@ -345,13 +347,13 @@
 		$("#id_email").val("{{ owner.email }}");
 		
 		$("#id_has").val({{ crop.has }});
-		$("#id_water").val({% if crop.water %}true{% else %}false{% endif %});
+		$("#id_water").prop("checked", {% if crop.water %}true{% else %}false{% endif %});
 		$("#id_water_cmnt").val("{{ crop.water_cmnt }}");
-		$("#id_soil").val({% if crop.soil %}true{% else %}false{% endif %});
+		$("#id_soil").prop("checked", {% if crop.soil %}true{% else %}false{% endif %});
 		$("#id_soil_cmnt").val("{{ crop.soil_cmnt }}");
-		$("#id_topography").val({% if crop.topography %}true{% else %}false{% endif %});
+		$("#id_topography").prop("checked", {% if crop.topography %}true{% else %}false{% endif %});
 		$("#id_topography_cmnt").val("{{ crop.topography_cmnt }}");
-		$("#id_temperatures").val({% if crop.temperatures %}true{% else %}false{% endif %});
+		$("#id_temperatures").prop("checked", {% if crop.temperatures %}true{% else %}false{% endif %});
 		$("#id_temperatures_cmnt").val("{{ crop.temperatures_cmnt }}");
 
 		$("#id_region")[0].selectedIndex = {{ crop.region.pk }};
@@ -365,7 +367,6 @@
 			communeSelector.options[0] = new Option('{{ crop.commune }}', '{{ crop.commune }}');
 		}
 		$("#id_address").val("{{ crop.address }}");
-
 		$("#id_observations").val("{{ crop.observations }}");
 	});
 

@@ -137,13 +137,17 @@ def crop_info(request):
 	if not 'id' in request.GET:
 		return redirect('crop_table')
 
+	id = request.GET['id']
+	try:
+		crop = Crop.objects.get(pk=id)
+		owner = crop.crop_owner.first()
+		comp = owner.company
+	except:
+		return redirect('crop_table')
+
 	crop_form = CropForm(request.POST or None)
 	owner_form = CropOwnerForm(request.POST or None)
 	company_form = CompanyCropFrom(request.POST or None)
-	id = request.GET['id']
-	crop = Crop.objects.get(pk=id)
-	owner = crop.crop_owner.first()
-	comp = owner.company
 
 	# Delete crop
 	if 'delete' in request.POST:
