@@ -89,6 +89,10 @@
 		height: 250px;
 		border-style: solid;
 	}
+
+	.write {
+		display: none;
+	}
 	</style>
 
 </head>
@@ -103,171 +107,220 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<h1>Predio #{{ id }}</h1>
+					<h2>Predio #{{ id }}
+						<button id="edit-button" class="btn btn-success pull-right">Editar</button>
+						<button type="submit" form="edit-form" class="btn btn-primary pull-right save-changes" style="display: none;">Guardar</button>
+					</h2>
 
-					<!-- Contact information -->
-					<h3>Contacto</h3>
-					<table class="table table-hover">
-						<tr>
-							<td class="col-sm-4">Dueño</td>
-							<td class="col-sm-8">{{ owner }}</td>
-						</tr>
-						<tr>
-							<td>Número{% if owner.contact_number_2 %}s{% endif %}</td>
-							<td>{% if owner.contact_number_1 %}
-								<a href="{{ owner.contact_number_1 }}">{{ owner.contact_number_1 }}</a>
-								{% if owner.contact_number_2 %}
-									<br><a href="{{ owner.contact_number_2 }}">{{ owner.contact_number_2 }}</a>
-								{% endif %}
-							{% endif %}
-							</td>
-						</tr>
-						<tr>
-							<td>Email</td>
-							<td><a href="mailto:{{ owner.email }}">{{ owner.email }}</a></td>
-						</tr>
-						{% if owner.company %}
-						<tr>
-							<td>Cargo</td>
-							<td>{{ owner.position }}</td>
-						</tr>
-						{% endif %}
-					</table>
-
-					{% if owner.company %}
-					<h3>Información de empresa</h3>
-					<table class="table table-hover">
-						<tr>
-							<td class="col-sm-4">Compañía</td>
-							<td class="col-sm-8">{{ owner.company }}</td>
-						</tr>
-						<tr>
-							<td>Rut empresa</td>
-							<td>{{ owner.company.rut }}</td>
-						</tr>
-					</table>
+					{% if messages %}
+					<!-- For message to user -->
+					<div class="row">
+						<div class="col-xs-12">
+						{% for message in messages %}
+							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+								{{ message }}
+							</p>
+						{% endfor %}
+						</div>
+					</div> 
 					{% endif %}
 
-					<!-- General information about the area -->
-					<h3>Datos generales del predio</h3>
-					<table class="table table-hover">
-						<tr>
-							<td>Hectareas</td>
-							<td>{{ crop.has }} {% if crop.has %}[has]{% endif %}</td><td></td>
-						</tr>
-						<tr>
-							<td class="col-sm-4">Agua</td>
-							<td class="col-sm-1">
-								{% if crop.water %}
-									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
-								{% else %}
-									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
-								{% endif %}
-							</td>
-							<td class="col-sm-7">{{ crop.water_cmnt }}</td>
-						</tr>
+					<form action="crop_info?id={{ crop.pk }}" method="POST" id="edit-form">{%csrf_token %}
+						<!-- Contact information -->
+						<h3>Contacto</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-xs-4">Dueño</td>
+								<td class="col-xs-8">{{ owner }}</td>
+								<td style="display: none;">{{ owner_form.first_name }}{{ owner_form.last_name }}</td>
+							</tr>
+							<tr>
+								<td>Número</td>
+								<td class="read"><a href="{{ owner.contact_number_1 }}">{{ owner.contact_number_1 }}</a></td>
+								<td class="write">{{ owner_form.contact_number_1 }}</td>
+							</tr>
+							<tr id="number-2" style="{% if not owner.contact_number_2 %}display: none;{% endif %}">
+								<td>Número 2</td>
+								<td class="read"><a href="{{ owner.contact_number_2 }}">{{ owner.contact_number_2 }}</a></td>
+								<td class="write">{{ owner_form.contact_number_2 }}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td class="read"><a href="mailto:{{ owner.email }}">{{ owner.email }}</a></td>
+								<td class="write">{{ owner_form.email }}</td>
+							</tr>
+							{% if owner.company %}
+							<tr>
+								<td>Cargo</td>
+								<td>{{ owner.position }}</td>
+							</tr>
+							{% endif %}
+						</table>
 
-						<tr>
-							<td class="col-sm-4">Calidad de suelo</td>
-							<td class="col-sm-2">
-								{% if crop.soil %}
-									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
-								{% else %}
-									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
-								{% endif %}
-							</td>
-							<td class="col-sm-6">{{ crop.soil_cmnt }}</td>
-						</tr>
+						{% if owner.company %}
+						<h3>Información de empresa</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-xs-4">Compañía</td>
+								<td class="col-xs-8">{{ owner.company }}</td>
+							</tr>
+							<tr>
+								<td>Rut empresa</td>
+								<td>{{ owner.company.rut }}</td>
+							</tr>
+						</table>
+						{% endif %}
 
-						<tr>
-							<td class="col-sm-4">Topografía</td>
-							<td class="col-sm-2">
-								{% if crop.topography %}
-									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
-								{% else %}
-									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
-								{% endif %}
-							</td>
-							<td class="col-sm-6">{{ crop.topography_cmnt }}</td>
-						</tr>
+						<!-- General information about the area -->
+						<h3>Datos generales del predio</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-xs-4">Hectareas</td>
+								<td class="col-xs-8 read">{{ crop.has }} {% if crop.has %}[has]{% endif %}</td>
+								<td class="col-xs-8 write" style="display: none;">{{ crop_form.has }}</td>
+							</tr>
+							<tr>
+								<td class="col-xs-4">Agua <label class="write" style="float: right;">{{ crop_form.water }}</label></td>
+								<td class="col-xs-8 read">
+									{% if crop.water %}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;">&nbsp;</span>
+									{% else %}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;">&nbsp;</span>
+									{% endif %}
+									{{ crop.water_cmnt }}
+								</td>
+								<td class="col-xs-8 write" style="display: none;">
+									{{ crop_form.water_cmnt }}
+								</td>
+							</tr>
 
-						<tr>
-							<td class="col-sm-4">Temperaturas</td>
-							<td class="col-sm-2">
-								{% if crop.temperatures %}
-									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
-								{% else %}
-									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
-								{% endif %}
-							</td>
-							<td class="col-sm-6">{{ crop.temperatures_cmnt }}</td>
-						</tr>
-					</table>
+							<tr>
+								<td class="col-xs-4">Calidad de suelo <label class="write" style="float: right;">{{ crop_form.soil }}</label></td>
+								<td class="col-xs-8 read">
+									{% if crop.soil %}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;">&nbsp;</span>
+									{% else %}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;">&nbsp;</span>
+									{% endif %}
+									{{ crop.soil_cmnt }}
+								</td>
+								<td class="col-xs-8 write" style="display: none;">
+									{{ crop_form.soil_cmnt }}
+								</td>
+							</tr>
 
-					<h3>Observaciones</h3>
-					<div style="border: 1px solid #CCCCCC">
-						<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ crop.observations }}</p>
-					</div>
+							<tr>
+								<td class="col-xs-4">Topografía <label class="write" style="float: right;">{{ crop_form.topography }}</label></td>
+								<td class="col-xs-8 read">
+									{% if crop.topography %}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;">&nbsp;</span>
+									{% else %}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;">&nbsp;</span>
+									{% endif %}
+									{{ crop.topography_cmnt }}
+								</td>
+								<td class="col-xs-8 write" style="display: none;">
+									{{ crop_form.topography_cmnt }}
+								</td>
+							</tr>
 
-					<!-- <a href="" class="btn btn-default disabled">Ver registro fotográfico</a> -->
+							<tr>
+								<td class="col-xs-4">Temperaturas <label class="write" style="float: right;">{{ crop_form.temperatures }}</label></td>
+								<td class="col-xs-8 read">
+									{% if crop.temperatures %}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;">&nbsp;</span>
+									{% else %}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;">&nbsp;</span>
+									{% endif %}
+									{{ crop.temperatures_cmnt }}
+								</td>
+								<td class="col-xs-8 write" style="display: none;">
+									{{ crop_form.temperatures_cmnt }}
+								</td>
+							</tr>
+						</table>
 
-					<h3>Información geográfica</h3>
-					<table class="table table-hover">
-						<tr>
-							<td class="col-sm-4">Región</td>
-							<td class="col-sm-8">{{ crop.region }}</td>
-						</tr>
-						<tr>
-							<td>Provincia</td>
-							<td>{{ crop.province }}</td>
-						</tr>
-						<tr>
-							<td>Comuna</td>
-							<td>{{ crop.commune }}</td>
-						</tr>
-						<tr>
-							<td>Dirección</td>
-							<td>{{ crop.address }}</td>
-						</tr>
-					</table>
-					<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
-					<button class="btn btn-default" id="mapButton" onclick="displayMap()">Mostrar mapa</button>
+						<h3>Información geográfica</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-xs-4">Región</td>
+								<td class="col-xs-8 read">{{ crop.region }}</td>
+								<td class="write">{{ crop_form.region }}</td>
+							</tr>
+							<tr>
+								<td>Provincia</td>
+								<td class="read">{{ crop.province }}</td>
+								<td class="write">
+									<select name="province" id="id_province" class="form-control input-sm">
+										<option selected="selected" value="">Seleccione provincia</option>
+									</select>
+									<input type="hidden" id="province_trick" name="province_trick" value="">
+								</td>
+							</tr>
+							<tr>
+								<td>Comuna</td>
+								<td class="read">{{ crop.commune }}</td>
+								<td class="write">
+									<select name="commune" id="id_commune" class="form-control input-sm">
+										<option selected="selected" value="">Seleccione comuna</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>Dirección</td>
+								<td class="read">{{ crop.address }}</td>
+								<td class="write">{{ crop_form.address }}</td>
+							</tr>
+						</table>
+						<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div>
+						<button type="button" class="btn btn-default" id="mapButton" onclick="displayMap()">Mostrar mapa</button>
+						<a href="photographic_log?id={{ crop.pk }}" class="btn btn-default disabled">Registro fotográfico</a>
 
-					<!-- For each potrero give information -->
-					<!-- commint soon.. this summer !
-					<h3>Potreros</h3>
-					<table class="table table-hover">
-						<tr>
-							<td>Nombre</td>
-							<td>{{ pot.name }}</td>
-						</tr>
-						<tr>
-							<td>Hectareas</td>
-							<td>{{ pot.has }}</td>
-						</tr>
-					</table> -->
+						<!-- For each potrero give information -->
+						<!-- commint soon.. this summer !
+						<h3>Potreros</h3>
+						<table class="table table-hover">
+							<tr>
+								<td>Nombre</td>
+								<td>{{ pot.name }}</td>
+							</tr>
+							<tr>
+								<td>Hectareas</td>
+								<td>{{ pot.has }}</td>
+							</tr>
+						</table> -->
 
-					<!-- Plantations in the area -->
-				<!-- hum.. let me tell you something.. 
-					<h3>Plantaciones</h3>
-					<table class="table table-hover">
-						<tr>
-							<td>Id</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>Fecha</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>Variedad</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><a href="paddock_detail">Ver detalle</a></td>
-						</tr>
-					</table>
-				-->
+						<!-- Plantations in the area -->
+						<!-- hum.. let me tell you something.. 
+						<h3>Plantaciones</h3>
+						<table class="table table-hover">
+							<tr>
+								<td>Id</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Fecha</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Variedad</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="paddock_detail">Ver detalle</a></td>
+							</tr>
+						</table>
+					-->
+						<h3>Observaciones</h3>
+						<div class="read" style="border: 1px solid #CCCCCC">
+							<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ crop.observations }}</p>
+						</div>
+						<div class="write" style="display: none;">
+							{{ crop_form.observations }}
+						</div>
+					</form>
+
+					<br><button type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;">Guardar</button>
 
 					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 					<a href="crop_table" class="btn btn-default" id="return">Volver</a>
@@ -281,7 +334,48 @@
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/menu_toggle.js"></script>
 	<script src="static/js/googleanalytics.js"></script>
+	<script src="static/js/regions.js"></script>
 
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#id_first_name").val("{{ owner.first_name }}");
+		$("#id_last_name").val("{{ owner.last_name }}");
+		$("#id_contact_number_1").val({{ owner.contact_number_1 }});
+		$("#id_contact_number_2").val({{ owner.contact_number_2 }});
+		$("#id_email").val("{{ owner.email }}");
+		
+		$("#id_has").val({{ crop.has }});
+		$("#id_water").val({% if crop.water %}true{% else %}false{% endif %});
+		$("#id_water_cmnt").val("{{ crop.water_cmnt }}");
+		$("#id_soil").val({% if crop.soil %}true{% else %}false{% endif %});
+		$("#id_soil_cmnt").val("{{ crop.soil_cmnt }}");
+		$("#id_topography").val({% if crop.topography %}true{% else %}false{% endif %});
+		$("#id_topography_cmnt").val("{{ crop.topography_cmnt }}");
+		$("#id_temperatures").val({% if crop.temperatures %}true{% else %}false{% endif %});
+		$("#id_temperatures_cmnt").val("{{ crop.temperatures_cmnt }}");
+
+		$("#id_region")[0].selectedIndex = {{ crop.region.pk }};
+		if ("{{ crop.province }}" != "None"){
+			var provinceSelector = document.getElementById("id_province");
+			provinceSelector.options[0] = new Option('{{ crop.province }}', '{{ crop.province.pk }}');
+			$("#province_trick").val("{{ crop.province }}");
+		}
+		if ("{{ crop.commune }}" != "None"){
+			var communeSelector = document.getElementById("id_commune");
+			communeSelector.options[0] = new Option('{{ crop.commune }}', '{{ crop.commune }}');
+		}
+		$("#id_address").val("{{ crop.address }}");
+
+		$("#id_observations").val("{{ crop.observations }}");
+	});
+
+	$("#edit-button").click(function (){
+		$(".save-changes").slideToggle("fast");
+		$(".read").toggle();
+		$("#number-2").show();
+		$(".write").toggle(100);
+	});
+	</script>
 </body>
 
 </html>

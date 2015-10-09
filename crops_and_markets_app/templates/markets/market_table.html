@@ -64,8 +64,8 @@
 			<div class="container-fluid">
 				<h2>Tabla de {% if potential_table %} potenciales {% endif %}clientes</h2>
 				
-				<!-- For message to user -->
 				{% if messages %}
+				<!-- For message to user -->
 				<div class="row">
 					<div class="col-sm-12">
 					{% for message in messages %}
@@ -121,7 +121,6 @@
 	</div>
 
 	<script src="static/js/menu_toggle.js"></script>
-	<script src="static/js/googleanalytics.js"></script>
 
 	<script>
 	$(document).ready(function(){
@@ -133,5 +132,6 @@
 	});
 	</script>
 
+	<script src="static/js/googleanalytics.js"></script>
 </body>
 </html>

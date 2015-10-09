@@ -109,7 +109,7 @@
 					{% if messages %}
 					<!-- For message to user -->
 					<div class="row">
-						<div class="col-sm-12">
+						<div class="col-xs-12">
 						{% for message in messages %}
 							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
 								{{ message }}
@@ -123,11 +123,11 @@
 						<h3>Información de contacto</h3>
 						<table class="table table-hover">
 							<tr>
-								<td class="col-sm-4">Nombre</td>
-								<td class="read" class="col-sm-8">{{ client }}</td>
+								<td class="col-xs-4">Nombre</td>
+								<td class="read" class="col-xs-8">{{ client }}</td>
 								<td class="write" style="display: none;">
-									<span class="col-sm-6">{{ client_form.first_name }}</span>
-									<span class="col-sm-6">{{ client_form.last_name }}</span>
+									<span class="col-xs-6">{{ client_form.first_name }}</span>
+									<span class="col-xs-6">{{ client_form.last_name }}</span>
 								</td>
 							</tr>
 							<tr>
@@ -135,7 +135,7 @@
 								<td class="read"><a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a></td>
 								<td class="write" style="display: none;">{{ client_form.contact_number_1 }}</td>
 							</tr>
-							<tr id="number-2" {% if client.contact_number_2 == "" %}style="display: none;"{% endif %}>
+							<tr id="number-2" style="{% if not client.contact_number_2 %}display: none;{% endif %}">
 								<td>Número 2</td>
 								<td class="read"><a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a></td>
 								<td class="write" style="display: none;">{{ client_form.contact_number_2 }}</td>
@@ -151,8 +151,8 @@
 						<table class="table table-hover">
 						{% if client.company %}
 							<tr>
-								<td class="col-sm-4">Compañía</td>
-								<td class="col-sm-8">{{ client.company }}</td>
+								<td class="col-xs-4">Compañía</td>
+								<td class="col-xs-8">{{ client.company }}</td>
 							</tr>
 							<tr>
 								<td>Rut empresa</td>
@@ -171,8 +171,8 @@
 						<h3>Información de comercial</h3>
 						<table class="table table-hover">
 							<tr>
-								<td class="col-sm-4">Número de compras</td>
-								<td class="col-sm-8">{{ n }} </td>
+								<td class="col-xs-4">Número de compras</td>
+								<td class="col-xs-8">{{ n }} </td>
 							</tr>
 							<tr>
 								<td>Precio Promedio</td>
@@ -194,13 +194,14 @@
 						<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
 						<!--<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction" disabled="">Registrar reserva</a>-->
 						<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial</a>
+						<p class="pull-right">Información referente a los últimos 3 años.</p>
 						{% endif %}
 
 						<h3>Información geográfica</h3>
 						<table class="table table-hover">
 							<tr>
-								<td class="col-sm-4">Región</td>
-								<td class="col-sm-8 read">{{ geo_info.region }}</td>
+								<td class="col-xs-4">Región</td>
+								<td class="col-xs-8 read">{{ geo_info.region }}</td>
 								<td class="write" style="display: none;">{{ geographical_form.region }}</td>
 							</tr>
 							<tr>
@@ -230,8 +231,8 @@
 							<tr id="latlng" style="display: none">
 								<td>(lat, lng)</td>
 								<td class="read">({{ geo_info.latitude }}, {{ geo_info.longitude }})</td>
-								<td class="col-sm-4 write" style="display: none;">{{ geographical_form.latitude }}</td>
-								<td class="col-sm-4 write" style="display: none;">{{ geographical_form.longitude }}</td>
+								<td class="col-xs-4 write" style="display: none;">{{ geographical_form.latitude }}</td>
+								<td class="col-xs-4 write" style="display: none;">{{ geographical_form.longitude }}</td>
 							</tr>
 						</table>
 						<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
@@ -266,7 +267,7 @@
 	<script src="static/js/googleanalytics.js"></script>
 	<script src="static/js/regions.js"></script>
 
-	<script>
+	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#id_first_name").val("{{ client.first_name }}");
 		$("#id_last_name").val("{{ client.last_name }}");
@@ -275,8 +276,7 @@
 		$("#id_email").val("{{ client.email }}");
 		$("#id_observations").val("{{ client.observations }}");
 
-		$("#id_region")[0].selectedIndex = {{ geo_info.region.id }};
-
+		$("#id_region")[0].selectedIndex = {{ geo_info.region.pk }};
 		if ("{{ geo_info.province }}" != "None"){
 			var provinceSelector = document.getElementById("id_province");
 			provinceSelector.options[0] = new Option('{{ geo_info.province }}', '{{ geo_info.province.pk }}');
@@ -286,20 +286,9 @@
 			var communeSelector = document.getElementById("id_commune");
 			communeSelector.options[0] = new Option('{{ geo_info.commune }}', '{{ geo_info.commune }}');
 		}
-		
 		$("#id_address").val("{{ geo_info.address }}");
 	});
-	</script>
 
-	<script>
-	$("#latlng-btn").on('click', function(){
-		var button = $("#latlng-btn");
-		button.text(button.text() == "Mostrar latitud-longitud" ? "Ocultar latitud-longitud" : "Mostrar latitud-longitud");
-		$("#latlng").toggle(200);
-	});
-	</script>
-
-	<script>
 	$("#edit-button").click(function (){
 		$(".save-changes").slideToggle("fast");
 		$("#number-2").show();
@@ -308,11 +297,12 @@
 	});
 	</script>
 
-	<script>
-	function confirmDelete(){
-		var r = confirm("Está seguro que desea eliminar a {{ client }} de la base de datos?");
-
-	}
+	<script type="text/javascript">
+	$("#latlng-btn").on('click', function(){
+		var button = $("#latlng-btn");
+		button.text(button.text() == "Mostrar latitud-longitud" ? "Ocultar latitud-longitud" : "Mostrar latitud-longitud");
+		$("#latlng").toggle(200);
+	});
 	</script>
 
 </body>

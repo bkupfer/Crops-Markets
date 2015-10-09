@@ -9,7 +9,7 @@ DateInput = partial(forms.DateInput, {'class': 'datepicker', 'placeholder': u'mm
 
 # ######## #
 # Crops
-class CompanyCropFrom(forms.Form): # todo, add required false to required fields
+class CompanyCropFrom(forms.Form):
 	company_member = forms.BooleanField(required=False)
 	excisting_company = forms.ModelChoiceField(required=False, queryset=CompanyCrop.objects.all(), empty_label="Compañía", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
@@ -29,8 +29,7 @@ class CompanyCropFrom(forms.Form): # todo, add required false to required fields
 
 class CropForm(forms.Form):
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	#province =forms.ModelChoiceField(required=False, queryset=Region.objects.none(), empty_label="Seleccione provincia", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	#commune =forms.ModelChoiceField(required=False, queryset=Region.objects.none(), empty_label="Seleccione comuna", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	# province = commune = done
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))

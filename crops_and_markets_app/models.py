@@ -58,10 +58,7 @@ class Crop(models.Model):
 
 	# terrain characteristics 
 	# Los factores claves son:
-	# 1.- agua
-	# 2.- calidad de tierra
-	# 3.- topologia
-	# 4.- no-heloso (temperaturas)
+	# 1.- agua, calidad de tierra, topologia, no-heloso (temperaturas)
 
 	# core characteristics -- as boolean and then text for observation/coments
 	water = models.BooleanField()
@@ -78,12 +75,6 @@ class Crop(models.Model):
 	# secondary characteristics
 	observations = models.TextField(blank=True, null=True)
 
-	# def __str__(self):
-	# 	if self.address is not None:
-	# 		return str(self.crop_owner) + ": " + str(self.address)
-	# 	else:
-	# 		return str(self.crop_owner)
-
 
 class CropOwner(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
@@ -97,7 +88,6 @@ class CropOwner(models.Model):
 	position = models.CharField(max_length=100, blank=True, null=True)
 
 	company = models.ForeignKey('CompanyCrop', null=True)
-	#observations = models.TextField(blank=True, null=True)
 
 	def __str__(self):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
@@ -164,7 +154,6 @@ class Sale(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	user = models.ForeignKey(User)
 	client = models.ForeignKey('Client')
-	#type_of_transaction = models.BooleanField() # {1: Reserva, 2: Venta}
 	type_of_transaction = models.ForeignKey('TypeOfTransaction')
 	date = models.DateField()
 	observations = models.TextField(blank=True, null=True)
