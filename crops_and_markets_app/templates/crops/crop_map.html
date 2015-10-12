@@ -41,21 +41,7 @@
 	<script async src="static/js/googleanalytics.js"></script>
 
 	<script>
-	/**  creates the html content for the information window of a marker */
-	function createInfoWindowContent(heading, info, whereTo){
-		var content = '<div id="content">';
-		content += '<div id="siteNotice"></div>';
-		content += '<h4 id="firstHeading" class="firstHeading">' + heading + '</h4>';
-		for (var i=0; i<info.length; i++)
-			content += '<p>' + info[i] + '</p>';
-		content += '<a href="' + whereTo + '">';
-		content += '<button class="btn btn-default">Ver detalle</button>';
-		content += '</a>';
-		content += '</div>';
-		content += '</div>';
-
-		return content;
-	}
+	var sz =  new google.maps.LatLng(-41.11949,-73.05709); // semillas-sz coordenates
 
 	function initialize(){
 		// Map
@@ -69,7 +55,7 @@
 
 		// HQ Marker (Semillas-SZ)
 		var szMarker = new google.maps.Marker({
-			position: new google.maps.LatLng(-41.11949,-73.05709), // semillas-sz coordenates
+			position: sz,
 			map: map, 
 			icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
 		});
@@ -140,7 +126,8 @@
 				(req_ok) ? marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png') : marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
 				// creating information window
-				var contentString = createInfoWindowContent(title, [address], 'crop_info?id='+idCrop);
+				var distance = calculateDistance(sz.lat(), sz.lng(), marker.position.lat(), marker.position.lng());
+				var contentString = createInfoWindowContent(title, [address], 'crop_info?id='+idCrop, distance);
 				var infoWindow = new google.maps.InfoWindow({
 					content: contentString
 				});
@@ -152,6 +139,45 @@
 				alert('Geocode was not succesful for the following reason:' + status); 
 			}
 		});
+	}
+
+	/**  creates the html content for the information window of a marker */
+	function createInfoWindowContent(heading, info, whereTo, distance){
+		var content = '<div id="content">';
+		content += '<div id="siteNotice"></div>';
+		content += '<h4 id="firstHeading" class="firstHeading">' + heading ;
+		content += '<span class="pull-right"> ≈ ' + toKm(distance) + ' [km]</span>';
+		content += '</h4>';
+		for (var i=0; i<info.length; i++)
+			content += '<p>' + info[i] + '</p>';
+		content += '<a href="' + whereTo + '">';
+		content += '<button class="btn btn-default">Ver detalle</button>';
+		content += '</a>';
+		content += '</div>';
+		content += '</div>';
+
+		return content;
+	}
+
+	/** calculates de distance between two places on earth (lat1, lng1) and (lat2, lng2)
+	 * uses spherical law of cosines aproximation. 
+	 * returns distance in meters */
+	function calculateDistance(lat1, lng1, lat2, lng2){
+		var φ1 = toRadians(lat1);
+		var φ2 = toRadians(lat2);
+		var Δλ = toRadians(lng2-lng1);
+		var R = 6371000; // gives d in metres
+		var d = Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2)*Math.cos(Δλ) ) * R;
+		return d;
+	}
+
+	/** convers point x from decimal degree to radian degree */
+	function toRadians(x){
+		return x * Math.PI / 180;
+	}
+
+	function toKm(mt){
+		return Math.round(mt / 1000);
 	}
 
 	google.maps.event.addDomListener(window, 'load', initialize);
