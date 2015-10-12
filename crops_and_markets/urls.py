@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = patterns('',
 	# administrator
@@ -19,6 +21,7 @@ urlpatterns = patterns('',
 	url(r'^crop_info', 'crops_and_markets_app.views.crop_info', name='crop_info'),
 	url(r'^crop_table', 'crops_and_markets_app.views.crop_table', name='crop_table'),
 	url(r'^crops', 'crops_and_markets_app.views.crops', name='crops'),
+	url(r'^photo_library', 'crops_and_markets_app.views.photo_library', name='photo_library'),
 
 	# markets
 	url(r'^add_market', 'crops_and_markets_app.views.add_market', name='add_market'),
@@ -31,3 +34,7 @@ urlpatterns = patterns('',
 	url(r'^sales_detail', 'crops_and_markets_app.views.sales_detail', name='sales_detail'),
 	url(r'^sales_history', 'crops_and_markets_app.views.sales_history', name='sales_history')
 )
+
+
+if settings.DEBUG:
+	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

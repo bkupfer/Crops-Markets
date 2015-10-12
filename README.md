@@ -1,22 +1,27 @@
 # Crops and Markets
 
-An utterly fantastic project for the agricultural industry, developed using Django 1.8, and my thesis.
+An utterly fantastic project for the agricultural industry, developed using Django 1.8, and yup, my thesis.
 
 ## How to Use
 
 To use this project, follow these steps:
 
 1. Create your working environment.
-2. Install Django
-	`$ pip install django`
-3. Deploy this code.
-4. Load initial data
+	It must have python and pip installed.
+2. Install python requirements
+	`$ pip install -r requirements.txt`
+3. Deploy $(this) code.
+4. Create database
+	`python manage.py migrate`
+5. Load initial data
 	`python manage.py loaddata crops_and_markets_app/fixtures/initial_data.json`
-4. Run the server
-	`$ python manage.py runserver`
-5. Enjoy
+	`python manage.py loaddata crops_and_markets_app/fixtures/users.json`
+	`python manage.py loaddata crops_and_markets_app/fixtures/regions.json`
+6. Run the server
+	`$ python manage.py runserver 8000`
+7. Enjoy
 
-## Features
+## Technical Features
 
 - Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
 - Enhancements to Django's static file serving functionality via WhiteNoise

@@ -76,6 +76,12 @@ class Crop(models.Model):
 	observations = models.TextField(blank=True, null=True)
 
 
+class CropImage(models.Model):
+	crop = models.ForeignKey('Crop')
+	timestamp = models.DateTimeField(auto_now_add=True)
+	image = models.ImageField(max_length=255, upload_to='crop-media/')
+
+
 class CropOwner(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	# crop -- there is a ManyToMany field relating crops with owners.

@@ -24,9 +24,7 @@ SECRET_KEY = "lt#+!l&3y_6e^*iz_cffw40rs1tm*)s=a!#bjn37(ph*p+m)9&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 TEMPLATE_DEBUG = True
-
 
 # Application definition
 
@@ -120,3 +118,8 @@ STATICFILES_DIRS = (
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# Media files (Images)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+

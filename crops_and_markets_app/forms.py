@@ -93,6 +93,10 @@ class CropOwnerForm(forms.Form):
 		raise forms.ValidationError('Error validating CropOwnerForm')
 
 
+# class PictureForm(forms.Form):
+# 	image = forms.ImageField()
+
+
 # ######## #
 # Markets
 class ClientForm(forms.Form):

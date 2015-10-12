@@ -204,6 +204,22 @@ def crop_table(request):
 	return render_to_response("crops/crop_table.html", locals(), context_instance=RequestContext(request))
 
 
+@login_required
+def photo_library(request):
+	if request.method == "GET":
+		crop = Crop.objects.get(pk=request.GET['id'])
+		images = CropImage.objects.filter(crop=crop)
+
+	if request.method == "POST":
+		if 'image' in request.FILES:
+			crop = Crop.objects.get(pk=request.GET['id'])
+			img = request.FILES['image']
+			new_image = CropImage(crop=crop, image=img)
+			new_image.save()
+			print "saved  " + new_image.image.path
+			messages.success(request, "Imagen guardada con éxito")
+	return render_to_response("crops/photo_library.html", locals(), context_instance=RequestContext(request))
+
 ############
 # Markets
 @login_required
