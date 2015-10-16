@@ -29,6 +29,11 @@
 
 	<!-- Google maps -->
 	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+	<script async src="static/js/regions.js"></script>
 
 	<script>
 	/** shows or hides map */
@@ -80,7 +85,6 @@
 		}
 		else mapCanvas.text("No se tiene información geográfica respecto de este cliente.");
 	}
-	//google.maps.event.addDomListener(window, 'load', initialize);
 	</script>
 
 	<style>
@@ -171,8 +175,12 @@
 						<h3>Información de comercial</h3>
 						<table class="table table-hover">
 							<tr>
-								<td class="col-xs-4">Número de compras</td>
-								<td class="col-xs-8">{{ n }} </td>
+								<td class="col-xs-4">Tamaño</td>
+								<td class="col-xs-8">{{ size }}</td>
+							</tr>
+							<tr>
+								<td>Número de compras</td>
+								<td>{{ n }} </td>
 							</tr>
 							<tr>
 								<td>Precio Promedio</td>
@@ -260,12 +268,6 @@
 		</div>
 
 	</div>
-
-	<script src="static/js/jquery.js"></script>
-	<script src="static/js/bootstrap.min.js"></script>
-	<script src="static/js/menu_toggle.js"></script>
-	<script src="static/js/googleanalytics.js"></script>
-	<script src="static/js/regions.js"></script>
 
 	<script type="text/javascript">
 	$(document).ready(function(){

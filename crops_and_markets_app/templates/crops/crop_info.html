@@ -37,7 +37,7 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
-	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=true&v=3"></script>
 	<script src="static/js/jquery.js"></script>
 	<script async src="static/js/bootstrap.min.js"></script>
 	<script async src="static/js/menu_toggle.js"></script>
@@ -220,46 +220,17 @@
 								<td class="read">{{ crop.address }}</td>
 								<td class="write">{{ crop_form.address }}</td>
 							</tr>
+							<tr>
+								<td>Distancia a SZ</td>
+								<td><span id="id_distance">≈ x [km]</span></td>
+							</tr>
 						</table>
 						<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div>
+						<span id="map-leyend" style="display: none;"><p class="text-right small">El marcador <label style="color: green">verde</label>/<label style="color: red">rojo</label> indica la posición del predio. El marcador <label style="color: purple">púrpura</label> su posición actual, y el <label style="color: blue">azul</label> la posición de Semillas SZ.</p></span>
+
 						<button type="button" class="btn btn-default" id="mapButton" onclick="displayMap()">Mostrar mapa</button>
 						<a href="photo_library?id={{ crop.pk }}" class="btn btn-default">Registro fotográfico</a>
 
-						<!-- For each potrero give information -->
-						<!-- commint soon.. this summer !
-						<h3>Potreros</h3>
-						<table class="table table-hover">
-							<tr>
-								<td>Nombre</td>
-								<td>{{ pot.name }}</td>
-							</tr>
-							<tr>
-								<td>Hectareas</td>
-								<td>{{ pot.has }}</td>
-							</tr>
-						</table> -->
-
-						<!-- Plantations in the area -->
-						<!-- hum.. let me tell you something.. 
-						<h3>Plantaciones</h3>
-						<table class="table table-hover">
-							<tr>
-								<td>Id</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Fecha</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Variedad</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td><a href="paddock_detail">Ver detalle</a></td>
-							</tr>
-						</table>
-					-->
 						<h3>Observaciones</h3>
 						<div class="read" style="border: 1px solid #CCCCCC">
 							<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ crop.observations }}</p>
@@ -280,6 +251,49 @@
 		</div>
 
 	</div>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		getDistance();
+	});
+
+	function getDistance(){
+		var distance = -1;
+		var address = "{{ crop.address }}, {{ crop.region }}, Chile";
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode({'address': address}, function(results, status){
+			if (status == google.maps.GeocoderStatus.OK){
+				var sz =  new google.maps.LatLng(-41.11949,-73.05709); // semillas-sz coordenates
+				distance = calculateDistance(sz.lat(), sz.lng(), results[0].geometry.location.lat(), results[0].geometry.location.lng());
+				distance = toKm(distance);
+				$("#id_distance")[0].innerHTML = "≈ " + distance + " [km]";
+			}
+			else 
+				alert('Geocode was not succesful for the following reason:' + status);
+		});
+	}
+
+	/** calculates de distance between two places on earth (lat1, lng1) and (lat2, lng2)
+	 * uses spherical law of cosines aproximation. 
+	 * returns distance in meters */
+	function calculateDistance(lat1, lng1, lat2, lng2){
+		var φ1 = toRadians(lat1);
+		var φ2 = toRadians(lat2);
+		var Δλ = toRadians(lng2-lng1);
+		var R = 6371000; // gives d in metres
+		var d = Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2)*Math.cos(Δλ) ) * R;
+		return d;
+	}
+
+	/** convers point x from decimal degree to radian degree */
+	function toRadians(x){
+		return x * Math.PI / 180;
+	}
+
+	function toKm(mt){
+		return Math.round(mt / 1000);
+	}
+	</script>
 
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -328,8 +342,8 @@
 		var button = $("#mapButton");
 		button.text(button.text() == "Mostrar mapa" ? "Ocultar mapa" : "Mostrar mapa");
 
-		var mapCanvas = $("#map-canvas");
-		mapCanvas.slideToggle("slow");
+		$("#map-canvas").slideToggle("slow");
+		$("#map-leyend").toggle();
 
 		if (! map_init) {
 			initialize();
@@ -363,16 +377,58 @@
 					{% else %}
 						marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 					{% endif %}
+
+					// HQ Marker (Semillas-SZ)
+					var sz =  new google.maps.LatLng(-41.11949,-73.05709); // semillas-sz coordenates
+					var szMarker = new google.maps.Marker({
+						position: sz,
+						map: map, 
+						icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+					});
+					var szInfoWindow = new google.maps.InfoWindow({
+						content: "Semillas SZ"
+					});
+					google.maps.event.addListener(szMarker, 'click', function(){
+						szInfoWindow.open(map, szMarker);
+					}); 
+
+					// Current position
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(function(position) {
+							var pos = {
+								lat: position.coords.latitude,
+								lng: position.coords.longitude
+							};
+							var myCurrentLocationMarker = new google.maps.Marker({
+								position: pos,
+								map: map, 
+								icon: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
+							});
+							var myCurrentLocationInfoWindow = new google.maps.InfoWindow({
+								content: "mi ubicación actual"
+							});
+							google.maps.event.addListener(myCurrentLocationMarker, 'click', function(){
+								myCurrentLocationInfoWindow.open(map, myCurrentLocationMarker);
+							});
+						}, function() {
+							handleLocationError(true, infoWindow, map.getCenter());
+						});
+					} 
+					else {
+						// Browser doesn't support Geolocation
+						handleLocationError(false, infoWindow, map.getCenter());
+					}
 				}
 				else {
 					alert('Geocode was not succesful for the following reason:' + status); 
 				}
 			});
 		}
-		else mapCanvas.text("No se tiene información geográfica respecto de este cliente.");
+		else 
+			mapCanvas.text("No se tiene información geográfica respecto de este cliente.");
 	}
-	//google.maps.event.addDomListener(window, 'load', initialize);
 	</script>
+
 </body>
 
 </html>

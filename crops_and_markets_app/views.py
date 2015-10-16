@@ -136,8 +136,8 @@ def crops(request):
 def crop_info(request):
 	if not 'id' in request.GET:
 		return redirect('crop_table')
-
 	id = request.GET['id']
+
 	try:
 		crop = Crop.objects.get(pk=id)
 		owner = crop.crop_owner.first()
@@ -206,19 +206,23 @@ def crop_table(request):
 
 @login_required
 def photo_library(request):
-	if request.method == "GET":
-		crop = Crop.objects.get(pk=request.GET['id'])
-		images = CropImage.objects.filter(crop=crop)
+	if not 'id' in request.GET:
+		return redirect('crop_table')
+	id = request.GET['id']
 
 	if request.method == "POST":
 		if 'image' in request.FILES:
-			crop = Crop.objects.get(pk=request.GET['id'])
+			crop = Crop.objects.get(pk=id)
 			img = request.FILES['image']
 			new_image = CropImage(crop=crop, image=img)
 			new_image.save()
-			print "saved  " + new_image.image.path
 			messages.success(request, "Imagen guardada con éxito")
+
+	crop = Crop.objects.get(pk=id)
+	images = CropImage.objects.filter(crop=crop)
+
 	return render_to_response("crops/photo_library.html", locals(), context_instance=RequestContext(request))
+
 
 ############
 # Markets
@@ -350,10 +354,10 @@ def market_info(request):
 	if client.type_of_client.type == "Actual":
 		now = datetime.datetime.now()
 		sales = Sale.objects.filter(client=client, type_of_transaction=2, date__range=(now - timedelta(3*365), now + timedelta(365)))
+		total_volume = 0
 		n = len(sales)
 		if n != 0:
 			total_price = 0
-			total_volume = 0
 			varieties = {}
 			for sale in sales:
 				for s in sale.saledetail_set.all():
@@ -369,6 +373,7 @@ def market_info(request):
 			avg_volume = total_volume / n
 		else:
 			avg_price = avg_volume = 0
+		
 
 	# Edit section
 	if request.method == "POST":
@@ -486,3 +491,4 @@ def sales_history(request):
 				sale.varieties[var] = "{0:.2f}".format(100.0 * sale.varieties[var] / sale.total_volume)
 
 	return render_to_response("markets/sales_history.html", locals(), context_instance=RequestContext(request))
+
