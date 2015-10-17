@@ -84,5 +84,20 @@
 		},
 		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 8
+	}, 
+
+	{
+		"fields": {
+			"certificate": "Certificada"
+		},
+		"model": "crops_and_markets_app.Certificate",
+		"pk": 1
+	},
+	{
+		"fields": {
+			"certificate": "No certificada"
+		},
+		"model": "crops_and_markets_app.Certificate",
+		"pk": 2
 	}
 ]

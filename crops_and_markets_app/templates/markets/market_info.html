@@ -236,12 +236,12 @@
 								<td class="read">{{ geo_info.address }}</td>
 								<td class="write" style="display: none;">{{ geographical_form.address }}</td>
 							</tr>
-							<tr id="latlng" style="display: none">
+							<!-- <tr id="latlng" style="display: none">
 								<td>(lat, lng)</td>
 								<td class="read">({{ geo_info.latitude }}, {{ geo_info.longitude }})</td>
 								<td class="col-xs-4 write" style="display: none;">{{ geographical_form.latitude }}</td>
 								<td class="col-xs-4 write" style="display: none;">{{ geographical_form.longitude }}</td>
-							</tr>
+							</tr> -->
 						</table>
 						<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
 						<button type="button" class="btn btn-default" id="mapButton" onclick="displayMap();">Mostrar mapa</button>
@@ -300,11 +300,11 @@
 	</script>
 
 	<script type="text/javascript">
-	$("#latlng-btn").on('click', function(){
-		var button = $("#latlng-btn");
-		button.text(button.text() == "Mostrar latitud-longitud" ? "Ocultar latitud-longitud" : "Mostrar latitud-longitud");
-		$("#latlng").toggle(200);
-	});
+	// $("#latlng-btn").on('click', function(){
+	// 	var button = $("#latlng-btn");
+	// 	button.text(button.text() == "Mostrar latitud-longitud" ? "Ocultar latitud-longitud" : "Mostrar latitud-longitud");
+	// 	$("#latlng").toggle(200);
+	// });
 	</script>
 
 </body>

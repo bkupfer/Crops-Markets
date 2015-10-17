@@ -29,24 +29,24 @@ class CompanyCropFrom(forms.Form):
 
 class CropForm(forms.Form):
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	# province = commune = done
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
-	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
+	#latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
+	#longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
 	has = forms.IntegerField(required=False, min_value=0, max_value=32767, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 
 	# information about crop core characteristics
 	water = forms.BooleanField(required=False)
-	soil = forms.BooleanField(required=False)
-	topography = forms.BooleanField(required=False)
-	temperatures = forms.BooleanField(required=False)
-
 	water_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	soil = forms.BooleanField(required=False)
 	soil_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	topography = forms.BooleanField(required=False)
 	topography_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	temperatures = forms.BooleanField(required=False)
 	temperatures_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-
+	access = forms.BooleanField(required=False)
+	access_cmnt = forms.CharField(required=False, max_length=1024, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	
 	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
 
 	class Meta:
@@ -93,10 +93,6 @@ class CropOwnerForm(forms.Form):
 		raise forms.ValidationError('Error validating CropOwnerForm')
 
 
-# class PictureForm(forms.Form):
-# 	image = forms.ImageField()
-
-
 # ######## #
 # Markets
 class ClientForm(forms.Form):
@@ -136,10 +132,9 @@ class CompanyMarketForm(forms.Form):
 
 class GeoMarkerForm(forms.Form):
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	# province, commune = done
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
-	longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
+	#latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
+	#longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
 	class Meta:
 		model = GeoMarker
@@ -149,6 +144,7 @@ class SaleDetailForm(forms.Form):
 	price = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	variety = forms.ModelChoiceField(required=True, queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	volume = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	certification = forms.ModelChoiceField(required=True, queryset=Certificate.objects.all(), empty_label="Tipo de certificación", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 
 	class Meta:
 		model = SaleDetail

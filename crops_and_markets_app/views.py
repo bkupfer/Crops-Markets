@@ -37,7 +37,6 @@ def login(request):
 			return redirect('home')
 		else:
 			messages.error(request, "Nombre de usuario o contraseña incorrecto.")
-			# print("invalid user/password combination.")
 
 	return render_to_response("login.html", locals(), context_instance=RequestContext(request))
 
@@ -96,27 +95,27 @@ def add_crop(request):
 				pass
 
 			address = crop_form.cleaned_data['address']
-			lat = crop_form.cleaned_data['latitude']
-			lng = crop_form.cleaned_data['longitude']
+			#lat = crop_form.cleaned_data['latitude']
+			#lng = crop_form.cleaned_data['longitude']
 
 			# terrain characteristics information
 			has = crop_form.cleaned_data['has']
 
-			bwater = crop_form.cleaned_data['water']
-			bsoil = crop_form.cleaned_data['soil']
-			btopo = crop_form.cleaned_data['topography']
-			btemp = crop_form.cleaned_data['temperatures']
-
-			cwater = crop_form.cleaned_data['water_cmnt']
-			csoil = crop_form.cleaned_data['soil_cmnt']
-			ctopo = crop_form.cleaned_data['topography_cmnt']
-			ctemp = crop_form.cleaned_data['temperatures_cmnt']
-
+			water = crop_form.cleaned_data['water']
+			soil = crop_form.cleaned_data['soil']
+			topo = crop_form.cleaned_data['topography']
+			temp = crop_form.cleaned_data['temperatures']
+			access = crop_form.cleaned_data['access']
+			water_cmnt = crop_form.cleaned_data['water_cmnt']
+			soil_cmnt = crop_form.cleaned_data['soil_cmnt']
+			topo_cmnt = crop_form.cleaned_data['topography_cmnt']
+			temp_cmnt = crop_form.cleaned_data['temperatures_cmnt']
+			access_cmnt = crop_form.cleaned_data['access_cmnt']
 			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
 
-			crop = Crop(region=region, province=province, commune=commune, address=address, latitude=lat, longitude=lng, has=has,
-				water=bwater, soil=bsoil, topography=btopo, temperatures=btemp,
-				water_cmnt=cwater, soil_cmnt=csoil, topography_cmnt=ctopo, temperatures_cmnt=ctemp, observations=obs)
+			crop = Crop(region=region, province=province, commune=commune, address=address, has=has, #latitude=lat, longitude=lng,
+				water=water, soil=soil, topography=topo, temperatures=temp, access=access,
+				water_cmnt=water_cmnt, soil_cmnt=soil_cmnt, topography_cmnt=topo_cmnt, temperatures_cmnt=temp_cmnt, observations=obs)
 			crop.save()
 			crop.crop_owner.add(owner)
 
@@ -269,10 +268,10 @@ def add_market(request):
 				pass
 
 			address = geographical_form.cleaned_data['address']
-			latitude = geographical_form.cleaned_data['latitude']
-			longitude = geographical_form.cleaned_data['longitude']
+			#latitude = geographical_form.cleaned_data['latitude']
+			#longitude = geographical_form.cleaned_data['longitude']
 
-			new_geomarker = GeoMarker(client=new_client, region=region, province=province, commune=commune, address=address, latitude=latitude, longitude=longitude)
+			new_geomarker = GeoMarker(client=new_client, region=region, province=province, commune=commune, address=address)#, latitude=latitude, longitude=longitude)
 			new_geomarker.save()
 
 			# all done -- success
@@ -307,8 +306,9 @@ def add_sale(request):
 				price = sale_detail.cleaned_data['price']
 				volume = sale_detail.cleaned_data['volume']
 				variety = sale_detail.cleaned_data['variety']
+				certification = sale_detail.cleaned_data['certification']
 
-				sdetail = SaleDetail(sale=new_sale, price=price, volume=volume, variety=variety)
+				sdetail = SaleDetail(sale=new_sale, price=price, volume=volume, variety=variety, certificate=certification)
 				sdetail.save()
 
 			messages.success(request, 'Venta de agregada con éxtio.')

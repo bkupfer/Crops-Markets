@@ -28,6 +28,11 @@ class PotatoVariety(models.Model):
 	def __str__(self):
 		return self.name.encode('utf-8')
 
+class Certificate(models.Model):
+	certificate = models.CharField(max_length=20)
+	def __str__(self):
+		return self.certificate.encode('utf-8')
+		
 
 # ######## #
 # Crops	
@@ -47,30 +52,31 @@ class Crop(models.Model):
 	region = models.ForeignKey('Region', blank=True, null=True)
 	province = models.ForeignKey('Province', blank=True, null=True)
 	commune = models.ForeignKey('Commune', blank=True, null=True)
-
-	# specific geographical information
 	address = models.CharField(max_length=256, blank=True, null=True)
-	latitude = models.FloatField(blank=True, null=True)
-	longitude = models.FloatField(blank=True, null=True)
+	#latitude = models.FloatField(blank=True, null=True)
+	#longitude = models.FloatField(blank=True, null=True)
 
 	# general characterisitcs
 	has = models.PositiveSmallIntegerField(blank=True, null=True)
 
 	# terrain characteristics 
 	# Los factores claves son:
-	# 1.- agua, calidad de tierra, topologia, no-heloso (temperaturas)
+	# agua, calidad de tierra, topologia, clima no-heloso
+	# edit: acceso
 
-	# core characteristics -- as boolean and then text for observation/coments
+	# core characteristics -- as boolean and then text for observation/comments
 	water = models.BooleanField()
 	soil = models.BooleanField()
 	topography = models.BooleanField()
 	temperatures = models.BooleanField()
+	access = models.BooleanField()
 
-	# core characteristics coments
+	# core characteristics comments
 	water_cmnt = models.CharField(max_length=1024, blank=True, null=True)
 	soil_cmnt = models.CharField(max_length=1024, blank=True, null=True)
 	topography_cmnt = models.CharField(max_length=1024, blank=True, null=True)
 	temperatures_cmnt = models.CharField(max_length=1024, blank=True, null=True)
+	access_cmnt = models.CharField(max_length=1024, blank=True, null=True)
 
 	# secondary characteristics
 	observations = models.TextField(blank=True, null=True)
@@ -137,8 +143,8 @@ class GeoMarker(models.Model):
 	commune = models.ForeignKey('Commune', blank=True, null=True)
 
 	address = models.CharField(max_length=256, blank=True, null=True)
-	latitude = models.FloatField(blank=True, null=True)
-	longitude = models.FloatField(blank=True, null=True)
+	#latitude = models.FloatField(blank=True, null=True)
+	#longitude = models.FloatField(blank=True, null=True)
 
 	def __str__(self):
 		if self.address is not None:
@@ -176,7 +182,7 @@ class SaleDetail(models.Model):
 	price = models.IntegerField()
 	volume = models.IntegerField()
 	variety = models.ForeignKey('PotatoVariety')
-
+	certificate = models.ForeignKey('Certificate')
 
 class TypeOfClient(models.Model):
 	type = models.CharField(max_length=8)

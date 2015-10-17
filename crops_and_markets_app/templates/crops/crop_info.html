@@ -174,7 +174,7 @@
 							</tr>
 
 							<tr>
-								<td class="col-xs-4">Temperaturas <label class="write" style="float: right;">{{ crop_form.temperatures }}</label></td>
+								<td class="col-xs-4">Clima <label class="write" style="float: right;">{{ crop_form.temperatures }}</label></td>
 								<td class="col-xs-8 read">
 									{% if crop.temperatures %}
 										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;">&nbsp;</span>
@@ -182,6 +182,21 @@
 										<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;">&nbsp;</span>
 									{% endif %}
 									{{ crop.temperatures_cmnt }}
+								</td>
+								<td class="col-xs-8 write" style="display: none;">
+									{{ crop_form.temperatures_cmnt }}
+								</td>
+							</tr>
+
+							<tr>
+								<td class="col-xs-4">Acceso <label class="write" style="float: right;">{{ crop_form.access }}</label></td>
+								<td class="col-xs-8 read">
+									{% if crop.access %}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;">&nbsp;</span>
+									{% else %}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;">&nbsp;</span>
+									{% endif %}
+									{{ crop.access_cmnt }}
 								</td>
 								<td class="col-xs-8 write" style="display: none;">
 									{{ crop_form.temperatures_cmnt }}
