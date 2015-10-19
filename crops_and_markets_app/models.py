@@ -114,6 +114,7 @@ class Client(models.Model):
 	# contact information
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
+	rut = models.CharField(max_length=20, blank=True, null=True)
 	contact_number_1 = models.CharField(max_length=16, blank=True, null=True)
 	contact_number_2 = models.CharField(max_length=16, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)

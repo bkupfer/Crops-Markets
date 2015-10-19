@@ -74,6 +74,44 @@
 
 							<!-- use new owner -->
 							<span  id="owner-form" style="display: none;">
+	
+								<!-- Company information -->
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="company_member"><h4>Miembro de empresa</h4></label>
+									<div class="col-sm-8">
+										<div class="checkbox">
+											{{ company_form.company_member }} si
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-12" id="company-info" style="display: none;">
+									<div class="col-sm-12">
+										<label class="control-label col-sm-4" for="excisting_company">Compañía <label id="company-asterisk" style="color:red">*</label></label>
+										<div class="col-sm-8">
+											{{ company_form.excisting_company }}
+											<input type="checkbox" id="new-company"> otra compañía
+										</div>
+										{% if company_form.excisting_company.errors %}<ul id="new-company-error"><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+									</div>
+
+									<div class="col-sm-12" style="display: none;" id="company-name">
+										<label class="control-label col-sm-4" for="name">Nombre compañía <label style="color:red">*</label></label>
+										<div class="col-sm-8">
+											{{ company_form.name }}
+										</div>
+										{% if company_form.name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+									</div>
+
+									<div class="col-sm-12" style="display: none;" id="company-rut">
+										<label class="control-label col-sm-4" for="rut">Rut compañía</label>
+										<div class="col-sm-8">
+											{{ company_form.rut }}
+										</div>
+									</div>
+								</div>
+
+								<!-- Contact information -->
 								<div class="col-sm-12">
 									<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>
 									<div class="col-sm-8">
@@ -118,42 +156,6 @@
 									</div>
 								</div>
 
-								<!-- Company information -->
-								<div class="col-sm-12">
-									<label class="control-label col-sm-4" for="company_member"><h4>Miembro de empresa</h4></label>
-									<div class="col-sm-8">
-										<div class="checkbox">
-											{{ company_form.company_member }} si
-										</div>
-									</div>
-								</div>
-
-								<div class="col-sm-12" id="company-info" style="display: none;">
-									<div class="col-sm-12">
-										<label class="control-label col-sm-4" for="excisting_company">Compañía <label id="company-asterisk" style="color:red">*</label></label>
-										<div class="col-sm-8">
-											{{ company_form.excisting_company }}
-											<input type="checkbox" id="new-company"> otra compañía
-										</div>
-										{% if company_form.excisting_company.errors %}<ul id="new-company-error"><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
-									</div>
-
-									<div class="col-sm-12" style="display: none;" id="company-name">
-										<label class="control-label col-sm-4" for="name">Nombre compañía <label style="color:red">*</label></label>
-										<div class="col-sm-8">
-											{{ company_form.name }}
-										</div>
-										{% if company_form.name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
-									</div>
-
-									<div class="col-sm-12" style="display: none;" id="company-rut">
-										<label class="control-label col-sm-4" for="rut">Rut compañía</label>
-										<div class="col-sm-8">
-											{{ company_form.rut }}
-										</div>
-									</div>
-
-								</div>
 							</span>
 
 						</div>

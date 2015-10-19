@@ -238,6 +238,7 @@ def add_market(request):
 			type_of_client = client_type_form.cleaned_data['type_of_client']
 			first_name = client_form.cleaned_data['first_name'].title()
 			last_name = client_form.cleaned_data['last_name'].title()
+			rut = client_form.cleaned_data['rut']
 			number_1 = client_form.cleaned_data['contact_number_1']
 			number_2 = client_form.cleaned_data['contact_number_2']
 			email = client_form.cleaned_data['email']
@@ -253,7 +254,7 @@ def add_market(request):
 					company = CompanyMarket(name=company_name, rut=company_rut)
 					company.save()
 
-			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, contact_number_1=number_1, 
+			new_client = Client(type_of_client=type_of_client, first_name=first_name, last_name=last_name, rut=rut, contact_number_1=number_1, 
 				contact_number_2=number_2, email=email, position=position, observations=obs, company=company)
 			new_client.save()
 
@@ -324,14 +325,61 @@ def markets(request):
 
 
 @login_required
+def market_company(request):
+	if not 'id' in request.GET:
+		return redirect('market_table')
+	id = request.GET['id']
+
+	company = CompanyMarket.objects.get(pk=id)
+	clients = Client.objects.filter(company=company)
+
+	# Calculating data
+	n = 0
+	total_volume = total_price = 0
+	varieties = {}
+	now = datetime.datetime.now()
+	for client in clients:
+		if client.type_of_client.type == "Actual":
+			sales = Sale.objects.filter(client=client, type_of_transaction=2, date__range=(now - timedelta(3*365), now + timedelta(365)))
+			for sale in sales:
+				n += 1
+				for sdetail in sale.saledetail_set.all():
+					total_volume += sdetail.volume
+					total_price += sdetail.price
+					if sdetail.variety not in varieties:
+						varieties[sdetail.variety] = sdetail.volume
+					else:
+						varieties[sdetail.variety] += sdetail.volume
+	avg_volume = avg_price = 0
+	if n != 0:
+		for var in varieties:
+			varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
+		avg_volume = total_volume / n
+		avg_price = total_price / n
+
+	# Edit
+	company_form = CompanyMarketForm(request.POST or None)
+	if request.method == "POST":
+		if company_form.is_valid():
+			company.name = company_form.cleaned_data['name'].title()
+			company.rut = company_form.cleaned_data['rut']
+			company.save()
+			messages.success(request, 'Edición guardada con éxito')
+		else: 
+			messages.error(request, 'Error en la edición')
+
+	return render_to_response("markets/market_company.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
 def market_info(request):
 	if not 'id' in request.GET:
 		return redirect('market_table')
+	id = request.GET['id']
 
 	client_form = ClientForm(request.POST or None)
 	geographical_form = GeoMarkerForm(request.POST or None)
 	company_form = CompanyMarketForm(request.POST or None)
-	id = request.GET['id']
 	client = Client.objects.get(pk = id)
 	geo_info = GeoMarker.objects.get(client = id) # change to filter. this should allow multiple locations.
 
@@ -373,7 +421,6 @@ def market_info(request):
 			avg_volume = total_volume / n
 		else:
 			avg_price = avg_volume = 0
-		
 
 	# Edit section
 	if request.method == "POST":
@@ -383,6 +430,7 @@ def market_info(request):
 				client.type_of_client = TypeOfClient.objects.get(type="Actual")
 			client.first_name = client_form.cleaned_data['first_name'].title()
 			client.last_name = client_form.cleaned_data['last_name'].title()
+			client.rut = client_form.cleaned_data['rut']
 			client.contact_number_1 = client_form.cleaned_data['contact_number_1']
 			client.contact_number_2 = client_form.cleaned_data['contact_number_2']
 			client.email = client_form.cleaned_data['email']

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
+	<meta name="author" content="bkupfer">
+	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+
+	<title>Crops and Markets</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+	<style>
+	.write {
+		display: none;
+	}
+	</style>
+
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+	<script async src="static/js/rut_validator.js"></script>
+	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+	<script defer src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		{% include "sidebar.html" %}
+
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+						
+					<h2>Detalle {{ company.name }}
+						<button id="edit-button" class="btn btn-success pull-right">Editar</button>
+						<button type="submit" form="edit-form" class="btn btn-primary pull-right save-changes" style="display: none;">Guardar</button>
+					</h2>
+					
+					{% if messages %}
+					<!-- For message to user -->
+					<div class="row">
+						<div class="col-xs-12">
+						{% for message in messages %}
+							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+								{{ message }}
+							</p>
+						{% endfor %}
+						</div>
+					</div> 
+					{% endif %}
+
+					<h3>Información general</h3>
+					<form action="market_company?id={{ company.pk }}" method="POST" id="edit-form"> {% csrf_token %}
+						<table class="table table-hover">
+							<tr>
+								<td class="col-xs-4">Nombre compañía</td>
+								<td class="col-xs-8 read">{{ company.name }}</td>
+								<td class="write">{{ company_form.name }}</td>
+							</tr>
+							<tr>
+								<td>Rut compañía</td>
+								<td class="read">{{ company.rut }}</td>
+								<td class="write">{{ company_form.rut }}</td>
+							</tr>
+						</table>
+					</form>
+
+					<h3>Información comercial</h3>
+					<table class="table table-hover">
+						<tr>
+							<td class="col-xs-4">Tamaño</td>
+							<td class="col-xs-8">{{ size }}</td>
+						</tr>
+						<tr>
+							<td>Número de compras</td>
+							<td>{{ n }}</td>
+						</tr>
+						<tr>
+							<td>Precio/kg promedio</td>
+							<td>$ {{ avg_price }}</td>
+						</tr>
+						<tr>
+							<td>Volumen promedio</td>
+							<td>{{ avg_volume }} [ton]</td>
+						</tr>
+						<tr>
+							<td>Variedades</td>
+							<td>{% for key, values in varieties.items %}
+									{{ key }}
+									({{ values }}%), 
+								{% endfor %}
+							</td>
+						</tr>
+					</table>
+					<p class="pull-right">Información referente a los últimos 3 años.</p>
+					<br>
+
+					<h3>Contactos en {{ company.name }}</h3>
+					<table id="clients-table" class="display" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th>Persona natural</th>
+								<th>Cargo</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for client in clients %}
+							<tr>
+								<td><a href="market_info?id={{ client.pk }}">{{ client }}</a></td>
+								<td>{{ client.position }}</td>
+							</tr>
+							{% empty %}
+							<tr>
+								<td>No hay clientes en la base de datos.</td>
+								<td></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	$(document).ready(function(){
+		$('#clients-table').DataTable({
+			 "language": {
+			 	"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+			}
+		});
+	});
+	</script>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#id_name").val("{{ company.name }}");
+		$("#id_rut").val("{{ company.rut }}");
+	});
+
+	$("#edit-button").click(function (){
+		$(".save-changes").slideToggle("fast");
+		$(".read").toggle();
+		$(".write").toggle(100);
+	});
+	</script>
+
+</body>
+</html>

@@ -11,9 +11,9 @@ DateInput = partial(forms.DateInput, {'class': 'datepicker', 'placeholder': u'mm
 # Crops
 class CompanyCropFrom(forms.Form):
 	company_member = forms.BooleanField(required=False)
-	excisting_company = forms.ModelChoiceField(required=False, queryset=CompanyCrop.objects.all(), empty_label="Compañía", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	excisting_company = forms.ModelChoiceField(required=False, queryset=CompanyCrop.objects.all(), empty_label="Seleccione compañía", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm rut"}))
 
 	class Meta:
 		model = CompanyCrop
@@ -59,6 +59,7 @@ class CropOwnerForm(forms.Form):
 	# new owner
 	first_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm rut"}))
 	contact_number_1 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
 		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
 		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
@@ -98,6 +99,7 @@ class CropOwnerForm(forms.Form):
 class ClientForm(forms.Form):
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm rut"}))
 	contact_number_1 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
 		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
 		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
@@ -121,10 +123,10 @@ class ClientTypeForm(forms.Form):
 
 
 class CompanyMarketForm(forms.Form):
-	excisting_company = forms.ModelChoiceField(queryset=CompanyMarket.objects.all(), empty_label="Compañía", required=False, widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	excisting_company = forms.ModelChoiceField(queryset=CompanyMarket.objects.all(), empty_label="Seleccione compañía", required=False, widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	# new company
 	name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm rut"}))
 
 	class Meta:
 		model = CompanyMarket

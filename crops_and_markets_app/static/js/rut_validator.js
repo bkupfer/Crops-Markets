@@ -41,7 +41,7 @@ function formatRut(input){
 }
 
 /* validates and gives format to ruts */
-$("#id_rut").change(function(){
+$(".rut").change(function(){
 	var formatedInput = formatRut($(this).val());
 	$(this).val(formatedInput);
 	if (!validateRut(formatedInput))

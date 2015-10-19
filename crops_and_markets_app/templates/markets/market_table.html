@@ -81,16 +81,15 @@
 							<th>Compañía</th>
 							<th>Región</th>
 							{% if not potential_table %}<th>Tamaño</th>{% endif %}
-							<th>Detalle</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for client in clients %}
 						<tr>
-							<td>{{ client }}</td>
+							<td><a href="market_info?id={{ client.pk }}">{{ client }}</a></td>
 							<td>
 								{% if client.company %}
-									{{ client.company }}
+									<a href="market_company?id={{ client.company.pk }}">{{ client.company }}</a>
 								{% else %}
 									<abbr title="Persona Natural">P.N.</abbr>
 								{% endif %}
@@ -100,13 +99,14 @@
 								{{ gm.region }} 
 								{% endfor %}
 							</td>
-							{% if not potential_table %}<td>{{ client.size }}</td>{% endif %}
-							<td><a href="market_info?id={{ client.pk }}">detalle</a></td>
+							{% if not potential_table %}
+								<td>{{ client.size }}</td>
+							{% endif %}
 						</tr>
 						{% empty %}
 						<tr>
 							<td>No hay clientes en la base de datos.</td>
-							<td></td><td></td>{% if not potential_table %}<td></td>{% endif %}<td></td>
+							<td></td><td></td>{% if not potential_table %}<td></td>{% endif %}
 						</tr>
 						{% endfor %}
 					</tbody>

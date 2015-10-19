@@ -18,6 +18,13 @@
 	<link href="static/css/bootstrap.min.css" rel="stylesheet">
 	<link href="static/css/simple-sidebar.css" rel="stylesheet">
 
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+	<script async src="static/js/rut_validator.js"></script>
+	<script async src="static/js/regions.js"></script>
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -68,6 +75,41 @@
 						<!-- Clients information -->
 						<div class="row">
 							<h3>Información de cliente</h3>
+							<!-- Company information -->
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="company_member"><h4>Miembro de empresa</h4></label>
+								<div class="col-sm-8">
+									<div class="checkbox">
+										<input type="checkbox" id="company-member"> si
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12" id="company-info" style="display: none;">
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="excisting_company">Compañía</label>
+									<div class="col-sm-8">
+										{{ company_form.excisting_company }}
+										<input type="checkbox" id="new-company"> otra compañía
+									</div>
+								</div>
+
+								<div class="col-sm-12" style="display: none;" id="company-name">
+									<label class="control-label col-sm-4" for="name">Nombre compañía <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ company_form.name }}
+									</div>
+								</div>
+
+								<div class="col-sm-12" style="display: none;" id="company-rut">
+									<label class="control-label col-sm-4" for="rut">Rut compañía</label>
+									<div class="col-sm-8">
+										{{ company_form.rut }}
+									</div>
+								</div>
+
+							</div>
+
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>
 								<div class="col-sm-8">
@@ -82,6 +124,13 @@
 									{{ client_form.last_name }}
 								</div>
 								{% if client_form.last_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="last_name">Rut</label>
+								<div class="col-sm-8">
+									{{ client_form.rut }}
+								</div>
 							</div>
 							
 							<div class="col-sm-12">
@@ -106,46 +155,11 @@
 								</div>
 							</div>
 
-							<!-- Company information -->
-							<div class="col-sm-12">
-								<label class="control-label col-sm-4" for="company_member"><h4>Miembro de empresa</h4></label>
+							<div class="col-sm-12" id="position"style="display: none;">
+								<label class="control-label col-sm-4" for="position">Cargo</label>
 								<div class="col-sm-8">
-									<div class="checkbox">
-										<input type="checkbox" id="company-member"> si
-									</div>
+									{{ client_form.position }}
 								</div>
-							</div>
-
-							<div class="col-sm-12" id="company-info" style="display: none;">
-								<div class="col-sm-12">
-									<label class="control-label col-sm-4" for="excisting_company">Compañía</label>
-									<div class="col-sm-8">
-										{{ company_form.excisting_company }}
-										<input type="checkbox" id="new-company"> otra compañía
-									</div>
-								</div>
-
-								<div class="col-sm-12" style="display: none;" id="company-name">
-									<label class="control-label col-sm-4" for="name">Nombre compañía</label>
-									<div class="col-sm-8">
-										{{ company_form.name }}
-									</div>
-								</div>
-
-								<div class="col-sm-12" style="display: none;" id="company-rut">
-									<label class="control-label col-sm-4" for="rut">Rut compañía</label>
-									<div class="col-sm-8">
-										{{ company_form.rut }}
-									</div>
-								</div>
-
-								<div class="col-sm-12">
-									<label class="control-label col-sm-4" for="position">Cargo</label>
-									<div class="col-sm-8">
-										{{ client_form.position }}
-									</div>
-								</div>
-
 							</div>
 
 						</div>
@@ -191,7 +205,7 @@
 										</div>
 									</div>
 
-									<div class="col-sm-12">
+<!-- 									<div class="col-sm-12">
 										<div class="col-sm-4">
 											<label class="control-label">Latitud, Longitud</label>
 										</div>
@@ -201,7 +215,7 @@
 										<div class="col-sm-4">
 											{{ geographical_form.longitude }}
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 
@@ -241,15 +255,11 @@
 		</div>
 	</div>
 
-	<script src="static/js/jquery.js"></script>
-	<script src="static/js/bootstrap.min.js"></script>
-	<script src="static/js/menu_toggle.js"></script>
-	<script src="static/js/googleanalytics.js"></script>
-	
 	<script type="text/javascript">
 	/* Toggle logic */
 	$("#company-member").click(function(e){
 		$("#company-info").toggle(300);
+		$("#position").toggle(300);
 	});
 
 	$("#new-company").click(function(e){
@@ -262,9 +272,6 @@
 		$("#company-rut").toggle(200);
 	});
 	</script>
-
-	<script src="static/js/rut_validator.js"></script>
-	<script src="static/js/regions.js"></script>
 
 	<script type="text/javascript">
 	// capitalises name and lastname

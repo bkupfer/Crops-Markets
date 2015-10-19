@@ -16,10 +16,19 @@
 
 	<!-- Bootstrap Core CSS -->
 	<link href="static/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- Custom CSS -->
 	<link href="static/css/simple-sidebar.css" rel="stylesheet">
 
+	<style>
+	#map-canvas {
+		width: 100%;
+		height: 250px;
+		border-style: solid;
+	}
+	.write {
+		display: none;
+	}
+	</style>
+	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -31,9 +40,10 @@
 	<script src="https://maps.googleapis.com/maps/api/js"></script>
 	<script src="static/js/jquery.js"></script>
 	<script async src="static/js/bootstrap.min.js"></script>
-	<script async src="static/js/menu_toggle.js"></script>
 	<script async src="static/js/googleanalytics.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
 	<script async src="static/js/regions.js"></script>
+	<script async src="static/js/rut_validator.js"></script>
 
 	<script>
 	/** shows or hides map */
@@ -87,13 +97,6 @@
 	}
 	</script>
 
-	<style>
-	#map-canvas {
-		width: 100%;
-		height: 250px;
-		border-style: solid;
-	}
-	</style>
 </head>
 
 <body>
@@ -128,38 +131,43 @@
 						<table class="table table-hover">
 							<tr>
 								<td class="col-xs-4">Nombre</td>
-								<td class="read" class="col-xs-8">{{ client }}</td>
-								<td class="write" style="display: none;">
+								<td class="col-xs-8 read">{{ client }}</td>
+								<td class="write">
 									<span class="col-xs-6">{{ client_form.first_name }}</span>
 									<span class="col-xs-6">{{ client_form.last_name }}</span>
 								</td>
 							</tr>
 							<tr>
+								<td>Rut</td>
+								<td class="read">{{ client.rut }}</td>
+								<td class="write">{{ client_form.rut }}</td>
+							</tr>
+							<tr>
 								<td>Número</td>
 								<td class="read"><a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a></td>
-								<td class="write" style="display: none;">{{ client_form.contact_number_1 }}</td>
+								<td class="write">{{ client_form.contact_number_1 }}</td>
 							</tr>
 							<tr id="number-2" style="{% if not client.contact_number_2 %}display: none;{% endif %}">
 								<td>Número 2</td>
 								<td class="read"><a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a></td>
-								<td class="write" style="display: none;">{{ client_form.contact_number_2 }}</td>
+								<td class="write">{{ client_form.contact_number_2 }}</td>
 							</tr>
 							<tr>
 								<td>Email</td>
 								<td class="read"><a href="mailto:{{ client.email }}">{{ client.email }}</a></td>
-								<td class="write" style="display: none;">{{ client_form.email }}</td>
+								<td class="write">{{ client_form.email }}</td>
 							</tr>
 						</table>
 
-						<h3>Información de empresa</h3>
+						<h3>Información de compañía</h3>
 						<table class="table table-hover">
 						{% if client.company %}
 							<tr>
 								<td class="col-xs-4">Compañía</td>
-								<td class="col-xs-8">{{ client.company }}</td>
+								<td class="col-xs-8"><a href="market_company?id={{ client.company.pk }}">{{ client.company }}</a></td>
 							</tr>
 							<tr>
-								<td>Rut empresa</td>
+								<td>Rut compañía</td>
 								<td id="rut">{{ client.company.rut }}</td>
 							</tr>
 							<tr>
@@ -172,7 +180,7 @@
 						</table>
 
 						{% if client.type_of_client.type == "Actual" %}
-						<h3>Información de comercial</h3>
+						<h3>Información comercial</h3>
 						<table class="table table-hover">
 							<tr>
 								<td class="col-xs-4">Tamaño</td>
@@ -180,14 +188,14 @@
 							</tr>
 							<tr>
 								<td>Número de compras</td>
-								<td>{{ n }} </td>
+								<td>{{ n }}</td>
 							</tr>
 							<tr>
-								<td>Precio Promedio</td>
+								<td>Precio/kg promedio</td>
 								<td>$ {{ avg_price }}</td>
 							</tr>
 							<tr>
-								<td>Volumen Promedio</td>
+								<td>Volumen promedio</td>
 								<td>{{ avg_volume }} [ton]</td>
 							</tr>
 							<tr>
@@ -210,12 +218,12 @@
 							<tr>
 								<td class="col-xs-4">Región</td>
 								<td class="col-xs-8 read">{{ geo_info.region }}</td>
-								<td class="write" style="display: none;">{{ geographical_form.region }}</td>
+								<td class="write">{{ geographical_form.region }}</td>
 							</tr>
 							<tr>
 								<td>Provincia</td>
 								<td class="read">{{ geo_info.province }}</td>
-								<td class="write" style="display: none;">
+								<td class="write">
 									<select name="province" id="id_province" class="form-control input-sm">
 										<option selected="selected" value="">Seleccione provincia</option>
 									</select>
@@ -225,7 +233,7 @@
 							<tr>
 								<td>Comuna</td>
 								<td class="read">{{ geo_info.commune }}</td>
-								<td class="write" style="display: none;">
+								<td class="write">
 									<select name="commune" id="id_commune" class="form-control input-sm">
 										<option selected="selected" value="">Seleccione comuna</option>
 									</select>
@@ -234,7 +242,7 @@
 							<tr>
 								<td>Dirección</td>
 								<td class="read">{{ geo_info.address }}</td>
-								<td class="write" style="display: none;">{{ geographical_form.address }}</td>
+								<td class="write">{{ geographical_form.address }}</td>
 							</tr>
 							<!-- <tr id="latlng" style="display: none">
 								<td>(lat, lng)</td>
@@ -245,7 +253,7 @@
 						</table>
 						<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
 						<button type="button" class="btn btn-default" id="mapButton" onclick="displayMap();">Mostrar mapa</button>
-						<button type="button" class="btn btn-default" id="latlng-btn">Mostrar latitud-longitud</button>
+						<!-- <button type="button" class="btn btn-default" id="latlng-btn">Mostrar latitud-longitud</button> -->
 
 						<h3>Observaciones</h3>
 						<div class="read" style="border: 1px solid #CCCCCC">
@@ -273,6 +281,7 @@
 	$(document).ready(function(){
 		$("#id_first_name").val("{{ client.first_name }}");
 		$("#id_last_name").val("{{ client.last_name }}");
+		$("#id_rut").val("{{ client.rut }}");
 		$("#id_contact_number_1").val({{ client.contact_number_1 }});
 		$("#id_contact_number_2").val({{ client.contact_number_2 }});
 		$("#id_email").val("{{ client.email }}");
@@ -297,14 +306,6 @@
 		$(".read").toggle();
 		$(".write").toggle(100);
 	});
-	</script>
-
-	<script type="text/javascript">
-	// $("#latlng-btn").on('click', function(){
-	// 	var button = $("#latlng-btn");
-	// 	button.text(button.text() == "Mostrar latitud-longitud" ? "Ocultar latitud-longitud" : "Mostrar latitud-longitud");
-	// 	$("#latlng").toggle(200);
-	// });
 	</script>
 
 </body>
