@@ -20,3 +20,6 @@ admin.site.register(models.GeoMarker)
 admin.site.register(models.Sale)
 admin.site.register(models.SaleDetail)
 admin.site.register(models.TypeOfClient)
+
+# relateds
+admin.site.register(models.Related)

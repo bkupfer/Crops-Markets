@@ -546,15 +546,17 @@ def sales_history(request):
 @login_required
 def add_related(request):
 
-
 	return render_to_response("related/add_related.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
 def related(request):
+
 	return render_to_response("related/related.html", locals(), context_instance=RequestContext(request))
+
 
 @login_required
 def related_table(request):
+
 	return render_to_response("related/related_table.html", locals(), context_instance=RequestContext(request))
 

@@ -95,7 +95,7 @@
 	},
 	{
 		"fields": {
-			"certificate": "No certificada"
+			"certificate": "Corriente"
 		},
 		"model": "crops_and_markets_app.Certificate",
 		"pk": 2

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
+	<meta name="author" content="bkupfer">
+	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+
+	<title>Crops and Markets</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+	<script async src="static/js/rut_validator.js"></script>
+	<script async src="static/js/regions.js"></script>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<div id="wrapper">
+
+		{% include "sidebar.html" %}
+
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+
+				<h2>Agregar contacto relacionado</h2>
+
+				<!-- For message to user -->
+				{% if messages %}
+				<div class="row">
+					<div class="col-sm-12">
+					{% for message in messages %}
+						<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+							{{ message }}
+						</p>
+					{% endfor %}
+					</div>
+				</div> 
+				{% endif %}
+
+				<div class="panel-body">
+					<!-- Add new client form -->
+					<form action="" method="POST"> {% csrf_token %}
+					
+						
+						<br>
+						<!-- Submit button -->
+						<div class="row">
+							<div class="col-sm-4">
+								<button type="submit" class="btn btn-default">Agregar</button>
+							</div>
+							<div class="col-sm-8">
+								<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
+							</div>
+						</div>
+
+					</form>
+					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	/* Toggle logic */
+	$("#company-member").click(function(e){
+		$("#company-info").toggle(300);
+		$("#position").toggle(300);
+	});
+
+	$("#new-company").click(function(e){
+		if ($("#new-company").prop("checked"))
+			$("#id_excisting_company").prop('disabled', true);
+		else
+			$("#id_excisting_company").prop('disabled', false);
+		
+		$("#company-name").toggle(200);
+		$("#company-rut").toggle(200);
+	});
+	</script>
+
+	<script type="text/javascript">
+	// capitalises name and lastname
+	$("#id_first_name").change(function(){
+		var name = $(this).val();
+		var uc = name.charAt(0).toUpperCase();
+		$(this).val(uc + name.substring(1));
+	});
+	$("#id_last_name").change(function(){
+		var lastName = $(this).val();
+		var uc = lastName.charAt(0).toUpperCase();
+		$(this).val(uc + lastName.substring(1));
+	});
+	</script>
+</body>
+
+</html>

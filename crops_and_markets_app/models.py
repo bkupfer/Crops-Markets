@@ -185,6 +185,7 @@ class SaleDetail(models.Model):
 	variety = models.ForeignKey('PotatoVariety')
 	certificate = models.ForeignKey('Certificate')
 
+
 class TypeOfClient(models.Model):
 	type = models.CharField(max_length=8)
 
@@ -197,3 +198,19 @@ class TypeOfTransaction(models.Model):
 
 	def __str__(self):
 		return self.type
+
+
+# ######## #
+# Related
+class Related(models.Model):
+	first_name = models.CharField(max_length=100)
+	last_name = models.CharField(max_length=100)
+	rut = models.CharField(max_length=20, blank=True, null=True)
+	contact_number_1 = models.CharField(max_length=16, blank=True, null=True)
+	contact_number_2 = models.CharField(max_length=16, blank=True, null=True)
+	email = models.EmailField(blank=True, null=True)
+	observations = models.TextField(blank=True, null=True)
+	timestamp = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
