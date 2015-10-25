@@ -57,10 +57,65 @@
 				{% endif %}
 
 				<div class="panel-body">
-					<!-- Add new client form -->
+					<!-- Add new contact form -->
 					<form action="" method="POST"> {% csrf_token %}
-					
+						<!-- Contact information -->
+						<div class="row">
+							<h3>Información de contacto</h3>
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ related_form.first_name }}
+								</div>
+								{% if related_form.first_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+							</div>
+							
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="last_name">Apellido <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ related_form.last_name }}
+								</div>
+								{% if related_form.last_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="last_name">Rut</label>
+								<div class="col-sm-8">
+									{{ related_form.rut }}
+								</div>
+							</div>
+							
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="contact_number_1">Número de contacto</label>
+								<div class="col-sm-8">
+									{{ related_form.contact_number_1 }}
+								</div>
+								{% if related_form.contact_number_1.errors %}<ul><li><label style="color:red">Número telefónico debe ser ingresado en formato '+9 9999 9999'.</label></li></ui>{% endif %}
+							</div>
 						
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="contact_number_2">Número de contacto 2</label>
+								<div class="col-sm-8">
+									{{ related_form.contact_number_2 }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="email">Email</label>
+								<div class="col-sm-8">
+									{{ related_form.email }}
+								</div>
+							</div>
+
+						</div>
+
+						<!-- Observations -->
+						<div class="row">
+							<h3>Observaciones</h3>
+							<div class="col-sm-12">
+								{{ related_form.observations }}
+							</div>
+						</div>
 						<br>
 						<!-- Submit button -->
 						<div class="row">

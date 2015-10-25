@@ -162,3 +162,18 @@ class TransactionForm(forms.Form):
 	class Meta: 
 		model = Sale
 
+
+# ######## #
+# Related contacts
+class ContactForm(forms.Form):
+	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm rut"}))
+	contact_number_1 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
+		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
+		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	contact_number_2 = forms.RegexField(required=False, regex=r'^\+?\d{8,11}$', 
+		error_message = ("Phone number must be entered in the format: '+999999999'. Up to 11 digits allowed."),
+		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={"class": "form-control input-sm"}))
+	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}

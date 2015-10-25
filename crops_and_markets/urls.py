@@ -38,6 +38,7 @@ urlpatterns = patterns('',
 	# related
 	url(r'^add_related', 'crops_and_markets_app.views.add_related', name='add_related'), 
 	url(r'^related$', 'crops_and_markets_app.views.related', name='related'),
+	url(r'^related_info', 'crops_and_markets_app.views.related_info', name='related_info'),
 	url(r'^related_table', 'crops_and_markets_app.views.related_table', name='related_table')
 )
 

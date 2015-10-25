@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
+	<meta name="author" content="bkupfer">
+	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+
+	<title>Crops and Markets</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+	<style>
+	#map-canvas {
+		width: 100%;
+		height: 250px;
+		border-style: solid;
+	}
+	.write {
+		display: none;
+	}
+	</style>
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- Google maps -->
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/regions.js"></script>
+	<script async src="static/js/rut_validator.js"></script>
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		{% include "sidebar.html" %}
+
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<h2>Detalle {{ contact }}
+						<button id="edit-button" class="btn btn-success pull-right">Editar</button>
+						<button type="submit" form="edit-form" class="btn btn-primary pull-right save-changes" style="display: none;">Guardar</button>
+					</h2>
+
+					{% if messages %}
+					<!-- For message to user -->
+					<div class="row">
+						<div class="col-xs-12">
+						{% for message in messages %}
+							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+								{{ message }}
+							</p>
+						{% endfor %}
+						</div>
+					</div> 
+					{% endif %}
+
+					<form action="related_info?id={{ contact.pk }}" method="POST" id="edit-form"> {% csrf_token %}
+						<h3>Información de contacto</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-xs-4">Nombre</td>
+								<td class="col-xs-8 read">{{ contact }}</td>
+								<td class="write">
+									<span class="col-xs-6">{{ contact_form.first_name }}</span>
+									<span class="col-xs-6">{{ contact_form.last_name }}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Rut</td>
+								<td class="read">{{ contact.rut }}</td>
+								<td class="write">{{ contact_form.rut }}</td>
+							</tr>
+							<tr>
+								<td>Número</td>
+								<td class="read"><a href="{{ contact.contact_number_1 }}">{{ contact.contact_number_1 }}</a></td>
+								<td class="write">{{ contact_form.contact_number_1 }}</td>
+							</tr>
+							<tr id="number-2" style="{% if not contact.contact_number_2 %}display: none;{% endif %}">
+								<td>Número 2</td>
+								<td class="read"><a href="{{ contact.contact_number_2 }}">{{ contact.contact_number_2 }}</a></td>
+								<td class="write">{{ contact_form.contact_number_2 }}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td class="read"><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></td>
+								<td class="write">{{ contact_form.email }}</td>
+							</tr>
+						</table>
+
+<!-- 						<h3>Información de compañía</h3>
+						<table class="table table-hover">
+						{% if contact.company %}
+							<tr>
+								<td class="col-xs-4">Compañía</td>
+								<td class="col-xs-8"><a href="market_company?id={{ contact.company.pk }}">{{ contact.company }}</a></td>
+							</tr>
+							<tr>
+								<td>Rut compañía</td>
+								<td id="rut">{{ contact.company.rut }}</td>
+							</tr>
+							<tr>
+								<td>Cargo</td>
+								<td>{{ contact.position }}</td>
+							</tr>
+						{% else %}
+							<tr><td>Persona natural</td></tr>
+						{% endif %}
+						</table> -->
+
+
+<!-- 						<h3>Información geográfica</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-xs-4">Región</td>
+								<td class="col-xs-8 read">{{ geo_info.region }}</td>
+								<td class="write">{{ geographical_form.region }}</td>
+							</tr>
+							<tr>
+								<td>Provincia</td>
+								<td class="read">{{ geo_info.province }}</td>
+								<td class="write">
+									<select name="province" id="id_province" class="form-control input-sm">
+										<option selected="selected" value="">Seleccione provincia</option>
+									</select>
+									<input type="hidden" id="province_trick" name="province_trick" value="">
+								</td>
+							</tr>
+							<tr>
+								<td>Comuna</td>
+								<td class="read">{{ geo_info.commune }}</td>
+								<td class="write">
+									<select name="commune" id="id_commune" class="form-control input-sm">
+										<option selected="selected" value="">Seleccione comuna</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>Dirección</td>
+								<td class="read">{{ geo_info.address }}</td>
+								<td class="write">{{ geographical_form.address }}</td>
+							</tr> 
+						</table>
+						<div class="col-bg-12" id="map-canvas" style="display: none;">	</div><br>
+						<button type="button" class="btn btn-default" id="mapButton" onclick="displayMap();">Mostrar mapa</button>
+ -->
+						<h3>Observaciones</h3>
+						<div class="read" style="border: 1px solid #CCCCCC">
+							<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ contact.observations }}</p>
+						</div>
+						<div class="write" style="display: none;">
+							{{ contact_form.observations }}
+						</div>
+						<br><button type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;">Guardar</button>
+						<button name="delete" class="btn btn-danger pull-right write" style="display: none;" onclick="return confirm('Está seguro que desea eliminar a {{ contact }} de la base de datos?\nEste proceso es irreversible.');">Borrar</button>
+					</form>
+				</div>
+
+			</div>
+			<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+			<a href="related_table" class="btn btn-default" id="return">Volver</a>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#id_first_name").val("{{ contact.first_name }}");
+		$("#id_last_name").val("{{ contact.last_name }}");
+		$("#id_rut").val("{{ contact.rut }}");
+		$("#id_contact_number_1").val({{ contact.contact_number_1 }});
+		$("#id_contact_number_2").val({{ contact.contact_number_2 }});
+		$("#id_email").val("{{ contact.email }}");
+		$("#id_observations").val("{{ contact.observations }}");
+
+	// 	$("#id_region")[0].selectedIndex = {{ geo_info.region.pk }};
+	// 	if ("{{ geo_info.province }}" != "None"){
+	// 		var provinceSelector = document.getElementById("id_province");
+	// 		provinceSelector.options[0] = new Option('{{ geo_info.province }}', '{{ geo_info.province.pk }}');
+	// 		$("#province_trick").val("{{ geo_info.province }}");
+	// 	}
+	// 	if ("{{ geo_info.commune }}" != "None"){
+	// 		var communeSelector = document.getElementById("id_commune");
+	// 		communeSelector.options[0] = new Option('{{ geo_info.commune }}', '{{ geo_info.commune }}');
+	// 	}
+	// 	$("#id_address").val("{{ geo_info.address }}");
+	});
+
+	$("#edit-button").click(function (){
+		$(".save-changes").slideToggle("fast");
+		$("#number-2").show();
+		$(".read").toggle();
+		$(".write").toggle(100);
+	});
+	</script>
+
+</body>
+</html>

@@ -542,9 +542,28 @@ def sales_history(request):
 
 
 ############
-# Related
+# Related Contacts 
 @login_required
 def add_related(request):
+	related_form = ContactForm(request.POST or None)
+
+	if request.method == 'POST':
+		if related_form.is_valid():
+			first_name = related_form.cleaned_data['first_name'].title()
+			last_name = related_form.cleaned_data['last_name'].title()
+			rut = related_form.cleaned_data['rut']
+			number_1 = related_form.cleaned_data['contact_number_1']
+			number_2 = related_form.cleaned_data['contact_number_2']
+			email = related_form.cleaned_data['email']
+			obs = related_form.cleaned_data['observations'].strip(' \t\n\r')
+
+			new_contact = Related(first_name=first_name, last_name=last_name, rut=rut, contact_number_1=number_1, contact_number_2=number_2,
+				email=email, observations=obs)
+			new_contact.save()
+
+			messages.success(request, 'Contacto agregado con éxtio.')
+		else:
+			messages.error(request, 'Error en el formulario.')
 
 	return render_to_response("related/add_related.html", locals(), context_instance=RequestContext(request))
 
@@ -556,7 +575,37 @@ def related(request):
 
 
 @login_required
-def related_table(request):
+def related_info(request):
+	if not 'id' in request.GET:
+		return redirect('related_table')
+	id = request.GET['id']
 
+	contact_form = ContactForm(request.POST or None)
+	contact = Related.objects.get(pk=id)
+
+	# Edit section
+	if request.method == "POST":
+		if contact_form.is_valid():
+			contact.first_name = contact_form.cleaned_data['first_name'].title()
+			contact.last_name = contact_form.cleaned_data['last_name'].title()
+			contact.rut = contact_form.cleaned_data['rut']
+			contact.contact_number_1 = contact_form.cleaned_data['contact_number_1']
+			contact.contact_number_2 = contact_form.cleaned_data['contact_number_2']			
+			contact.email = contact_form.cleaned_data['email']
+			contact.observations = contact_form.cleaned_data['observations'].strip(' \t\n\r')
+			contact.save()
+
+			messages.success(request, 'Edición guardada con éxtito')
+		else:
+			messages.error(request, 'Error en la edición')
+
+	return render_to_response("related/related_info.html", locals(), context_instance=RequestContext(request))
+
+
+
+
+@login_required
+def related_table(request):
+	contacts = Related.objects.all()
 	return render_to_response("related/related_table.html", locals(), context_instance=RequestContext(request))
 
