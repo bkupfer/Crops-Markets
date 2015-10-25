@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 	url(r'^crop_map', 'crops_and_markets_app.views.crop_map', name='crop_map'),
 	url(r'^crop_info', 'crops_and_markets_app.views.crop_info', name='crop_info'),
 	url(r'^crop_table', 'crops_and_markets_app.views.crop_table', name='crop_table'),
-	url(r'^crops', 'crops_and_markets_app.views.crops', name='crops'),
+	url(r'^crops$', 'crops_and_markets_app.views.crops', name='crops'),
 	url(r'^photo_library', 'crops_and_markets_app.views.photo_library', name='photo_library'),
 
 	# markets
@@ -31,9 +31,14 @@ urlpatterns = patterns('',
 	url(r'^market_map', 'crops_and_markets_app.views.market_map', name='market_map'),
 	url(r'^market_table$', 'crops_and_markets_app.views.market_table', name='market_table'),
 	url(r'^market_table_potential', 'crops_and_markets_app.views.market_table_potential', name='market_table_potential'),
-	url(r'^markets', 'crops_and_markets_app.views.markets', name='markets'),
+	url(r'^markets$', 'crops_and_markets_app.views.markets', name='markets'),
 	url(r'^sales_detail', 'crops_and_markets_app.views.sales_detail', name='sales_detail'),
-	url(r'^sales_history', 'crops_and_markets_app.views.sales_history', name='sales_history')
+	url(r'^sales_history', 'crops_and_markets_app.views.sales_history', name='sales_history'),
+
+	# related
+	url(r'^add_related', 'crops_and_markets_app.views.add_related', name='add_related'), 
+	url(r'^related$', 'crops_and_markets_app.views.related', name='related'),
+	url(r'^related_table', 'crops_and_markets_app.views.related_table', name='related_table')
 )
 
 
