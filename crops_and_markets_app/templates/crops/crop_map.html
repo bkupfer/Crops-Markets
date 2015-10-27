@@ -68,13 +68,12 @@
 
 		// Geocoding and markets
 		var geocoder = new google.maps.Geocoder();
-		{% for geomarker in geomarkers %}
-			geocodeAddress(geocoder, map, "{{ geomarker.address }}, Region {{ geomarker.region }}, Chile", "{{ geomarker.crop_owner.first }}", "{{ geomarker.crop_owner.first.pk }}",
-				{% if geomarker.water and geomarker.soil and geomarker.topography and geomarker.temperatures %}
-					true
-				{% else %}
-					false
-				{% endif %});
+		{% for geomarker in crops %}
+			geocodeAddress(geocoder, map, 
+				"{{ geomarker.address }}, Region {{ geomarker.region }}, Chile", 
+				"{{ geomarker.crop_owner.first }}", "{{ geomarker.pk }}",
+				{% if geomarker.score > 60 %}true{% else %}false{% endif %},
+				{{ geomarker.score }});
 		{% endfor %}
 
 		// Try HTML5 geolocation.
@@ -114,8 +113,10 @@
 	  * @ map: the map to be used.
 	  * @ address: the address to be geocoded.
 	  * @ title: title of the marker that will be created in the map.
-	  * @ typeOfClient: reduntant definition is redundant. */
-	function geocodeAddress(geocoder, map, address, title, idCrop, req_ok){
+	  * @ idCrop: id of the crop to be redirected
+	  * @ req_ok: should marker be green or red?
+	  * @ score: crop score used to count stars */
+	function geocodeAddress(geocoder, map, address, title, idCrop, req_ok, score){
 		geocoder.geocode({'address': address}, function(results, status){
 			if (status == google.maps.GeocoderStatus.OK){
 				var marker = new google.maps.Marker({
@@ -127,7 +128,7 @@
 
 				// creating information window
 				var distance = calculateDistance(sz.lat(), sz.lng(), marker.position.lat(), marker.position.lng());
-				var contentString = createInfoWindowContent(title, [address], 'crop_info?id='+idCrop, distance);
+				var contentString = createInfoWindowContent(title, [address], 'crop_info?id='+idCrop, distance, score);
 				var infoWindow = new google.maps.InfoWindow({
 					content: contentString
 				});
@@ -142,12 +143,17 @@
 	}
 
 	/**  creates the html content for the information window of a marker */
-	function createInfoWindowContent(heading, info, whereTo, distance){
+	function createInfoWindowContent(heading, info, whereTo, distance, score){
 		var content = '<div id="content">';
 		content += '<div id="siteNotice"></div>';
 		content += '<h4 id="firstHeading" class="firstHeading">' + heading ;
 		content += '<span class="pull-right"> ≈ ' + toKm(distance) + ' [km]</span>';
 		content += '</h4>';
+		content += '<h3>';
+		for (var i=0; i<100; i+=20)
+			if (score >= i)
+				content += '<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>';
+		content += '</h3>';
 		for (var i=0; i<info.length; i++)
 			content += '<p>' + info[i] + '</p>';
 		content += '<a href="' + whereTo + '">';
@@ -198,7 +204,7 @@
 
 						<div class="col-bg-12" id="map-canvas"><!-- map goes here --></div>
 						<div class="col-sm-12">
-							<p class="text-right small">Los marcadores de color <label style="color:green">verde</label> y <label style="color:red">rojo</label> representan los predios que <label style="color:green">cumplen</label> y <label style="color:red">no cumplen</label> los requisitos mínimos respectivamente. <br>
+							<p class="text-right small">Los marcadores de color <label style="color:red">rojo</label> y <label style="color:green">verde</label> representan los predios con <label style="color:red">3 o menos</label> y <label style="color:green">4 o más </label> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>'s respectivamente. <br>
 							El marcador <label style="color: purple">púrpura</label> representa su <label style="color: purple">posición actual</label>, y el marcador <label style="color: blue">azul</label> la posición de <label style="color: blue">Semillas SZ</label>.</p>
 						</div>
 						<br>

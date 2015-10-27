@@ -58,7 +58,6 @@ def add_crop(request):
 		if owner_form.is_valid() and company_form.is_valid() and crop_form.is_valid():
 			# owner information
 			owner = owner_form.cleaned_data['old_owner']
-			print owner
 			if owner is None:
 				name = owner_form.cleaned_data['first_name'].title()
 				last_name = owner_form.cleaned_data['last_name'].title()
@@ -195,7 +194,9 @@ def crop_info(request):
 
 @login_required
 def crop_map(request):
-	geomarkers = Crop.objects.all()
+	crops = Crop.objects.all()
+	for crop in crops:
+		crop.score = assign_score(crop)
 	return render_to_response("crops/crop_map.html", locals(), context_instance=RequestContext(request))
 
 
