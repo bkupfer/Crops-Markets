@@ -102,20 +102,20 @@ def add_crop(request):
 			has = crop_form.cleaned_data['has']
 
 			water = crop_form.cleaned_data['water']
-			soil = crop_form.cleaned_data['soil']
-			topo = crop_form.cleaned_data['topography']
-			temp = crop_form.cleaned_data['temperatures']
-			access = crop_form.cleaned_data['access']
 			water_cmnt = crop_form.cleaned_data['water_cmnt']
+			soil = crop_form.cleaned_data['soil']
 			soil_cmnt = crop_form.cleaned_data['soil_cmnt']
+			topo = crop_form.cleaned_data['topography']
 			topo_cmnt = crop_form.cleaned_data['topography_cmnt']
+			temp = crop_form.cleaned_data['temperatures']
 			temp_cmnt = crop_form.cleaned_data['temperatures_cmnt']
+			access = crop_form.cleaned_data['access']
 			access_cmnt = crop_form.cleaned_data['access_cmnt']
 			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
 
 			crop = Crop(region=region, province=province, commune=commune, address=address, has=has, #latitude=lat, longitude=lng,
 				water=water, soil=soil, topography=topo, temperatures=temp, access=access,
-				water_cmnt=water_cmnt, soil_cmnt=soil_cmnt, topography_cmnt=topo_cmnt, temperatures_cmnt=temp_cmnt, observations=obs)
+				water_cmnt=water_cmnt, soil_cmnt=soil_cmnt, topography_cmnt=topo_cmnt, temperatures_cmnt=temp_cmnt, access_cmnt=access_cmnt, observations=obs)
 			crop.save()
 			crop.crop_owner.add(owner)
 
@@ -170,6 +170,8 @@ def crop_info(request):
 			crop.topography_cmnt = crop_form.cleaned_data['topography_cmnt']
 			crop.temperatures = crop_form.cleaned_data['temperatures']
 			crop.temperatures_cmnt = crop_form.cleaned_data['temperatures_cmnt']
+			crop.access = crop_form.cleaned_data['access']
+			crop.access_cmnt = crop_form.cleaned_data['access_cmnt']
 
 			crop.region = crop_form.cleaned_data['region']
 			province = commune = None

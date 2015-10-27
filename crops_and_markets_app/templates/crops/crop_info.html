@@ -125,7 +125,7 @@
 						<table class="table table-hover">
 							<tr>
 								<td class="col-xs-4">Hectareas</td>
-								<td class="col-xs-8 read">{{ crop.has }} {% if crop.has %}[has]{% endif %}</td>
+								<td class="col-xs-8 read">{% if crop.has %}{{ crop.has }} [has]{% else %}No se ha ingresado información{% endif %}</td>
 								<td class="col-xs-8 write" style="display: none;">{{ crop_form.has }}</td>
 							</tr>
 							<tr>
@@ -199,7 +199,7 @@
 									{{ crop.access_cmnt }}
 								</td>
 								<td class="col-xs-8 write" style="display: none;">
-									{{ crop_form.temperatures_cmnt }}
+									{{ crop_form.access_cmnt }}
 								</td>
 							</tr>
 						</table>
@@ -318,7 +318,7 @@
 		$("#id_contact_number_2").val({{ owner.contact_number_2 }});
 		$("#id_email").val("{{ owner.email }}");
 		
-		$("#id_has").val({{ crop.has }});
+		$("#id_has").val({% if crop.has %}{{ crop.has }}{% else %}0{% endif %});
 		$("#id_water").prop("checked", {% if crop.water %}true{% else %}false{% endif %});
 		$("#id_water_cmnt").val("{{ crop.water_cmnt }}");
 		$("#id_soil").prop("checked", {% if crop.soil %}true{% else %}false{% endif %});
@@ -327,6 +327,8 @@
 		$("#id_topography_cmnt").val("{{ crop.topography_cmnt }}");
 		$("#id_temperatures").prop("checked", {% if crop.temperatures %}true{% else %}false{% endif %});
 		$("#id_temperatures_cmnt").val("{{ crop.temperatures_cmnt }}");
+		$("#id_access").prop("checked", {% if crop.access %}true{% else %}false{% endif %});
+		$("#id_access_cmnt").val("{{ crop.access_cmnt }}");
 
 		$("#id_region")[0].selectedIndex = {{ crop.region.pk }};
 		if ("{{ crop.province }}" != "None"){
