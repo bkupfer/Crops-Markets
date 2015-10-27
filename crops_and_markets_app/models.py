@@ -34,6 +34,12 @@ class Certificate(models.Model):
 		return self.certificate.encode('utf-8')
 		
 
+# class Segment(models.Model):
+# 	segment = models.CharField(max_length=20)
+# 	def __str__(self):
+# 		return self.segment.encode('utf-8')
+
+
 # ######## #
 # Crops	
 class CompanyCrop(models.Model):

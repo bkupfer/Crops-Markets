@@ -93,7 +93,7 @@
 							<th>Propietario</th>
 							<th>Región</th>
 							<th>Provincia</th>
-							<th style="text-align: center;">Requisitos clave</th>
+							<th style="text-align: center;">Puntuación</th>
 							<th><!-- view detail --></th>
 						</tr>
 					</thead>
@@ -108,10 +108,18 @@
 							<td class="region">{{ crop.region }}</td>
 							<td class="address">{% if crop.province %}{{ crop.province }}{% else %}No hay info{% endif %}</td>
 							<td class="req" style="text-align: center;">
-								{% if crop.water and crop.soil and crop.topography and crop.temperatures %}
-									<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;"></span>
-								{% else %}
-									<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
+								<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+								{% if crop.score > 20 %}
+									<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+									{% if crop.score > 40 %}
+										<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+										{% if crop.score > 60 %}
+											<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+											{% if crop.score > 80 %}
+												<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+											{% endif %}
+										{% endif %}
+									{% endif %}
 								{% endif %}
 							</td>
 							<td><a href="crop_info?id={{ crop.pk }}">detalle</a></td>

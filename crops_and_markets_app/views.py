@@ -202,8 +202,25 @@ def crop_map(request):
 @login_required
 def crop_table(request):
 	crops = Crop.objects.all()
+	for crop in crops:
+		crop.score = assign_score(crop)
 	return render_to_response("crops/crop_table.html", locals(), context_instance=RequestContext(request))
 
+
+def assign_score(crop):
+	score = {"water": 40, "soil": 20, "topo": 15, "weather": 15, "access": 10}
+	crop_score = 0
+	if crop.water:
+		crop_score += score["water"]
+	if crop.soil:
+		crop_score += score["soil"]
+	if crop.topography:
+		crop_score += score["topo"]
+	if crop.temperatures:
+		crop_score += score["weather"]
+	if crop.access :
+		crop_score += score["access"]
+	return crop_score
 
 @login_required
 def photo_library(request):
