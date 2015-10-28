@@ -87,7 +87,7 @@
 
 							<div class="col-sm-12" id="company-info" style="display: none;">
 								<div class="col-sm-12">
-									<label class="control-label col-sm-4" for="excisting_company">Compañía</label>
+									<label class="control-label col-sm-4" for="excisting_company">Compañía <label id="company-asterisk" style="color:red">*</label></label>
 									<div class="col-sm-8">
 										{{ company_form.excisting_company }}
 										<input type="checkbox" id="new-company"> otra compañía
@@ -263,11 +263,14 @@
 	});
 
 	$("#new-company").click(function(e){
-		if ($("#new-company").prop("checked"))
+		if ($("#new-company").prop("checked")){
 			$("#id_excisting_company").prop('disabled', true);
-		else
+			$("#company-asterisk").fadeOut(200);
+		}
+		else{
 			$("#id_excisting_company").prop('disabled', false);
-		
+			$("#company-asterisk").fadeIn(200);
+		}
 		$("#company-name").toggle(200);
 		$("#company-rut").toggle(200);
 	});

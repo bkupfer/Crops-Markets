@@ -73,7 +73,23 @@
 						</div>
 					</div> 
 					{% endif %}
-
+	
+					<h3>[
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+						{% if crop.score > 20 %}
+							<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+							{% if crop.score > 40 %}
+								<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+								{% if crop.score > 60 %}
+									<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+									{% if crop.score > 80 %}
+										<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
+									{% endif %}
+								{% endif %}
+							{% endif %}
+						{% endif %}]
+					</h3>			
+	
 					<form action="crop_info?id={{ crop.pk }}" method="POST" id="edit-form">{%csrf_token %}
 						<!-- Contact information -->
 						<h3>Contacto</h3>
@@ -125,7 +141,7 @@
 						<table class="table table-hover">
 							<tr>
 								<td class="col-xs-4">Hectareas</td>
-								<td class="col-xs-8 read">{% if crop.has %}{{ crop.has }} [has]{% else %}No se ha ingresado información{% endif %}</td>
+								<td class="col-xs-8 read">{% if crop.has %}{{ crop.has }} [has]{% else %}No hay información{% endif %}</td>
 								<td class="col-xs-8 write" style="display: none;">{{ crop_form.has }}</td>
 							</tr>
 							<tr>
@@ -241,7 +257,10 @@
 							</tr>
 						</table>
 						<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div>
-						<span id="map-leyend" style="display: none;"><p class="text-right small">El marcador <label style="color: green">verde</label>/<label style="color: red">rojo</label> indica la posición del predio. El marcador <label style="color: purple">púrpura</label> su posición actual, y el <label style="color: blue">azul</label> la posición de Semillas SZ.</p></span>
+						<span id="map-leyend" style="display: none;">
+							<p class="text-right small">El marcador <label style="color: red">rojo</label>/<label style="color: green">verde</label> indica la posición del predio, dependiendo de si tiene (<label style="color: red">3 o menos</label>) o (<label style="color: green">4 o más</label>) <span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>'s.<br>
+							El marcador <label style="color: purple">púrpura</label> y <label style="color: blue">azul</label> representan su <label style="color: purple">posición actual</label> y la posición de <label style="color: blue">Semillas SZ</label> respectivamente.</p>
+						</span>
 
 						<button type="button" class="btn btn-default" id="mapButton" onclick="displayMap()">Mostrar mapa</button>
 						<a href="photo_library?id={{ crop.pk }}" class="btn btn-default">Registro fotográfico</a>

@@ -208,7 +208,6 @@
 							</tr>
 						</table>
 						<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
-						<!--<a href="add_reservation?id={{ client.id }}" class="btn btn-default" id="register-transaction" disabled="">Registrar reserva</a>-->
 						<a href="sales_history?id={{ client.id }}" class="btn btn-default" id="view-historic-transatcions">Ver historial</a>
 						<p class="pull-right">Información referente a los últimos 3 años.</p>
 						{% endif %}
@@ -257,7 +256,7 @@
 
 						<h3>Observaciones</h3>
 						<div class="read" style="border: 1px solid #CCCCCC">
-							<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ client.observations }}</p>
+							<p class="text-justify" style="margin: 1%; white-space: pre-wrap">{{ client.observations }}</p>
 						</div>
 						<div class="write" style="display: none;">
 							{{ client_form.observations }}

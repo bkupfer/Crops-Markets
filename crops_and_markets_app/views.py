@@ -189,6 +189,8 @@ def crop_info(request):
 		else: 
 			messages.error(request, "Error en el formulario de edición.")
 
+	crop.score = assign_score(crop)
+
 	return render_to_response("crops/crop_info.html", locals(), context_instance=RequestContext(request))
 
 

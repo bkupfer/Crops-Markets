@@ -80,6 +80,7 @@
 							<th>Cliente</th>
 							<th>Compañía</th>
 							<th>Región</th>
+							<th>Provincia</th>
 							{% if not potential_table %}<th>Tamaño</th>{% endif %}
 						</tr>
 					</thead>
@@ -96,7 +97,12 @@
 							</td>
 							<td>
 								{% for gm in client.geomarker_set.all %}
-								{{ gm.region }} 
+									{{ gm.region }} 
+								{% endfor %}
+							</td>
+							<td>
+								{% for gm in client.geomarker_set.all %}
+									{{ gm.province }} 
 								{% endfor %}
 							</td>
 							{% if not potential_table %}
@@ -106,11 +112,12 @@
 						{% empty %}
 						<tr>
 							<td>No hay clientes en la base de datos.</td>
-							<td></td><td></td>{% if not potential_table %}<td></td>{% endif %}
+							<td></td><td><td></td></td>{% if not potential_table %}<td></td>{% endif %}
 						</tr>
 						{% endfor %}
 					</tbody>
 				</table>
+				<br><p class="pull-right">Información de tamaño referente a los últimos 3 años.</p>
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 			</div>
 		</div>
