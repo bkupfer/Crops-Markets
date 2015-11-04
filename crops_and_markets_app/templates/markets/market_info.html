@@ -87,6 +87,13 @@
 							marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
 					if (typeOfClient == "Potencial")
 							marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+					
+					var infoWindow = new google.maps.InfoWindow({
+						content: "{{ client }}"
+					});
+					google.maps.event.addListener(marker, 'click', function(){
+						infoWindow.open(map, marker);
+					}); 
 				}
 				else {
 					alert('Geocode was not succesful for the following reason:' + status); 
@@ -144,12 +151,12 @@
 							</tr>
 							<tr>
 								<td>Número</td>
-								<td class="read"><a href="{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a></td>
+								<td class="read"><a href="tel:{{ client.contact_number_1 }}">{{ client.contact_number_1 }}</a></td>
 								<td class="write">{{ client_form.contact_number_1 }}</td>
 							</tr>
 							<tr id="number-2" style="{% if not client.contact_number_2 %}display: none;{% endif %}">
 								<td>Número 2</td>
-								<td class="read"><a href="{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a></td>
+								<td class="read"><a href="tel:{{ client.contact_number_2 }}">{{ client.contact_number_2 }}</a></td>
 								<td class="write">{{ client_form.contact_number_2 }}</td>
 							</tr>
 							<tr>

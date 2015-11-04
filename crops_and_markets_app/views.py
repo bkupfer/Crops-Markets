@@ -5,6 +5,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
+# from openpyxl import Workbook
 from models import *
 from forms import *
 
@@ -41,9 +42,9 @@ def login(request):
 	return render_to_response("login.html", locals(), context_instance=RequestContext(request))
 
 
-# def logout(request):
-#	auth.logout(request)
-#	return redirect(login)
+def logout(request):
+	auth.logout(request)
+	return redirect(login)
 
 
 ############
@@ -189,8 +190,8 @@ def crop_info(request):
 		else: 
 			messages.error(request, "Error en el formulario de edición.")
 
-	crop.score = assign_score(crop)
-
+	crop.score = assign_score(crop
+)
 	return render_to_response("crops/crop_info.html", locals(), context_instance=RequestContext(request))
 
 
@@ -469,8 +470,6 @@ def market_info(request):
 			geo_info.province = province
 			geo_info.commune = commune
 			geo_info.address = geographical_form.cleaned_data['address']
-			geo_info.latitude = geographical_form.cleaned_data['latitude']
-			geo_info.longitude = geographical_form.cleaned_data['longitude']
 			geo_info.save()
 
 			messages.success(request, 'Edicion guardada con éxito.')
@@ -507,7 +506,7 @@ def market_table(request):
 
 def translate_size(total_volume, client_volume):
 	if total_volume == 0:
-		return "No se han realizado ventas"
+		return "0"
 	ratio = client_volume / (total_volume * 1.0)
 	if ratio == 0:
 		return "--"
@@ -624,10 +623,14 @@ def related_info(request):
 	return render_to_response("related/related_info.html", locals(), context_instance=RequestContext(request))
 
 
-
-
 @login_required
 def related_table(request):
 	contacts = Related.objects.all()
 	return render_to_response("related/related_table.html", locals(), context_instance=RequestContext(request))
 
+
+# @login_required
+# def export_xlsx(request):
+# 	wb = Workbook()
+# 	wb.title = "workbook"
+	

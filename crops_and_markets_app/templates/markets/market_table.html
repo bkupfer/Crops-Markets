@@ -106,7 +106,12 @@
 								{% endfor %}
 							</td>
 							{% if not potential_table %}
-								<td>{{ client.size }}</td>
+								<td>{% if client.size == "0" %}
+										<abbr title="No hay ventas">N.V.</abbr>
+									{% else %}
+										{{ client.size }}
+									{% endif %}
+								</td>
 							{% endif %}
 						</tr>
 						{% empty %}

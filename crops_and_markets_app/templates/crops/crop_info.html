@@ -101,12 +101,12 @@
 							</tr>
 							<tr>
 								<td>Número</td>
-								<td class="read"><a href="{{ owner.contact_number_1 }}">{{ owner.contact_number_1 }}</a></td>
+								<td class="read"><a href="tel:{{ owner.contact_number_1 }}">{{ owner.contact_number_1 }}</a></td>
 								<td class="write">{{ owner_form.contact_number_1 }}</td>
 							</tr>
 							<tr id="number-2" style="{% if not owner.contact_number_2 %}display: none;{% endif %}">
 								<td>Número 2</td>
-								<td class="read"><a href="{{ owner.contact_number_2 }}">{{ owner.contact_number_2 }}</a></td>
+								<td class="read"><a href="tel:{{ owner.contact_number_2 }}">{{ owner.contact_number_2 }}</a></td>
 								<td class="write">{{ owner_form.contact_number_2 }}</td>
 							</tr>
 							<tr>

@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 	url(r'^accounts/login', 'crops_and_markets_app.views.access_denied', name='access_denied'),
 	url(r'^index', 'crops_and_markets_app.views.home', name='home'),
 	url(r'^home', 'crops_and_markets_app.views.home', name='home'),
+	url(r'^logout', 'crops_and_markets_app.views.logout', name='logout'),
 
 	# crops
 	url(r'^add_crop', 'crops_and_markets_app.views.add_crop', name='add_crop'),
