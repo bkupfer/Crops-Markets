@@ -4,8 +4,9 @@ from django.shortcuts import render, render_to_response, RequestContext, redirec
 from django.contrib import auth, messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
-# from openpyxl import Workbook
+from openpyxl import Workbook
 from models import *
 from forms import *
 
@@ -95,8 +96,6 @@ def add_crop(request):
 				pass
 
 			address = crop_form.cleaned_data['address']
-			#lat = crop_form.cleaned_data['latitude']
-			#lng = crop_form.cleaned_data['longitude']
 
 			# terrain characteristics information
 			has = crop_form.cleaned_data['has']
@@ -504,6 +503,25 @@ def market_table(request):
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
 
+@login_required
+def export_markets_xlsx(request):
+	
+	response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+	response['Content-Disposition'] = 'attachment; filename=mymodel.xlsx'
+
+
+	wb = Workbook()
+	ws = wb.active
+	ws.title = "workbook"
+	
+	c = ws.cell(row=1, column=1)
+	c.value = "hola mundo"
+		
+	wb.save(response)
+
+	return response
+
+
 def translate_size(total_volume, client_volume):
 	if total_volume == 0:
 		return "0"
@@ -627,10 +645,3 @@ def related_info(request):
 def related_table(request):
 	contacts = Related.objects.all()
 	return render_to_response("related/related_table.html", locals(), context_instance=RequestContext(request))
-
-
-# @login_required
-# def export_xlsx(request):
-# 	wb = Workbook()
-# 	wb.title = "workbook"
-	
