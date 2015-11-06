@@ -144,14 +144,10 @@ class CompanyMarket(models.Model):
 
 class GeoMarker(models.Model):
 	client = models.ForeignKey('Client')
-
 	region = models.ForeignKey('Region', blank=True, null=True)
 	province = models.ForeignKey('Province', blank=True, null=True)
 	commune = models.ForeignKey('Commune', blank=True, null=True)
-
 	address = models.CharField(max_length=256, blank=True, null=True)
-	#latitude = models.FloatField(blank=True, null=True)
-	#longitude = models.FloatField(blank=True, null=True)
 
 	def __str__(self):
 		if self.address is not None:
@@ -183,11 +179,24 @@ class Sale(models.Model):
 			total_volume += detail.volume
 		return total_volume
 
+	def get_price(self):
+		total_price = 0
+		for detail in self.saledetail_set.all():
+			total_price += detail.price
+		return total_price
+
+	# return string with varieties separated by char ' '
+	def get_varieties(self):
+		varieties = ""
+		for detail in self.saledetail_set.all():
+			varieties += ' ' + str(detail.variety)
+		return varieties
+
 
 class SaleDetail(models.Model):
 	sale = models.ForeignKey('Sale')
-	price = models.IntegerField()
 	volume = models.IntegerField()
+	price = models.IntegerField()
 	variety = models.ForeignKey('PotatoVariety')
 	certificate = models.ForeignKey('Certificate')
 
@@ -218,5 +227,15 @@ class Related(models.Model):
 	observations = models.TextField(blank=True, null=True)
 	timestamp = models.DateTimeField(auto_now_add=True)
 
+	# foregn key -- area
+
 	def __str__(self):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
+
+
+# class Area(models.Model):
+# 	area = models.CharField(max_length=100)
+
+# 	def __str__(self):
+# 		return self.area.encode('utf-8')
+

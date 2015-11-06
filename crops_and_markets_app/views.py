@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from openpyxl import Workbook
+from openpyxl.styles import Font
 from models import *
 from forms import *
 
@@ -505,20 +506,76 @@ def market_table(request):
 
 @login_required
 def export_markets_xlsx(request):
-	
 	response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-	response['Content-Disposition'] = 'attachment; filename=mymodel.xlsx'
+	response['Content-Disposition'] = 'attachment; filename=markets.xlsx'
 
-
+	# Clients
 	wb = Workbook()
-	ws = wb.active
-	ws.title = "workbook"
-	
-	c = ws.cell(row=1, column=1)
-	c.value = "hola mundo"
-		
-	wb.save(response)
+	ws_client = wb.active
+	ws_potential = wb.create_sheet()
+	ws_client.title = "Clientes Actuales"
+	ws_potential.title = "Clientes Potenciales"
 
+	row_num_0 = row_num_1 = 0
+	columns = ["Cliente", "Compañía", "Número 1", "Número 2", "Email", "Región", "Provincia", "Comuna", "Dirección", "Observaciones"]
+
+	for col_num in xrange(len(columns)):
+		c0 = ws_client.cell(row=1, column=col_num+1)
+		c1 = ws_potential.cell(row=1, column=col_num+1)
+		c0.value = c1.value = columns[col_num]
+		c0.font = c1.font = Font(bold=True)
+
+	queryset = GeoMarker.objects.all()
+
+	for obj in queryset:
+		if obj.client.type_of_client.type == "Actual": 
+			ws = ws_client
+			row_num_0 += 1
+			ws.row_num = row_num_0 
+		else:
+			ws = ws_potential
+			row_num_1 += 1
+			ws.row_num = row_num_1
+
+		row = [str(obj.client), "Compañía", obj.client.contact_number_1, obj.client.contact_number_2, obj.client.email, 
+				str(obj.region), str(obj.province), str(obj.commune), obj.address, obj.client.observations]
+		for col_num in xrange(len(row)):
+			c = ws.cell(row=ws.row_num+1, column=col_num+1)
+			c.value = row[col_num]
+
+	# Transacciones
+	ws_reserves = wb.create_sheet()
+	ws_sales = wb.create_sheet()
+	ws_reserves.title = "Reservas"
+	ws_sales.title = "Ventas"
+
+	row_num_0 = row_num_1 = 0
+	columns = ["Fecha", "Cliente", "Monto", "Volumen", "Variedades"]
+
+	for col_num in xrange(len(columns)):
+		c0 = ws_sales.cell(row=1, column=col_num+1)
+		c1 = ws_reserves.cell(row=1, column=col_num+1)
+		c0.value = c1.value = columns[col_num]
+		c0.font = c1.font = Font(bold=True)
+
+	queryset = Sale.objects.all()
+
+	for obj in queryset:
+		if obj.type_of_transaction.pk == 0: # reeserve
+			ws = ws_reserves
+			row_num_0 += 1
+			ws.row_num = row_num_0
+		else: # sale
+			ws = ws_sales
+			row_num_1 += 1
+			ws.row_num = row_num_1
+
+		row = [obj.date, str(obj.client), obj.get_price(), obj.get_volume(), obj.get_varieties()]
+		for col_num in xrange(len(row)):
+			c = ws.cell(row=ws.row_num+1, column=col_num+1)
+			c.value = row[col_num]
+
+	wb.save(response)
 	return response
 
 
