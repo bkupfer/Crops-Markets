@@ -59,8 +59,6 @@ class Crop(models.Model):
 	province = models.ForeignKey('Province', blank=True, null=True)
 	commune = models.ForeignKey('Commune', blank=True, null=True)
 	address = models.CharField(max_length=256, blank=True, null=True)
-	#latitude = models.FloatField(blank=True, null=True)
-	#longitude = models.FloatField(blank=True, null=True)
 
 	# general characterisitcs
 	has = models.PositiveSmallIntegerField(blank=True, null=True)
@@ -100,6 +98,7 @@ class CropOwner(models.Model):
 	# crop_owner.crop_set.all() -- this should give all the crops for this owner.
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
+	rut = models.CharField(max_length=20, blank=True, null=True)
 	contact_number_1 = models.CharField(max_length=16, blank=True, null=True)
 	contact_number_2 = models.CharField(max_length=16, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
@@ -233,9 +232,9 @@ class Related(models.Model):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
 
 
-# class Area(models.Model):
-# 	area = models.CharField(max_length=100)
+class RelatedArea(models.Model):
+	area = models.CharField(max_length=100)
 
-# 	def __str__(self):
-# 		return self.area.encode('utf-8')
+	def __str__(self):
+		return self.area.encode('utf-8')
 

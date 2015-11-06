@@ -22,6 +22,7 @@ urlpatterns = patterns('',
 	url(r'^crop_info', 'crops_and_markets_app.views.crop_info', name='crop_info'),
 	url(r'^crop_table', 'crops_and_markets_app.views.crop_table', name='crop_table'),
 	url(r'^crops$', 'crops_and_markets_app.views.crops', name='crops'),
+	url(r'^export_crops_xlsx', 'crops_and_markets_app.views.export_crops_xlsx', name='export_crops_xlsx'),
 	url(r'^photo_library', 'crops_and_markets_app.views.photo_library', name='photo_library'),
 
 	# markets

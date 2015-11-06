@@ -113,7 +113,7 @@ def add_crop(request):
 			access_cmnt = crop_form.cleaned_data['access_cmnt']
 			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
 
-			crop = Crop(region=region, province=province, commune=commune, address=address, has=has, #latitude=lat, longitude=lng,
+			crop = Crop(region=region, province=province, commune=commune, address=address, has=has,
 				water=water, soil=soil, topography=topo, temperatures=temp, access=access,
 				water_cmnt=water_cmnt, soil_cmnt=soil_cmnt, topography_cmnt=topo_cmnt, temperatures_cmnt=temp_cmnt, access_cmnt=access_cmnt, observations=obs)
 			crop.save()
@@ -190,8 +190,7 @@ def crop_info(request):
 		else: 
 			messages.error(request, "Error en el formulario de edición.")
 
-	crop.score = assign_score(crop
-)
+	crop.score = assign_score(crop)
 	return render_to_response("crops/crop_info.html", locals(), context_instance=RequestContext(request))
 
 
@@ -225,6 +224,70 @@ def assign_score(crop):
 	if crop.access :
 		crop_score += score["access"]
 	return crop_score
+
+
+@login_required
+def export_crops_xlsx(request):
+	response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+	response['Content-Disposition'] = 'attachment; filename=crops.xlsx'
+
+	wb = Workbook()
+	ws = wb.active
+	ws.title = "Crops"
+
+	# Crops
+	row_num = 0
+	columns = ["id crop", "Dueño", "Has", "Región", "Provincia", "Comuna", "Dirección",
+		"Agua", "Obs. agua", "Suelo", "Obs. suelo", "Topo", "Obs. topo", "Clima", "Obs. clima", "Acceso", "Obs. acceso", 
+		"Observaciones"
+	]
+
+	for col_num in xrange(len(columns)):
+		c = ws.cell(row=1, column=col_num+1)
+		c.value = columns[col_num]
+		c.font = Font(bold=True)
+
+	queryset = Crop.objects.all()
+
+	for crop in queryset:
+		row_num += 1
+		row = [crop.id, str(crop.crop_owner.first()), crop.has, str(crop.region), str(crop.province), str(crop.commune), crop.address,
+			crop.water, crop.water_cmnt, crop.soil, crop.soil_cmnt, crop.topography, crop.topography_cmnt, crop.temperatures, crop.temperatures_cmnt,
+			crop.access, crop.access_cmnt, crop.observations
+		]
+		for col_num in xrange(len(row)):
+			c = ws.cell(row=row_num+1, column=col_num+1)
+			c.value = row[col_num]
+			if row[col_num] == True:
+				c.font = Font(color='006100')
+			if row[col_num] == False:
+				c.font = Font(color='9C0006')
+
+	# Owners
+	ws = wb.create_sheet()
+	ws.title = "Props"
+
+	row_num = 0
+	columns = ["Nombre", "Apellido", "Compañía", "Rut", "Número 1", "Número 2", "Email"]
+
+	for col_num in xrange(len(columns)):
+		c = ws.cell(row=1, column=col_num+1)
+		c.value = columns[col_num]
+		c.font = Font(bold=True)
+
+	queryset = CropOwner.objects.all()
+
+	for owner in queryset: 
+		row_num += 1
+		row = [owner.first_name, owner.last_name, str(owner.company), owner.rut, owner.contact_number_1, owner.contact_number_2, owner.email]
+		for col_num in xrange(len(row)):
+			c = ws.cell(row=row_num+1, column=col_num+1)
+			c.value = row[col_num]
+
+	# game set and match
+	wb.save(response)
+	return response
+
 
 @login_required
 def photo_library(request):
@@ -290,12 +353,9 @@ def add_market(request):
 				commune = Commune.objects.get(name= request.POST['commune'])
 			except:
 				pass
-
 			address = geographical_form.cleaned_data['address']
-			#latitude = geographical_form.cleaned_data['latitude']
-			#longitude = geographical_form.cleaned_data['longitude']
 
-			new_geomarker = GeoMarker(client=new_client, region=region, province=province, commune=commune, address=address)#, latitude=latitude, longitude=longitude)
+			new_geomarker = GeoMarker(client=new_client, region=region, province=province, commune=commune, address=address)
 			new_geomarker.save()
 
 			# all done -- success
@@ -343,6 +403,82 @@ def add_sale(request):
 
 
 @login_required
+def export_markets_xlsx(request):
+	response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+	response['Content-Disposition'] = 'attachment; filename=markets.xlsx'
+
+	# Clients
+	wb = Workbook()
+	ws_client = wb.active
+	ws_potential = wb.create_sheet()
+	ws_client.title = "Clientes Actuales"
+	ws_potential.title = "Clientes Potenciales"
+
+	row_num_0 = row_num_1 = 0
+	columns = ["Cliente", "Compañía", "Número 1", "Número 2", "Email", "Región", "Provincia", "Comuna", "Dirección", "Observaciones"]
+
+	for col_num in xrange(len(columns)):
+		c0 = ws_client.cell(row=1, column=col_num+1)
+		c1 = ws_potential.cell(row=1, column=col_num+1)
+		c0.value = c1.value = columns[col_num]
+		c0.font = c1.font = Font(bold=True)
+
+	queryset = GeoMarker.objects.all()
+
+	for obj in queryset:
+		if obj.client.type_of_client.type == "Actual": 
+			ws = ws_client
+			row_num_0 += 1
+			ws.row_num = row_num_0 
+		else:
+			ws = ws_potential
+			row_num_1 += 1
+			ws.row_num = row_num_1
+
+		row = [str(obj.client), "Compañía", obj.client.contact_number_1, obj.client.contact_number_2, obj.client.email, 
+			str(obj.region), str(obj.province), str(obj.commune), obj.address, obj.client.observations]
+		for col_num in xrange(len(row)):
+			c = ws.cell(row=ws.row_num+1, column=col_num+1)
+			c.value = row[col_num]
+
+	# Transacciones
+	ws_reserves = wb.create_sheet()
+	ws_sales = wb.create_sheet()
+	ws_reserves.title = "Reservas"
+	ws_sales.title = "Ventas"
+
+	row_num_0 = row_num_1 = 0
+	columns = ["Fecha", "Cliente", "Monto", "Volumen", "Variedades"]
+
+	for col_num in xrange(len(columns)):
+		c0 = ws_sales.cell(row=1, column=col_num+1)
+		c1 = ws_reserves.cell(row=1, column=col_num+1)
+		c0.value = c1.value = columns[col_num]
+		c0.font = c1.font = Font(bold=True)
+
+	queryset = Sale.objects.all()
+
+	for obj in queryset:
+		if obj.type_of_transaction.type == "Reserva": # reserve
+			ws = ws_reserves
+			row_num_0 += 1
+			ws.row_num = row_num_0
+		else: # sale
+			ws = ws_sales
+			row_num_1 += 1
+			ws.row_num = row_num_1
+
+		row = [obj.date, str(obj.client), '$'+str(obj.get_price()), obj.get_volume(), obj.get_varieties()]
+		for col_num in xrange(len(row)):
+			c = ws.cell(row=ws.row_num+1, column=col_num+1)
+			c.value = row[col_num]
+
+	# all done -- download the .xlsx file
+	wb.save(response)
+	return response
+
+
+@login_required
 def markets(request):
 	return render_to_response("markets/markets.html", [], context_instance=RequestContext(request))
 
@@ -357,8 +493,7 @@ def market_company(request):
 	clients = Client.objects.filter(company=company)
 
 	# Calculating data
-	n = 0
-	total_volume = total_price = 0
+	n = total_volume = total_price = 0
 	varieties = {}
 	now = datetime.datetime.now()
 	for client in clients:
@@ -447,7 +582,7 @@ def market_info(request):
 
 	# Edit section
 	if request.method == "POST":
-		if client_form.is_valid() and geographical_form.is_valid(): # and company_form.is_valid():
+		if client_form.is_valid() and geographical_form.is_valid():
 			# Upgrades client from potential to actual
 			if 'upgrade' in request.POST:
 				client.type_of_client = TypeOfClient.objects.get(type="Actual")
@@ -502,81 +637,6 @@ def market_table(request):
 		client.size = translate_size(total_sale_volume, client.volume)
 
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
-
-
-@login_required
-def export_markets_xlsx(request):
-	response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-	response['Content-Disposition'] = 'attachment; filename=markets.xlsx'
-
-	# Clients
-	wb = Workbook()
-	ws_client = wb.active
-	ws_potential = wb.create_sheet()
-	ws_client.title = "Clientes Actuales"
-	ws_potential.title = "Clientes Potenciales"
-
-	row_num_0 = row_num_1 = 0
-	columns = ["Cliente", "Compañía", "Número 1", "Número 2", "Email", "Región", "Provincia", "Comuna", "Dirección", "Observaciones"]
-
-	for col_num in xrange(len(columns)):
-		c0 = ws_client.cell(row=1, column=col_num+1)
-		c1 = ws_potential.cell(row=1, column=col_num+1)
-		c0.value = c1.value = columns[col_num]
-		c0.font = c1.font = Font(bold=True)
-
-	queryset = GeoMarker.objects.all()
-
-	for obj in queryset:
-		if obj.client.type_of_client.type == "Actual": 
-			ws = ws_client
-			row_num_0 += 1
-			ws.row_num = row_num_0 
-		else:
-			ws = ws_potential
-			row_num_1 += 1
-			ws.row_num = row_num_1
-
-		row = [str(obj.client), "Compañía", obj.client.contact_number_1, obj.client.contact_number_2, obj.client.email, 
-				str(obj.region), str(obj.province), str(obj.commune), obj.address, obj.client.observations]
-		for col_num in xrange(len(row)):
-			c = ws.cell(row=ws.row_num+1, column=col_num+1)
-			c.value = row[col_num]
-
-	# Transacciones
-	ws_reserves = wb.create_sheet()
-	ws_sales = wb.create_sheet()
-	ws_reserves.title = "Reservas"
-	ws_sales.title = "Ventas"
-
-	row_num_0 = row_num_1 = 0
-	columns = ["Fecha", "Cliente", "Monto", "Volumen", "Variedades"]
-
-	for col_num in xrange(len(columns)):
-		c0 = ws_sales.cell(row=1, column=col_num+1)
-		c1 = ws_reserves.cell(row=1, column=col_num+1)
-		c0.value = c1.value = columns[col_num]
-		c0.font = c1.font = Font(bold=True)
-
-	queryset = Sale.objects.all()
-
-	for obj in queryset:
-		if obj.type_of_transaction.pk == 0: # reeserve
-			ws = ws_reserves
-			row_num_0 += 1
-			ws.row_num = row_num_0
-		else: # sale
-			ws = ws_sales
-			row_num_1 += 1
-			ws.row_num = row_num_1
-
-		row = [obj.date, str(obj.client), obj.get_price(), obj.get_volume(), obj.get_varieties()]
-		for col_num in xrange(len(row)):
-			c = ws.cell(row=ws.row_num+1, column=col_num+1)
-			c.value = row[col_num]
-
-	wb.save(response)
-	return response
 
 
 def translate_size(total_volume, client_volume):
@@ -702,3 +762,4 @@ def related_info(request):
 def related_table(request):
 	contacts = Related.objects.all()
 	return render_to_response("related/related_table.html", locals(), context_instance=RequestContext(request))
+
