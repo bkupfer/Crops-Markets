@@ -267,7 +267,7 @@
 
 						<h3>Observaciones</h3>
 						<div class="read" style="border: 1px solid #CCCCCC">
-							<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ crop.observations }}</p>
+							<p id="observations" class="text-justify" style="margin: 1%; white-space: pre-wrap">{{ crop.observations }}</p>
 						</div>
 						<div class="write" style="display: none;">
 							{{ crop_form.observations }}
@@ -360,7 +360,7 @@
 			communeSelector.options[0] = new Option('{{ crop.commune }}', '{{ crop.commune }}');
 		}
 		$("#id_address").val("{{ crop.address }}");
-		$("#id_observations").val("{{ crop.observations }}"); // bug here. problems editing when obs. contains '\n' 
+		$("#id_observations").val( $("#observations").text() );
 	});
 
 	$("#edit-button").click(function (){

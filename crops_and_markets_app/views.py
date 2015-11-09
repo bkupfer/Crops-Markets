@@ -712,8 +712,9 @@ def add_related(request):
 			number_2 = related_form.cleaned_data['contact_number_2']
 			email = related_form.cleaned_data['email']
 			obs = related_form.cleaned_data['observations'].strip(' \t\n\r')
+			area = related_form.cleaned_data['related_area']
 
-			new_contact = Related(first_name=first_name, last_name=last_name, rut=rut, contact_number_1=number_1, contact_number_2=number_2,
+			new_contact = Related(area=area, first_name=first_name, last_name=last_name, rut=rut, contact_number_1=number_1, contact_number_2=number_2,
 				email=email, observations=obs)
 			new_contact.save()
 
@@ -726,8 +727,7 @@ def add_related(request):
 
 @login_required
 def related(request):
-
-	return render_to_response("related/related.html", locals(), context_instance=RequestContext(request))
+	return render_to_response("related/related.html", [], context_instance=RequestContext(request))
 
 
 @login_required

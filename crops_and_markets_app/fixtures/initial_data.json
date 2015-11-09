@@ -99,5 +99,38 @@
 		},
 		"model": "crops_and_markets_app.Certificate",
 		"pk": 2
+	}, 
+
+	{
+		"fields": {
+			"area": "a1"
+		},
+		"model": "crops_and_markets_app.RelatedArea",
+		"pk": 1
+	},
+	{
+		"fields": {
+			"area": "a2"
+		},
+		"model": "crops_and_markets_app.RelatedArea",
+		"pk": 2
+	},	{
+		"fields": {
+			"area": "a3"
+		},
+		"model": "crops_and_markets_app.RelatedArea",
+		"pk": 3
+	},	{
+		"fields": {
+			"area": "a4"
+		},
+		"model": "crops_and_markets_app.RelatedArea",
+		"pk": 4
+	},	{
+		"fields": {
+			"area": "a5"
+		},
+		"model": "crops_and_markets_app.RelatedArea",
+		"pk": 5
 	}
 ]

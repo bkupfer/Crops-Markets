@@ -61,6 +61,19 @@
 					<form action="" method="POST"> {% csrf_token %}
 						<!-- Contact information -->
 						<div class="row">
+
+							<!-- Type of contact -->
+							<div class="col-sm-4">
+								<label class="control-label" for="type_of_client"><h4>Área <label style="color:red">*</label></h4></label>
+							</div>
+							<div class="col-sm-8">
+								{{ related_form.related_area }}
+							</div>
+							<div class="col-sm-12">
+								{% if related_form.related_area.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+							</div>
+					
+							<br>
 							<h3>Información de contacto</h3>
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="first_name">Nombre <label style="color:red">*</label></label>

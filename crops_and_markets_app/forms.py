@@ -30,8 +30,6 @@ class CompanyCropFrom(forms.Form):
 class CropForm(forms.Form):
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	#latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
-	#longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
 	has = forms.IntegerField(required=False, min_value=0, max_value=32767, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 
@@ -135,8 +133,6 @@ class CompanyMarketForm(forms.Form):
 class GeoMarkerForm(forms.Form):
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	#latitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
-	#longitude = forms.IntegerField(required=False, widget=forms.TextInput(attrs={"type": "number", "class": "form-control input-sm"}))
 
 	class Meta:
 		model = GeoMarker
@@ -177,3 +173,9 @@ class ContactForm(forms.Form):
 		widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={"class": "form-control input-sm"}))
 	observations = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"})) # attrs={'placeholder': u'Observaciones'}
+
+	related_area = forms.ModelChoiceField(required=False, queryset=RelatedArea.objects.all(), empty_label="Seleccione área", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+
+	class Meta:
+		mdoel = Related
+

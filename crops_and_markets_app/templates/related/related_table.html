@@ -78,16 +78,18 @@
 					<thead>
 						<tr>
 							<th>Contacto</th>
+							<th>Área</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for contact in contacts %}
 						<tr>
 							<td><a href="related_info?id={{ contact.pk }}">{{ contact }}</a></td>
+							<td>{{ contact.area }}</td>
 						</tr>
 						{% empty %}
 						<tr>
-							<td>No hay contactos relacionados en la base de datos.</td>
+							<td>No hay contactos relacionados en la base de datos.</td><td></td>
 						</tr>
 						{% endfor %}
 					</tbody>

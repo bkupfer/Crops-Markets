@@ -10,9 +10,8 @@ To use this project, follow these steps:
 	It must have python 2.7 and pip installed.
 2. Install python requirements
 	`$ pip install -r requirements.txt`
-	-- Note:
-		- If in Windows must install Microsoft Visual C++ Compiler (http://www.microsoft.com/en-us/download/confirmation.aspx?id=44266)
-		- Must install postrgresSQL (http://www.postgresql.org/download/)
+	- If in Windows must install Microsoft Visual C++ Compiler (http://www.microsoft.com/en-us/download/confirmation.aspx?id=44266)
+	- Must install postrgresSQL (http://www.postgresql.org/download/)
 3. Deploy $(this) code.
 4. Create database
 	`python manage.py migrate`

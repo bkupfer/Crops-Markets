@@ -23,3 +23,4 @@ admin.site.register(models.TypeOfClient)
 
 # relateds
 admin.site.register(models.Related)
+admin.site.register(models.RelatedArea)

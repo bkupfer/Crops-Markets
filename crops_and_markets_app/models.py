@@ -226,7 +226,7 @@ class Related(models.Model):
 	observations = models.TextField(blank=True, null=True)
 	timestamp = models.DateTimeField(auto_now_add=True)
 
-	# foregn key -- area
+	area = models.ForeignKey('RelatedArea')
 
 	def __str__(self):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')

@@ -165,7 +165,7 @@
  -->
 						<h3>Observaciones</h3>
 						<div class="read" style="border: 1px solid #CCCCCC">
-							<p class="text-justify" style="margin: 1%; white-space: pre-wrap"> {{ contact.observations }}</p>
+							<p id="observations" class="text-justify" style="margin: 1%; white-space: pre-wrap">{{ contact.observations }}</p>
 						</div>
 						<div class="write" style="display: none;">
 							{{ contact_form.observations }}
@@ -190,7 +190,7 @@
 		$("#id_contact_number_1").val({{ contact.contact_number_1 }});
 		$("#id_contact_number_2").val({{ contact.contact_number_2 }});
 		$("#id_email").val("{{ contact.email }}");
-		$("#id_observations").val("{{ contact.observations }}");
+		$("#id_observations").val( $("#observations").text() );
 
 	// 	$("#id_region")[0].selectedIndex = {{ geo_info.region.pk }};
 	// 	if ("{{ geo_info.province }}" != "None"){
