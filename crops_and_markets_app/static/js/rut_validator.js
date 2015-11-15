@@ -1,6 +1,7 @@
 /* returns:	true if given rut is valid, false otherwise */
 function validateRut(input){
-	re = new RegExp(/(\.|-|\s)/, 'g');
+	var re = new RegExp(/(\.|-|\s)/, 'g');
+	//var re = /(\.|-|\s)/;
 	input = input.replace(re, '');
 	var digits = input.substring(0, input.length-1);
 	var verifyingDigit = input.charAt(input.length-1);
@@ -31,8 +32,9 @@ function formatDigits(digits){
 
 /* transforms a rut into xx.xxx.xxx-x format */
 function formatRut(input){
+	var re = new RegExp(/(\.|-|\s)/, 'g');
+	//var re = /(\.|-|\s)/;
 	input = input.toLowerCase().trim();
-	re = new RegExp(/(\.|-|\s)/, 'g');
 	input = input.replace(re, '');
 	var digits = input.substring(0,input.length-1);
 	formatedDigits = formatDigits(digits);

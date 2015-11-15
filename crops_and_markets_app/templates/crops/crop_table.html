@@ -90,24 +90,25 @@
 				<table id="crops-table" class="display" cellspacing="0" width="100%">
 					<thead>
 						<tr>
+							<th>Predio</th>
 							<th>Propietario</th>
 							<th>Región</th>
 							<th>Provincia</th>
 							<th style="text-align: center;">Puntuación</th>
-							<th><!-- view detail --></th>
 						</tr>
 					</thead>
 					<tbody class="list">
 						{% for crop in crops %}
 						<tr>
-							<td class="owner">
+							<td><a href="crop_info?id={{ crop.pk }}">{{ crop.name }}</a></td>
+							<td>
 								{% for owner in crop.crop_owner.all %}
 									{{ owner }}
 								{% endfor %}
 							</td>
-							<td class="region">{{ crop.region }}</td>
-							<td class="address">{% if crop.province %}{{ crop.province }}{% else %}No hay info{% endif %}</td>
-							<td class="req" style="text-align: center;">
+							<td>{{ crop.region }}</td>
+							<td>{% if crop.province %}{{ crop.province }}{% else %}No hay info{% endif %}</td>
+							<td style="text-align: center;">
 								<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
 								{% if crop.score > 20 %}
 									<span class="glyphicon glyphicon-star" aria-hidden="true" style="color: black;"></span>
@@ -122,7 +123,6 @@
 									{% endif %}
 								{% endif %}
 							</td>
-							<td><a href="crop_info?id={{ crop.pk }}">detalle</a></td>
 						</tr>
 						{% empty %}
 						<tr>

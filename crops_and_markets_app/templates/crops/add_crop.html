@@ -61,7 +61,16 @@
 					<form action="" method="POST"> {% csrf_token %}
 						<!-- Clients information -->
 						<div class="row">
-							<h3>Información de cliente</h3>
+							<h3>Información del predio</h3>
+								
+							<div class="col-sm-12">
+								<label class="control-label col-sm-4" for="first_name">Nombre predio <label style="color:red">*</label></label>
+								<div class="col-sm-8">
+									{{ crop_form.name }}
+								</div>
+							{% if crop_form.name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+							</div>
+
 							<!-- use known owner -->
 							<div class="col-sm-12">
 								<label class="control-label col-sm-4" for="first_name">Propietario <label id="prop-asterisk" style="color:red">*</label></label>
@@ -96,17 +105,17 @@
 									</div>
 
 									<div class="col-sm-12" style="display: none;" id="company-name">
-										<label class="control-label col-sm-4" for="name">Nombre compañía <label style="color:red">*</label></label>
+										<label class="control-label col-sm-4">Nombre compañía <label style="color:red">*</label></label>
 										<div class="col-sm-8">
-											{{ company_form.name }}
+											{{ company_form.comp_name }}
 										</div>
-										{% if company_form.name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+										{% if company_form.comp_name.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
 									</div>
 
 									<div class="col-sm-12" style="display: none;" id="company-rut">
 										<label class="control-label col-sm-4" for="rut">Rut compañía</label>
 										<div class="col-sm-8">
-											{{ company_form.rut }}
+											{{ company_form.comp_rut }}
 										</div>
 									</div>
 								</div>
@@ -126,6 +135,13 @@
 										{{ owner_form.last_name }}
 									</div>
 								{% if owner_form.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" for="contact_number_1">Rut</label>
+									<div class="col-sm-8">
+										{{ owner_form.rut }}
+									</div>
 								</div>
 								
 								<div class="col-sm-12">
@@ -196,18 +212,6 @@
 									{{ crop_form.address }}
 								</div>
 							</div>
-
-<!-- 							<div class="col-sm-12">
-								<div class="col-sm-4">
-									<label class="control-label">Latitud, Longitud</label>
-								</div>
-								<div class="col-sm-4">
-									{{ crop_form.latitude }}
-								</div>
-								<div class="col-sm-4">
-									{{ crop_form.longitude }}
-								</div>
-							</div> -->
 
 						</div>
 
@@ -351,6 +355,11 @@
 		var lastName = $(this).val();
 		var uc = lastName.charAt(0).toUpperCase();
 		$(this).val(uc + lastName.substring(1));
+	});
+	$("#id_name").change(function(){
+		var name = $(this).val();
+		var uc = name.charAt(0).toUpperCase();
+		$(this).val(uc + name.substring(1));
 	});
 	</script>
 </body>

@@ -56,7 +56,7 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<h2>Predio #{{ id }}
+					<h2>Predio {{ crop.name }}
 						<button id="edit-button" class="btn btn-success pull-right">Editar</button>
 						<button type="submit" form="edit-form" class="btn btn-primary pull-right save-changes" style="display: none;">Guardar</button>
 					</h2>
@@ -98,6 +98,11 @@
 								<td class="col-xs-4">Dueño</td>
 								<td class="col-xs-8">{{ owner }}</td>
 								<td style="display: none;">{{ owner_form.first_name }}{{ owner_form.last_name }}</td>
+							</tr>
+							<tr>
+								<td>Rut</td>
+								<td class="read">{{ owner.rut }}</td>
+								<td class="write">{{ owner_form.rut }}</td>
 							</tr>
 							<tr>
 								<td>Número</td>
@@ -333,6 +338,7 @@
 	$(document).ready(function(){
 		$("#id_first_name").val("{{ owner.first_name }}");
 		$("#id_last_name").val("{{ owner.last_name }}");
+		$("#id_rut").val("{{ owner.rut }}");
 		$("#id_contact_number_1").val({{ owner.contact_number_1 }});
 		$("#id_contact_number_2").val({{ owner.contact_number_2 }});
 		$("#id_email").val("{{ owner.email }}");

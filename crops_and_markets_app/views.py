@@ -62,8 +62,9 @@ def add_crop(request):
 			# owner information
 			owner = owner_form.cleaned_data['old_owner']
 			if owner is None:
-				name = owner_form.cleaned_data['first_name'].title()
+				first_name = owner_form.cleaned_data['first_name'].title()
 				last_name = owner_form.cleaned_data['last_name'].title()
+				rut = owner_form.cleaned_data['rut']
 				number_1 = owner_form.cleaned_data['contact_number_1']
 				number_2 = owner_form.cleaned_data['contact_number_2']
 				email = owner_form.cleaned_data['email']
@@ -75,32 +76,31 @@ def add_crop(request):
 				if company_member:
 					company = company_form.cleaned_data['excisting_company']
 					if company is None:
-						company_name = company_form.cleaned_data['name'].title()
-						company_rut = company_form.cleaned_data['rut']
+						company_name = company_form.cleaned_data['comp_name'].title()
+						company_rut = company_form.cleaned_data['comp_rut']
 
 						company = CompanyCrop(name=company_name, rut=company_rut)
 						company.save()
 
-				owner = CropOwner(first_name=name, last_name=last_name, contact_number_1=number_1, contact_number_2=number_2,
+				owner = CropOwner(first_name=first_name, last_name=last_name, rut=rut, contact_number_1=number_1, contact_number_2=number_2,
 					email=email, position=position, company=company)
 				owner.save()
 
 			# crop information
+			name = crop_form.cleaned_data['name'].title()
+			print name 
 			# geographical information
 			region = crop_form.cleaned_data['region']
-			province = None
-			commune = None
+			province = commune = None
 			try:
 				province = Province.objects.get(name= request.POST['province_trick'])
 				commune = Commune.objects.get(name= request.POST['commune'])
 			except:
 				pass
-
 			address = crop_form.cleaned_data['address']
 
 			# terrain characteristics information
 			has = crop_form.cleaned_data['has']
-
 			water = crop_form.cleaned_data['water']
 			water_cmnt = crop_form.cleaned_data['water_cmnt']
 			soil = crop_form.cleaned_data['soil']
@@ -111,9 +111,9 @@ def add_crop(request):
 			temp_cmnt = crop_form.cleaned_data['temperatures_cmnt']
 			access = crop_form.cleaned_data['access']
 			access_cmnt = crop_form.cleaned_data['access_cmnt']
-			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
 
-			crop = Crop(region=region, province=province, commune=commune, address=address, has=has,
+			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
+			crop = Crop(name=name, region=region, province=province, commune=commune, address=address, has=has,
 				water=water, soil=soil, topography=topo, temperatures=temp, access=access,
 				water_cmnt=water_cmnt, soil_cmnt=soil_cmnt, topography_cmnt=topo_cmnt, temperatures_cmnt=temp_cmnt, access_cmnt=access_cmnt, observations=obs)
 			crop.save()
@@ -211,7 +211,8 @@ def crop_table(request):
 
 
 def assign_score(crop):
-	score = {"water": 40, "soil": 20, "topo": 15, "weather": 15, "access": 10}
+	"""Returns the score of a crop, to later be translated into ☆'stars."""
+	score = {"water": 40, "soil": 20, "topo": 15, "weather": 15, "access": 10} # weight for each property
 	crop_score = 0
 	if crop.water:
 		crop_score += score["water"]
@@ -284,7 +285,7 @@ def export_crops_xlsx(request):
 			c = ws.cell(row=row_num+1, column=col_num+1)
 			c.value = row[col_num]
 
-	# game set and match
+	# game set & match.
 	wb.save(response)
 	return response
 

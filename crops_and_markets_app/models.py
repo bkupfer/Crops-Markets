@@ -51,6 +51,7 @@ class CompanyCrop(models.Model):
 
 
 class Crop(models.Model):
+	name = models.CharField(max_length=256)
 	timestamp = models.DateTimeField(auto_now_add=True)
 	crop_owner = models.ManyToManyField('CropOwner')
 

@@ -12,8 +12,8 @@ DateInput = partial(forms.DateInput, {'class': 'datepicker', 'placeholder': u'mm
 class CompanyCropFrom(forms.Form):
 	company_member = forms.BooleanField(required=False)
 	excisting_company = forms.ModelChoiceField(required=False, queryset=CompanyCrop.objects.all(), empty_label="Seleccione compañía", widget=forms.Select(attrs={'class':'form-control input-sm'}))
-	name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm rut"}))
+	comp_name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	comp_rut = forms.CharField(required=False, max_length=20, widget=forms.TextInput(attrs={"class": "form-control input-sm rut"}))
 
 	class Meta:
 		model = CompanyCrop
@@ -28,9 +28,9 @@ class CompanyCropFrom(forms.Form):
 
 
 class CropForm(forms.Form):
+	name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-
 	has = forms.IntegerField(required=False, min_value=0, max_value=32767, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 
 	# information about crop core characteristics
