@@ -88,7 +88,6 @@ def add_crop(request):
 
 			# crop information
 			name = crop_form.cleaned_data['name'].title()
-			print name 
 			# geographical information
 			region = crop_form.cleaned_data['region']
 			province = commune = None
@@ -124,6 +123,44 @@ def add_crop(request):
 			messages.error(request, "Error en el formulario.")
 
 	return render_to_response("crops/add_crop.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def add_plantation(request):
+	id = None
+	if 'id' in request.GET:
+		id = request.GET['id']
+		crop = Crop.objects.get(pk=id)
+
+	if id is None:
+		print " none.."
+	plantation_form = PlantationForm(request.POST or None)
+
+	if request.method == "POST":
+		if plantation_form.is_valid():
+			date = plantation_form.cleaned_data['date']
+			crop = plantation_form.cleaned_data['crop']
+			paddock = plantation_form.cleaned_data['paddock']
+			variety = plantation_form.cleaned_data['variety']
+			source_lot = plantation_form.cleaned_data['source_lot']
+			kg_seeds = plantation_form.cleaned_data['kg_seeds']
+			kg_fert = plantation_form.cleaned_data['kg_fert']
+			n_mini = plantation_form.cleaned_data['n_mini']
+			has = plantation_form.cleaned_data['has']
+			control_number = plantation_form.cleaned_data['control_number']
+			obs = plantation_form.cleaned_data['obs']
+
+			new_plantation = Plantation(date=date, crop=crop, paddock=paddock, variety=variety, source_lot=source_lot,
+				kg_seeds=kg_seeds, kg_fert=kg_fert, n_mini=n_mini, has=has, control_number=control_number, obs=obs)
+			new_plantation.save()
+
+			messages.success(request, "Plantacion " + control_number + " registrada con exito.".encode('utf-8'))
+			if id is None:
+				return redirect('plantation_table')
+		else:
+			messages.error(request, "Error en el formulario.")
+
+	return render_to_response("crops/add_plantation.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
@@ -308,6 +345,35 @@ def photo_library(request):
 	images = CropImage.objects.filter(crop=crop)
 
 	return render_to_response("crops/photo_library.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def plantation_info(request):
+	if not 'cn' in request.GET:
+		return redirect('crop_table')
+	control_number = request.GET['cn']
+	paddock = Plantation.objects.get(control_number=control_number)
+
+	return render_to_response("crops/plantation_info.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def plantation_table(request):
+	print "got to controller"
+	plantations = Plantation.objects.all()
+	return render_to_response("crops/plantation_table.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def plantation(request):
+	if not 'id' in request.GET:
+		return redirect('crop_table')
+	id = request.GET['id']
+
+	crop = Crop.objects.get(pk=id)
+	plantations = Plantation.objects.filter(crop=crop)
+
+	return render_to_response("crops/plantation.html", locals(), context_instance=RequestContext(request))
 
 
 ############

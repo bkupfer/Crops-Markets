@@ -2,16 +2,18 @@ from django.contrib import admin
 from . import models
 
 # general
-admin.site.register(models.Region)
-admin.site.register(models.Province)
+admin.site.register(models.Certificate)
 admin.site.register(models.Commune)
 admin.site.register(models.PotatoVariety)
+admin.site.register(models.Province)
+admin.site.register(models.Region)
 
 # crops
-admin.site.register(models.CompanyCrop)
 admin.site.register(models.Crop)
-admin.site.register(models.CropOwner)
 admin.site.register(models.CropImage)
+admin.site.register(models.CropOwner)
+admin.site.register(models.CompanyCrop)
+admin.site.register(models.Plantation)
 
 # markets
 admin.site.register(models.Client)

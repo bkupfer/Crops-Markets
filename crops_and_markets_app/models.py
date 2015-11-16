@@ -33,11 +33,12 @@ class Certificate(models.Model):
 	def __str__(self):
 		return self.certificate.encode('utf-8')
 		
-
-# class Segment(models.Model):
-# 	segment = models.CharField(max_length=20)
-# 	def __str__(self):
-# 		return self.segment.encode('utf-8')
+# class Company(models.Model):
+#
+#
+#        todo: unify all companies (crom_company & market_company)
+#
+#
 
 
 # ######## #
@@ -62,13 +63,9 @@ class Crop(models.Model):
 	address = models.CharField(max_length=256, blank=True, null=True)
 
 	# general characterisitcs
-	has = models.PositiveSmallIntegerField(blank=True, null=True)
+	has = models.FloatField(blank=True, null=True) #PositiveSmallIntegerField(blank=True, null=True)
 
 	# terrain characteristics 
-	# Los factores claves son:
-	# agua, calidad de tierra, topologia, clima no-heloso
-	# edit: acceso
-
 	# core characteristics -- as boolean and then text for observation/comments
 	water = models.BooleanField()
 	soil = models.BooleanField()
@@ -85,6 +82,9 @@ class Crop(models.Model):
 
 	# secondary characteristics
 	observations = models.TextField(blank=True, null=True)
+
+	def __str__(self):
+		return self.name.encode('utf-8')
 
 
 class CropImage(models.Model):
@@ -109,6 +109,24 @@ class CropOwner(models.Model):
 
 	def __str__(self):
 		return self.first_name.encode('utf-8') + " " + self.last_name.encode('utf-8')
+
+
+class Plantation(models.Model):
+	timestamp = models.DateTimeField(auto_now_add=True)
+	date = date = models.DateField()
+	crop = models.ForeignKey('Crop')
+	paddock = models.CharField(max_length=80)
+	variety = models.ForeignKey('PotatoVariety')
+	source_lot = models.CharField(max_length=16)
+	kg_seeds = models.FloatField()
+	kg_fert = models.FloatField(blank=True, null=True)
+	n_mini = models.FloatField(blank=True, null=True)
+	has = models.FloatField()
+	control_number = models.CharField(max_length=16, unique=True)
+	obs = models.TextField(blank=True, null=True)
+
+	def __str__(self):
+		return self.control_number.encode('utf-8')
 
 
 # ######## #

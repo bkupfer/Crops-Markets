@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
+	<meta name="author" content="bkupfer">
+	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+
+	<title>Crops and Markets</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+	<style type="text/css">
+	input {
+		border:solid 1px #ccc;
+		border-radius: 5px;
+		padding:7px 14px;
+		margin-bottom:10px
+	}
+	input:focus {
+		border-color:#aaa;
+	}
+	</style>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+	
+	<!-- Data tables -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+	<script defer src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		{% include "sidebar.html" %}
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<h2>Plantaciones {% if crop %} en predio {{ crop.name }}{% endif %}</h2>
+
+					{% if messages %}
+					<!-- For message to user -->
+					<div class="row">
+						<div class="col-xs-12">
+						{% for message in messages %}
+							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+								{{ message }}
+							</p>
+						{% endfor %}
+						</div>
+					</div> 
+					{% endif %}
+
+				<table id="clients-table" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>Fecha</th>
+							<th>Predio</th>
+							<th>Potrero</th>
+							<th>Variedad</th>
+							<th>Kg. Semilla</th>
+							<th>Has</th>
+							<th>N° Control Final SAG</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for plantation in plantations %}
+						<tr>
+							<td>{{ plantation.date }}</td>
+							<td>{{ plantation.crop }}</td>
+							<td>{{ plantation.paddock }}</td>
+							<td>{{ plantation.variety }}</td>
+							<td>{{ plantation.kg_seeds }}</td>
+							<td>{{ plantation.has }}</td>
+							<td><a href="plantation_info?cn={{ plantation.control_number }}">{{ plantation.control_number }}</a></td>
+						</tr>
+						{% empty %}
+						<tr>
+							<td>No hay plantaciones registradas en la base de datos.</td>
+							<td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	
+				<a href="add_plantation{% if crop %}?id={{ crop.pk }}{% endif %}" class="btn btn-default">Registrar plantación</a>
+
+				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				{% if crop %}
+				<a href="crop_info?id={{ crop.pk }}" class="btn btn-default" id="return">Volver</a>
+				{% endif %}	
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+	$(document).ready(function(){
+		$('#clients-table').DataTable({
+			 "language": {
+			 	"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+			}
+		});
+	});
+	</script>
+
+</body>
+
+</html>

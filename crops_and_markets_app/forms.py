@@ -92,6 +92,22 @@ class CropOwnerForm(forms.Form):
 		raise forms.ValidationError('Error validating CropOwnerForm')
 
 
+class PlantationForm(forms.Form):
+	date = forms.DateField(widget=DateInput())
+	crop = forms.ModelChoiceField(queryset=Crop.objects.all(), empty_label="Seleccione Predio", widget=forms.Select(attrs={'class':'form-control input-sm'})) 
+	paddock = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	variety = forms.ModelChoiceField(required=True, queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	source_lot = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	kg_seeds = forms.FloatField(widget=forms.NumberInput(attrs={'type': 'number', 'class':'form-control input-sm'}))  
+	kg_fert = forms.FloatField(required=False, widget=forms.NumberInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	n_mini = forms.FloatField(required=False, widget=forms.NumberInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	has = forms.FloatField(min_value=0, max_value=32767, widget=forms.NumberInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	control_number = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+	obs = forms.CharField(required=False, widget=forms.Textarea(attrs={"class": "form-control input-sm"}))
+
+	class Meta: 
+		model = Plantation
+
 # ######## #
 # Markets
 class ClientForm(forms.Form):

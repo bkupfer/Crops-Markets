@@ -18,12 +18,16 @@ urlpatterns = patterns('',
 
 	# crops
 	url(r'^add_crop', 'crops_and_markets_app.views.add_crop', name='add_crop'),
-	url(r'^crop_map', 'crops_and_markets_app.views.crop_map', name='crop_map'),
+	url(r'^add_plantation', 'crops_and_markets_app.views.add_plantation', name='add_plantation'),
 	url(r'^crop_info', 'crops_and_markets_app.views.crop_info', name='crop_info'),
+	url(r'^crop_map', 'crops_and_markets_app.views.crop_map', name='crop_map'),
 	url(r'^crop_table', 'crops_and_markets_app.views.crop_table', name='crop_table'),
 	url(r'^crops$', 'crops_and_markets_app.views.crops', name='crops'),
 	url(r'^export_crops_xlsx', 'crops_and_markets_app.views.export_crops_xlsx', name='export_crops_xlsx'),
 	url(r'^photo_library', 'crops_and_markets_app.views.photo_library', name='photo_library'),
+	#url(r'^plantation$', 'crops_and_markets_app.views.plantation', name='plantation'),
+	url(r'^plantation_info', 'crops_and_markets_app.views.plantation_info', name='plantation_info'),
+	url(r'^plantation_table', 'crops_and_markets_app.views.plantation_table', name='plantation_table'),
 
 	# markets
 	url(r'^add_market', 'crops_and_markets_app.views.add_market', name='add_market'),

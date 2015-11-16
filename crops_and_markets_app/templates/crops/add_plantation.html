@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
+	<meta name="author" content="bkupfer">
+	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+
+	<title>Crops and Markets</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		{% include "sidebar.html" %}
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<h2>Registrar plantación{% if crop %} en {{ crop.name }}{% endif %}</h2>
+
+					{% if messages %}
+					<!-- For message to user -->
+					<div class="row">
+						<div class="col-xs-12">
+						{% for message in messages %}
+							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+								{{ message }}
+							</p>
+						{% endfor %}
+						</div>
+					</div> 
+					{% endif %}
+
+					<div class="panel-body">
+						<!-- Add new plantation form -->
+						<form action="" method="POST"> {% csrf_token %}
+							<!-- Clients information -->
+							<div class="row">
+								<h3>Información de plantación</h3>
+								
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" >Fecha <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ plantation_form.date }}
+									</div>
+									{% if plantation_form.date.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" >Campo <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ plantation_form.crop }}
+									</div>
+									{% if plantation_form.crop.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" >Potrero <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ plantation_form.paddock }}
+									</div>
+									{% if plantation_form.paddock.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" >Variedad <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ plantation_form.variety }}
+									</div>
+									{% if plantation_form.variety.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" >Lote origen <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ plantation_form.source_lot }}
+									</div>
+									{% if plantation_form.source_lot.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" >Kg. Semillas <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ plantation_form.kg_seeds }}
+									</div>
+									{% if plantation_form.kg_seeds.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4">Kg. Fertilizante</label>
+									<div class="col-sm-8">
+										{{ plantation_form.kg_fert }}
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4">N° Mini</label>
+									<div class="col-sm-8">
+										{{ plantation_form.n_mini }}
+									</div>
+									{% if plantation_form.n_mini.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" >Has <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ plantation_form.has }}
+									</div>
+									{% if plantation_form.has.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4" >N° Control Final SAG <label style="color:red">*</label></label>
+									<div class="col-sm-8">
+										{{ plantation_form.control_number }}
+									</div>
+									{% if plantation_form.control_number.errors %}<ul><li><label style="color:red">Este campo es obligatorio.</label></li></ui>{% endif %}
+								</div>
+
+								<!-- Observations -->
+								<div class="col-sm-12">
+									<label class="control-label col-sm-4">Observaciones</label>
+									<div class="col-sm-8">
+										{{ plantation_form.obs }}
+									</div>
+								</div>
+
+								<br>
+								<!-- Submit button -->
+								<div class="row">
+									<div class="col-sm-4">
+										<input type="submit" value="Agregar" class="btn btn-default">
+									</div>
+									<div class="col-sm-8">
+										<p class="text-right">Los campos marcados como (<label style="color:red">*</label>) son obligatorios.</p>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+					<a href="plantation_table{% if crop %}?id={{ crop.pk }}{% endif %}" class="btn btn-default" id="return">Volver</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>
