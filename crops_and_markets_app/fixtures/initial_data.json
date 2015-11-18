@@ -16,6 +16,21 @@
 
 	{
 		"fields": {
+			"certification": "Corriente"
+		},
+		"model": "crops_and_markets_app.Certification",
+		"pk": 1
+	},	
+	{
+		"fields": {
+			"certification": "Certificada"
+		},
+		"model": "crops_and_markets_app.Certification",
+		"pk": 2
+	},
+
+	{
+		"fields": {
 			"type": "Reserva"
 		},
 		"model": "crops_and_markets_app.TypeOfTransaction",
@@ -32,103 +47,120 @@
 	{
 		"fields": {
 			"name": "Asterix"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 1
 	},
 	{
 		"fields": {
 			"name": "Baraka"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 2
 	},
 	{
 		"fields": {
 			"name": "Caesar"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 3
 	},
 	{
 		"fields": {
 			"name": "Canberra"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 4
 	},
 	{
 		"fields": {
 			"name": "Cardinal"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 5
 	},
 	{
 		"fields": {
 			"name": "Challenger"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 6
 	},
 	{
 		"fields": {
 			"name": "Colomba"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 7
 	},
 	{
 		"fields": {
 			"name": "Desiree"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 8
 	},
 	{
 		"fields": {
 			"name": "Flamenco"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 9
 	},
 	{
 		"fields": {
 			"name": "Innovator"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 10
 	},
 	{
 		"fields": {
 			"name": "Monalisa"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 11
 	},
 	{
 		"fields": {
 			"name": "Mozart"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 12
 	},
 	{
 		"fields": {
 			"name": "Red Scarlet"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 13
 	},
 	{
 		"fields": {
 			"name": "Rodeo"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 14
 	},
 	{
 		"fields": {
 			"name": "Rosi"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 15
 	},
 	{
 		"fields": {
 			"name": "Symfonia"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 16
 	},
 	{
 		"fields": {
 			"name": "Taurus"
-		},	"model": "crops_and_markets_app.PotatoVariety",
+		},
+		"model": "crops_and_markets_app.PotatoVariety",
 		"pk": 17
 	},
 

@@ -224,9 +224,34 @@
 								</td>
 							</tr>
 						</table>
-						<a href="plantation_table?id={{ crop.pk }}" class="btn btn-default">Tabla de plantaciones</a>
-						
 
+						<!-- Plantation details -->
+						<h3>Últimas plantaciones</h3>
+						<table class="table table-hover">
+							<tr>
+								<th>Fecha</th>
+								<th>Potrero</th>
+								<th>Variedad</th>
+								<th>Has</th>
+								<th>N° Control Final SAG</th>
+							</tr>
+							{% for plantation in plantations %}
+								<tr>
+									<td>{{ plantation.date }}</td>
+									<td>{{ plantation.paddock }}</td>
+									<td>{{ plantation.variety }}</td>
+									<td>{{ plantation.has }}</td>
+									<td><a href="plantation_info?cn={{ plantation.control_number }}">{{ plantation.control_number }}</a></td>
+								</tr>
+							{% empty %}
+								<tr>
+									<td>No se tiene registro de plantaciones</td>
+									<td></td><td></td><td></td><td></td>
+								</tr>
+							{% endfor %}
+						</table>
+						
+						<!-- Geographic information -->
 						<h3>Información geográfica</h3>
 						<table class="table table-hover">
 							<tr>

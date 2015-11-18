@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from openpyxl import Workbook
-from openpyxl.styles import Font
+from openpyxl.styles import Font, Alignment
 from models import *
 from forms import *
 
@@ -21,6 +21,10 @@ def about(request):
 
 def access_denied(request):
 	return render_to_response("access_denied.html", [], context_instance=RequestContext(request))
+
+
+def export_documents(request):
+	return render_to_response("export_documents.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
@@ -132,8 +136,6 @@ def add_plantation(request):
 		id = request.GET['id']
 		crop = Crop.objects.get(pk=id)
 
-	if id is None:
-		print " none.."
 	plantation_form = PlantationForm(request.POST or None)
 
 	if request.method == "POST":
@@ -176,10 +178,11 @@ def crop_info(request):
 
 	try:
 		crop = Crop.objects.get(pk=id)
-		owner = crop.crop_owner.first()
-		comp = owner.company
 	except:
 		return redirect('crop_table')
+	owner = crop.crop_owner.first()
+	comp = owner.company
+	plantations = Plantation.objects.filter(crop=crop).order_by('-date')[:6]
 
 	crop_form = CropForm(request.POST or None)
 	owner_form = CropOwnerForm(request.POST or None)
@@ -266,6 +269,8 @@ def assign_score(crop):
 
 @login_required
 def export_crops_xlsx(request):
+	# todo: add security. filter by request.user.groups
+
 	response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 	response['Content-Disposition'] = 'attachment; filename=crops.xlsx'
 
@@ -275,7 +280,7 @@ def export_crops_xlsx(request):
 
 	# Crops
 	row_num = 0
-	columns = ["id crop", "Dueño", "Has", "Región", "Provincia", "Comuna", "Dirección",
+	columns = ["Predio", "Dueño", "Has", "Región", "Provincia", "Comuna", "Dirección",
 		"Agua", "Obs. agua", "Suelo", "Obs. suelo", "Topo", "Obs. topo", "Clima", "Obs. clima", "Acceso", "Obs. acceso", 
 		"Observaciones"
 	]
@@ -284,12 +289,13 @@ def export_crops_xlsx(request):
 		c = ws.cell(row=1, column=col_num+1)
 		c.value = columns[col_num]
 		c.font = Font(bold=True)
+		c.alignment = Alignment(horizontal='center')
 
 	queryset = Crop.objects.all()
 
 	for crop in queryset:
 		row_num += 1
-		row = [crop.id, str(crop.crop_owner.first()), crop.has, str(crop.region), str(crop.province), str(crop.commune), crop.address,
+		row = [crop.name, str(crop.crop_owner.first()), crop.has, str(crop.region), str(crop.province), str(crop.commune), crop.address,
 			crop.water, crop.water_cmnt, crop.soil, crop.soil_cmnt, crop.topography, crop.topography_cmnt, crop.temperatures, crop.temperatures_cmnt,
 			crop.access, crop.access_cmnt, crop.observations
 		]
@@ -300,6 +306,7 @@ def export_crops_xlsx(request):
 				c.font = Font(color='006100')
 			if row[col_num] == False:
 				c.font = Font(color='9C0006')
+			c.alignment = Alignment(horizontal='center')
 
 	# Owners
 	ws = wb.create_sheet()
@@ -312,6 +319,7 @@ def export_crops_xlsx(request):
 		c = ws.cell(row=1, column=col_num+1)
 		c.value = columns[col_num]
 		c.font = Font(bold=True)
+		c.alignment = Alignment(horizontal='center')
 
 	queryset = CropOwner.objects.all()
 
@@ -321,6 +329,31 @@ def export_crops_xlsx(request):
 		for col_num in xrange(len(row)):
 			c = ws.cell(row=row_num+1, column=col_num+1)
 			c.value = row[col_num]
+			c.alignment = Alignment(horizontal='center')
+
+	# Plantations
+	ws = wb.create_sheet()
+	ws.title = "Plantaciones"
+
+	row_num = 0
+	columns = ["Fecha", "Campo", "Potrero", "Variedad", "Lote Origen", "Kg. Semillas", "Kg. Fert.", "N° Mini", "Has", "N° Control Final SAG", "Observaciones"]
+
+	for col_num in xrange(len(columns)):
+		c = ws.cell(row=1, column=col_num+1)
+		c.value = columns[col_num]
+		c.font = Font(bold=True)
+		c.alignment = Alignment(horizontal='center')
+
+	queryset = Plantation.objects.all()
+
+	for plant in queryset: 
+		row_num += 1
+		row = [plant.date, str(plant.crop), plant.paddock, str(plant.variety), plant.source_lot, plant.kg_seeds, plant.kg_fert, 
+			plant.n_mini, plant.has, plant.control_number, plant.obs]
+		for col_num in xrange(len(row)):
+			c = ws.cell(row=row_num+1, column=col_num+1)
+			c.value = row[col_num]
+			c.alignment = Alignment(horizontal='center')
 
 	# game set & match.
 	wb.save(response)
@@ -332,16 +365,15 @@ def photo_library(request):
 	if not 'id' in request.GET:
 		return redirect('crop_table')
 	id = request.GET['id']
+	crop = Crop.objects.get(pk=id)
 
 	if request.method == "POST":
 		if 'image' in request.FILES:
-			crop = Crop.objects.get(pk=id)
 			img = request.FILES['image']
 			new_image = CropImage(crop=crop, image=img)
 			new_image.save()
 			messages.success(request, "Imagen guardada con éxito")
 
-	crop = Crop.objects.get(pk=id)
 	images = CropImage.objects.filter(crop=crop)
 
 	return render_to_response("crops/photo_library.html", locals(), context_instance=RequestContext(request))
@@ -350,30 +382,41 @@ def photo_library(request):
 @login_required
 def plantation_info(request):
 	if not 'cn' in request.GET:
-		return redirect('crop_table')
+		return redirect('plantation_table')
 	control_number = request.GET['cn']
-	paddock = Plantation.objects.get(control_number=control_number)
+	control_number = control_number.replace('+', ' ')
+	plantation = Plantation.objects.get(control_number=control_number)
+
+	plantation_form = PlantationForm(request.POST or None)
+	# plantation_form.date = plantation.date 
+
+	# Edit
+	if request.method == 'POST':
+		if plantation_form.is_valid():
+			#date = plantation_form.cleaned_data['date']  # fix this, edit wont work
+			plantation.crop = plantation_form.cleaned_data['crop']
+			plantation.paddock = plantation_form.cleaned_data['paddock']
+			plantation.variety = plantation_form.cleaned_data['variety']
+			plantation.source_lot = plantation_form.cleaned_data['source_lot']
+			plantation.kg_seeds = plantation_form.cleaned_data['kg_seeds']
+			plantation.kg_fert = plantation_form.cleaned_data['kg_fert']
+			plantation.n_mini = plantation_form.cleaned_data['n_mini']
+			plantation.has = plantation_form.cleaned_data['has']
+			plantation.control_number = plantation_form.cleaned_data['control_number']
+			plantation.obs = plantation_form.cleaned_data['obs']
+
+			plantation.save()
+			message.success(request, "Edición realizada con éxito")
+		else: 
+			messages.error(request, "Error en el formulario")
 
 	return render_to_response("crops/plantation_info.html", locals(), context_instance=RequestContext(request))
 
 
 @login_required
 def plantation_table(request):
-	print "got to controller"
 	plantations = Plantation.objects.all()
 	return render_to_response("crops/plantation_table.html", locals(), context_instance=RequestContext(request))
-
-
-@login_required
-def plantation(request):
-	if not 'id' in request.GET:
-		return redirect('crop_table')
-	id = request.GET['id']
-
-	crop = Crop.objects.get(pk=id)
-	plantations = Plantation.objects.filter(crop=crop)
-
-	return render_to_response("crops/plantation.html", locals(), context_instance=RequestContext(request))
 
 
 ############
@@ -471,6 +514,8 @@ def add_sale(request):
 
 @login_required
 def export_markets_xlsx(request):
+	# todo: add security. filter by request.user.groups
+
 	response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 	response['Content-Disposition'] = 'attachment; filename=markets.xlsx'
 
@@ -659,6 +704,7 @@ def market_info(request):
 			client.contact_number_1 = client_form.cleaned_data['contact_number_1']
 			client.contact_number_2 = client_form.cleaned_data['contact_number_2']
 			client.email = client_form.cleaned_data['email']
+			client.position = client_form.cleaned_data['position'].title()
 			client.observations = client_form.cleaned_data['observations'].strip(' \t\n\r')
 			client.save()
 
@@ -706,12 +752,17 @@ def market_table(request):
 	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
 
 
+# def calculate_client_size(client):
+# 	# returns the size of a client; {'xs', 's', 'm', 'l', 'xl'}
+# 	return 2
+
+
 def translate_size(total_volume, client_volume):
 	if total_volume == 0:
 		return "0"
 	ratio = client_volume / (total_volume * 1.0)
 	if ratio == 0:
-		return "--"
+		return "0"
 	if ratio < 0.2:
 		return "XS" 
 	if 0.2 < ratio and ratio < 0.4:

@@ -134,6 +134,7 @@
 					{% endif %}
 
 					<form action="market_info?id={{ client.pk }}" method="POST" id="edit-form"> {% csrf_token %}
+						<!-- Contact information -->
 						<h3>Información de contacto</h3>
 						<table class="table table-hover">
 							<tr>
@@ -166,6 +167,7 @@
 							</tr>
 						</table>
 
+						<!-- Company information  -->
 						<h3>Información de compañía</h3>
 						<table class="table table-hover">
 						{% if client.company %}
@@ -179,7 +181,8 @@
 							</tr>
 							<tr>
 								<td>Cargo</td>
-								<td>{{ client.position }}</td>
+								<td class="read">{{ client.position }}</td>
+								<td class="write">{{ client_form.position }}</td>
 							</tr>
 						{% else %}
 							<tr><td>Persona natural</td></tr>
@@ -187,6 +190,7 @@
 						</table>
 
 						{% if client.type_of_client.type == "Actual" %}
+						<!-- Comercial information -->
 						<h3>Información comercial</h3>
 						<table class="table table-hover">
 							<tr>
@@ -203,7 +207,7 @@
 							</tr>
 							<tr>
 								<td>Volumen promedio</td>
-								<td>{{ avg_volume }} [ton]</td>
+								<td>{{ avg_volume }} [kg]</td>
 							</tr>
 							<tr>
 								<td>Variedades</td>
@@ -219,6 +223,7 @@
 						<p class="pull-right">Información referente a los últimos 3 años.</p>
 						{% endif %}
 
+						<!-- Geographical information -->
 						<h3>Información geográfica</h3>
 						<table class="table table-hover">
 							<tr>
@@ -250,17 +255,11 @@
 								<td class="read">{{ geo_info.address }}</td>
 								<td class="write">{{ geographical_form.address }}</td>
 							</tr>
-							<!-- <tr id="latlng" style="display: none">
-								<td>(lat, lng)</td>
-								<td class="read">({{ geo_info.latitude }}, {{ geo_info.longitude }})</td>
-								<td class="col-xs-4 write" style="display: none;">{{ geographical_form.latitude }}</td>
-								<td class="col-xs-4 write" style="display: none;">{{ geographical_form.longitude }}</td>
-							</tr> -->
 						</table>
 						<div class="col-bg-12" id="map-canvas" style="display: none;"><!-- map goes here --></div><br>
 						<button type="button" class="btn btn-default" id="mapButton" onclick="displayMap();">Mostrar mapa</button>
-						<!-- <button type="button" class="btn btn-default" id="latlng-btn">Mostrar latitud-longitud</button> -->
 
+						<!-- Observations -->
 						<h3>Observaciones</h3>
 						<div class="read" style="border: 1px solid #CCCCCC">
 							<p id="observations" class="text-justify" style="margin: 1%; white-space: pre-wrap">{{ client.observations }}</p>
@@ -291,6 +290,7 @@
 		$("#id_contact_number_1").val({{ client.contact_number_1 }});
 		$("#id_contact_number_2").val({{ client.contact_number_2 }});
 		$("#id_email").val("{{ client.email }}");
+		$("#id_position").val("{{ client.position }}");
 		$("#id_observations").val( $("#observations").text() );
 
 		$("#id_region")[0].selectedIndex = {{ geo_info.region.pk }};

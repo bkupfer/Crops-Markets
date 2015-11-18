@@ -2,7 +2,7 @@ from django.contrib import admin
 from . import models
 
 # general
-admin.site.register(models.Certificate)
+admin.site.register(models.Certification)
 admin.site.register(models.Commune)
 admin.site.register(models.PotatoVariety)
 admin.site.register(models.Province)

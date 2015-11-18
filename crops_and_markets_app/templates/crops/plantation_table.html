@@ -57,21 +57,21 @@
 		<!-- Page Content -->
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
-				<div class="row">
-					<h2>Plantaciones {% if crop %} en predio {{ crop.name }}{% endif %}</h2>
+				
+				<h2>Plantaciones</h2>
 
-					{% if messages %}
-					<!-- For message to user -->
-					<div class="row">
-						<div class="col-xs-12">
-						{% for message in messages %}
-							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
-								{{ message }}
-							</p>
-						{% endfor %}
-						</div>
-					</div> 
-					{% endif %}
+				{% if messages %}
+				<!-- For message to user -->
+				<div class="row">
+					<div class="col-xs-12">
+					{% for message in messages %}
+						<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+							{{ message }}
+						</p>
+					{% endfor %}
+					</div>
+				</div> 
+				{% endif %}
 
 				<table id="clients-table" class="display" cellspacing="0" width="100%">
 					<thead>
@@ -89,7 +89,7 @@
 						{% for plantation in plantations %}
 						<tr>
 							<td>{{ plantation.date }}</td>
-							<td>{{ plantation.crop }}</td>
+							<td><a href="crop_info?id={{ plantation.crop.pk }}">{{ plantation.crop }}</a></td>
 							<td>{{ plantation.paddock }}</td>
 							<td>{{ plantation.variety }}</td>
 							<td>{{ plantation.kg_seeds }}</td>
@@ -108,9 +108,7 @@
 				<a href="add_plantation{% if crop %}?id={{ crop.pk }}{% endif %}" class="btn btn-default">Registrar plantación</a>
 
 				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
-				{% if crop %}
 				<a href="crop_info?id={{ crop.pk }}" class="btn btn-default" id="return">Volver</a>
-				{% endif %}	
 			</div>
 		</div>
 

@@ -28,10 +28,10 @@ class PotatoVariety(models.Model):
 	def __str__(self):
 		return self.name.encode('utf-8')
 
-class Certificate(models.Model):
-	certificate = models.CharField(max_length=20)
+class Certification(models.Model):
+	certification = models.CharField(max_length=20)
 	def __str__(self):
-		return self.certificate.encode('utf-8')
+		return self.certification.encode('utf-8')
 		
 # class Company(models.Model):
 #
@@ -216,7 +216,7 @@ class SaleDetail(models.Model):
 	volume = models.IntegerField()
 	price = models.IntegerField()
 	variety = models.ForeignKey('PotatoVariety')
-	certificate = models.ForeignKey('Certificate')
+	certificate = models.ForeignKey('Certification')
 
 
 class TypeOfClient(models.Model):

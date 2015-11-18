@@ -107,7 +107,7 @@
 							</td>
 							{% if not potential_table %}
 								<td>{% if client.size == "0" %}
-										<abbr title="No hay ventas">N.V.</abbr>
+										<abbr title="No hay ventas registradas">N.V.</abbr>
 									{% else %}
 										{{ client.size }}
 									{% endif %}
@@ -122,10 +122,9 @@
 						{% endfor %}
 					</tbody>
 				</table>
-				<br><p class="pull-right">Información de tamaño referente a los últimos 3 años.</p>
-				<a href="export_markets_xlsx" class="btn btn-default">Exportar .xlsx</a>
-				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				{% if not potential_table %}<p class="pull-right">Información de tamaño referente a los últimos 3 años.</p>{% endif %}		
 			</div>
+			<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
 		</div>
 	</div>
 

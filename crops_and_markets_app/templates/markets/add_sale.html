@@ -16,9 +16,19 @@
 
 	<!-- Bootstrap Core CSS -->
 	<link href="static/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- Custom CSS -->
 	<link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<!-- serving from local server
+		<link rel="stylesheet" href="static/css/jquery-ui.css">
+		<script src="static/js/jquery-ui.js"></script>
+	-->
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -104,7 +114,7 @@
 									</div>
 
 									<div class="col-sm-12">
-										<label class="control-label col-sm-4">Volumen <label style="color:red">*</label></label>
+										<label class="control-label col-sm-4">Volumen [kg] <label style="color:red">*</label></label>
 										<div class="col-sm-8">
 											{{ sale.volume }}
 										</div>
@@ -151,17 +161,6 @@
 		</div>
 	</div>
 
-	<script src="static/js/jquery.js"></script>
-	<script src="static/js/bootstrap.min.js"></script>
-	<script src="static/js/menu_toggle.js"></script>
-	<script src="static/js/googleanalytics.js"></script>
-
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
-	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-	<!-- serving from local server
-		<link rel="stylesheet" href="static/css/jquery-ui.css">
-		<script src="static/js/jquery-ui.js"></script>
-	-->
 	<script>
 	$(document).ready(function() {
 		$('.datepicker').datepicker();

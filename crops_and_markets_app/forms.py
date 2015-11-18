@@ -31,7 +31,7 @@ class CropForm(forms.Form):
 	name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
-	has = forms.IntegerField(required=False, min_value=0, max_value=32767, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
+	has = forms.FloatField(required=False, min_value=0, max_value=32767, widget=forms.NumberInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 
 	# information about crop core characteristics
 	water = forms.BooleanField(required=False)
@@ -158,7 +158,7 @@ class SaleDetailForm(forms.Form):
 	price = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 	variety = forms.ModelChoiceField(required=True, queryset=PotatoVariety.objects.all(), empty_label="Variedad", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	volume = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
-	certification = forms.ModelChoiceField(required=True, queryset=Certificate.objects.all(), empty_label="Tipo de certificación", widget=forms.Select(attrs={'class':'form-control input-sm'}))
+	certification = forms.ModelChoiceField(required=True, queryset=Certification.objects.all(), empty_label="Tipo de certificación", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 
 	class Meta:
 		model = SaleDetail

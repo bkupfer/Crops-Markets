@@ -1,1 +1,178 @@
-plantation information
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="crops and markets, and bkupfer's thesis">
+	<meta name="keywords" content="semillas sz, crops and markerts, bkupfer">
+	<meta name="author" content="bkupfer">
+	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+
+	<title>Crops and Markets</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+	<style>
+	#map-canvas {
+		width: 100%;
+		height: 250px;
+		border-style: solid;
+	}
+
+	.write {
+		display: none;
+	}
+	</style>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=true&v=3"></script>
+	<script src="static/js/jquery.js"></script>
+	<script async src="static/js/bootstrap.min.js"></script>
+	<script async src="static/js/menu_toggle.js"></script>
+	<script async src="static/js/googleanalytics.js"></script>
+	<script async src="static/js/regions.js"></script>
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		{% include "sidebar.html" %}
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<h2>Detalle plantación
+						<button id="edit-button" class="btn btn-success pull-right">Editar</button>
+						<button type="submit" form="edit-form" class="btn btn-primary pull-right save-changes" style="display: none;">Guardar</button>
+					</h2>
+
+					{% if messages %}
+					<!-- For message to user -->
+					<div class="row">
+						<div class="col-xs-12">
+						{% for message in messages %}
+							<p class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} text-center">
+								{{ message }}
+							</p>
+						{% endfor %}
+						</div>
+					</div> 
+					{% endif %}
+				
+					<form action="plantation_info?cn={{ plantation.control_number }}" method="POST" id="edit-form">{%csrf_token %}
+						<!-- Contact information -->
+						<h3>Plantación n° {{ plantation.control_number }}</h3>
+						<table class="table table-hover">
+							<tr>
+								<td class="col-xs-4">Fecha</td>
+								<td class="col-xs-8">{{ plantation.date }}</td>
+								<!-- <td class="write">{{ plantation_form.date }}</td>  -->
+							</tr>
+							<tr>
+								<td>Predio</td>
+								<td class="read">{{ plantation.crop }}</td>
+								<td class="write">{{ plantation_form.crop }}</td>
+							</tr>
+							<tr>
+								<td>Potrero</td>
+								<td class="read">{{ plantation.paddock }}</a></td>
+								<td class="write">{{ plantation_form.paddock }}</td>
+							</tr>
+							<tr>
+								<td>Variedad</td>
+								<td class="read">{{ plantation.variety }}</td>
+								<td class="write">{{ plantation_form.variety }}</td>
+							</tr>
+							<tr>
+								<td>Lote origen</td>
+								<td class="read">{{ plantation.source_lot }}</td>
+								<td class="write">{{ plantation_form.source_lot }}</td>
+							</tr>
+							<tr>
+								<td>Kg. semillas</td>
+								<td class="read">{{ plantation.kg_seeds }}</td>
+								<td class="write">{{ plantation_form.kg_seeds }}</td>
+							</tr>
+							<tr>
+								<td>Kg. fertilizante</td>
+								<td class="read">{{ plantation.kg_fert }}</td>
+								<td class="write">{{ plantation_form.kg_fert }}</td>
+							</tr>
+							<tr>
+								<td>N mini</td>
+								<td class="read">{{ plantation.n_mini }}</td>
+								<td class="write">{{ plantation_form.n_mini }}</td>
+							</tr>
+							<tr>
+								<td>Has</td>
+								<td class="read">{{ plantation.has }}</td>
+								<td class="write">{{ plantation_form.has }}</td>
+							</tr>
+							<tr>
+								<td>N° Control Final SAG</td>
+								<td>{{ plantation.control_number }}</td>
+								<span style="display: none;">{{ plantation_form.control_number }}</span>
+							</tr>
+						</table>
+						
+						<h3>Observaciones</h3>
+						<div class="read" style="border: 1px solid #CCCCCC">
+							<p id="observations" class="text-justify" style="margin: 1%; white-space: pre-wrap">{{ plantation.obs }}</p>
+						</div>
+						<div class="write" style="display: none;">
+							{{ plantation_form.obs }}
+						</div>
+
+						<br class="write">
+						<button type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;">Guardar</button>
+						<button name="delete" class="btn btn-danger pull-right write" style="display: none;" onclick="return confirm('Está seguro que desea eliminar a {{ client }} de la base de datos?\nEste proceso es irreversible.');">Borrar</button>
+					</form>
+
+					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+					<a href="plantation_table" class="btn btn-default" id="return">Volver</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		//$("#id_date").val("{{ plantation.date }}");
+		$("#id_crop")[0].selectedIndex = {{ plantation.crop.pk }};
+		$("#id_paddock").val("{{ plantation.paddock }}");
+		$("#id_variety")[0].selectedIndex = {{ plantation.variety.pk }};
+		$("#id_source_lot").val("{{ plantation.source_lot }}");
+		$("#id_kg_seeds").val("{{ plantation.kg_seeds }}");
+		$("#id_n_mini").val({{ plantation.n_mini }});
+		$("#id_has").val({{ plantation.has }});
+		$("#id_control_number").val("{{ plantation.control_number }}");
+		$("#id_obs").val( $("#observations").text() );
+	});
+
+	$("#edit-button").click(function (){
+		$(".save-changes").slideToggle("fast");
+		$(".read").toggle();
+		$("#number-2").show();
+		$(".write").toggle(100);
+	});
+	</script>
+
+</body>
+
+</html>

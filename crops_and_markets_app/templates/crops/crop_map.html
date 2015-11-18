@@ -71,7 +71,7 @@
 		{% for geomarker in crops %}
 			geocodeAddress(geocoder, map, 
 				"{{ geomarker.address }}, Region {{ geomarker.region }}, Chile", 
-				"{{ geomarker.crop_owner.first }}", "{{ geomarker.pk }}",
+				"{{ geomarker.name }}", "{{ geomarker.crop_owner.first }}", "{{ geomarker.pk }}",
 				{% if geomarker.score > 60 %}true{% else %}false{% endif %},
 				{{ geomarker.score }});
 		{% endfor %}
@@ -116,7 +116,7 @@
 	  * @ idCrop: id of the crop to be redirected
 	  * @ req_ok: should marker be green or red?
 	  * @ score: crop score used to count stars */
-	function geocodeAddress(geocoder, map, address, title, idCrop, req_ok, score){
+	function geocodeAddress(geocoder, map, address, title, owner, idCrop, req_ok, score){
 		geocoder.geocode({'address': address}, function(results, status){
 			if (status == google.maps.GeocoderStatus.OK){
 				var marker = new google.maps.Marker({
@@ -128,7 +128,7 @@
 
 				// creating information window
 				var distance = calculateDistance(sz.lat(), sz.lng(), marker.position.lat(), marker.position.lng());
-				var contentString = createInfoWindowContent(title, [address], 'crop_info?id='+idCrop, distance, score);
+				var contentString = createInfoWindowContent("Predio "+title, ["Dueño: "+owner, address], 'crop_info?id='+idCrop, distance, score);
 				var infoWindow = new google.maps.InfoWindow({
 					content: contentString
 				});
