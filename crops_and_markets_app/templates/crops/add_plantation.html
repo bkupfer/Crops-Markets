@@ -44,7 +44,7 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<h2>Registrar plantación{% if crop %} en {{ crop.name }}{% endif %}</h2>
+					<h2>Registrar cultivo{% if crop %} en {{ crop.name }}{% endif %}</h2>
 
 					{% if messages %}
 					<!-- For message to user -->
@@ -64,7 +64,7 @@
 						<form action="" method="POST"> {% csrf_token %}
 							<!-- Clients information -->
 							<div class="row">
-								<h3>Información de plantación</h3>
+								<h3>Información de cultivo</h3>
 								
 								<div class="col-sm-12">
 									<label class="control-label col-sm-4" >Fecha <label style="color:red">*</label></label>
@@ -166,7 +166,7 @@
 							</div>
 						</form>
 
-					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+					<hr>{% include "menu_toggle.html" %}
 					<a href="plantation_table{% if crop %}?id={{ crop.pk }}{% endif %}" class="btn btn-default" id="return">Volver</a>
 				</div>
 			</div>

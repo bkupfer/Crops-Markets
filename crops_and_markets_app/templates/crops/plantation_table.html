@@ -107,7 +107,7 @@
 	
 				<a href="add_plantation{% if crop %}?id={{ crop.pk }}{% endif %}" class="btn btn-default">Registrar plantación</a>
 
-				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				<hr>{% include "menu_toggle.html" %}
 				<a href="crop_info?id={{ crop.pk }}" class="btn btn-default" id="return">Volver</a>
 			</div>
 		</div>

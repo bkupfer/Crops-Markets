@@ -102,7 +102,8 @@
 				<a href="add_sale?id={{ client.id }}" class="btn btn-default" id="register-sale">Registrar transacción</a>
 				<button class="btn btn-default" id="hideReservationsBtn">Ocultar reservas</button>
 				
-				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				<hr>
+				{% include "menu_toggle.html" %}
 				<a href="market_info?id={{ client.pk }}" class="btn btn-default" id="return">Volver</a>
 			</div>
 		</div>

@@ -60,12 +60,12 @@
 							<td class="col-sm-8">{{ detail.variety }}</td>
 						</tr>
 						<tr>
-							<td>Certificación</td>
+							<td>Clasificación</td>
 							<td>{{ detail.certificate }}</td>
 						</tr>
 						<tr>
 							<td>Volumen</td>
-							<td>{{ detail.volume }} [ton]</td>
+							<td>{{ detail.volume }} [kg]</td>
 						</tr>
 						<tr>
 							<td>Precio</td>
@@ -82,7 +82,7 @@
 
 				</div>
 
-				<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+				<hr>{% include "menu_toggle.html" %}
 				<a href="sales_history?id={{ previous_id }}" class="btn btn-default" id="return">Volver</a>
 			</div>
 		</div>

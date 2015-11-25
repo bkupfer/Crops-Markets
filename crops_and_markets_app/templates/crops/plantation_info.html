@@ -143,7 +143,7 @@
 						<button name="delete" class="btn btn-danger pull-right write" style="display: none;" onclick="return confirm('Está seguro que desea eliminar a {{ client }} de la base de datos?\nEste proceso es irreversible.');">Borrar</button>
 					</form>
 
-					<hr><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Alternar Menu</a>
+					<hr>{% include "menu_toggle.html" %}
 					<a href="plantation_table" class="btn btn-default" id="return">Volver</a>
 				</div>
 			</div>
