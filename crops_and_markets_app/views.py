@@ -604,7 +604,7 @@ def market_company(request):
 	company = CompanyMarket.objects.get(pk=id)
 	clients = Client.objects.filter(company=company)
 
-	# Calculating data
+	# Calculate variaty distribution
 	n = total_volume = total_price = 0
 	varieties = {}
 	now = datetime.datetime.now()
@@ -626,6 +626,11 @@ def market_company(request):
 			varieties[var] = "{0:.2f}".format(100.0 * varieties[var] / total_volume)
 		avg_volume = total_volume / n
 		avg_price = total_price / n
+
+	# Calculating size
+	all_clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
+	all_sales_volume = get_total_sale_volume(all_clients)
+	size = translate_size(all_sales_volume, total_volume)
 
 	# Edit
 	company_form = CompanyMarketForm(request.POST or None)
@@ -692,6 +697,11 @@ def market_info(request):
 		else:
 			avg_price = avg_volume = 0
 
+		# Calculating size
+		clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
+		all_sales_volume = get_total_sale_volume(clients)
+		size = translate_size(all_sales_volume, total_volume)
+
 	# Edit section
 	if request.method == "POST":
 		if client_form.is_valid() and geographical_form.is_valid():
@@ -736,6 +746,16 @@ def market_map(request):
 @login_required
 def market_table(request):
 	clients = Client.objects.filter(type_of_client=TypeOfClient.objects.get(type="Actual"))
+	total_sale_volume = get_total_sale_volume(clients)
+
+	for client in clients:
+		client.size = translate_size(total_sale_volume, client.volume)
+
+	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
+
+
+# returns the grand total volume of all sales in the past three years.
+def get_total_sale_volume(clients):
 	total_sale_volume = 0
 	for client in clients:
 		now = datetime.datetime.now()
@@ -745,18 +765,10 @@ def market_table(request):
 			sale_volume = sale.get_volume()
 			total_sale_volume += sale_volume
 			client.volume += sale_volume
-
-	for client in clients:
-		client.size = translate_size(total_sale_volume, client.volume)
-
-	return render_to_response("markets/market_table.html", locals(), context_instance=RequestContext(request))
+	return total_sale_volume
 
 
-# def calculate_client_size(client):
-# 	# returns the size of a client; {'xs', 's', 'm', 'l', 'xl'}
-# 	return 2
-
-
+# transforms the ratio of client_sales/total_sales to a size={xs, s, m, l, xl}
 def translate_size(total_volume, client_volume):
 	if total_volume == 0:
 		return "0"
