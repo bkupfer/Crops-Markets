@@ -96,6 +96,10 @@
 	background: none;
 }
 
+.active {
+	background: #222;
+}
+
 @media(min-width:768px) {
 	#wrapper {
 		padding-left: 250px;
