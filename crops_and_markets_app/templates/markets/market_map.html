@@ -50,6 +50,7 @@
 		return content;
 	}
 
+	var sz =  new google.maps.LatLng(-41.11949,-73.05709); // semillas-sz coordenates
 	function initialize(){
 		// Map
 		var mapCanvas = document.getElementById("map-canvas");
@@ -59,6 +60,19 @@
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		var map = new google.maps.Map(mapCanvas, mapOptions);
+
+		// HQ Marker (Semillas-SZ)
+		var szMarker = new google.maps.Marker({
+			position: sz,
+			map: map, 
+			icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+		});
+		var szInfoWindow = new google.maps.InfoWindow({
+			content: "Semillas SZ"
+		});
+		google.maps.event.addListener(szMarker, 'click', function(){
+			szInfoWindow.open(map, szMarker);
+		}); 
 
 		// Geocoding and markets
 		var geocoder = new google.maps.Geocoder();
@@ -116,7 +130,7 @@
 				if (typeOfClient == "Actual")
 					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
 				if (typeOfClient == "Potencial")
-					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
 				
 				// creating information window
 				var contentString = createInfoWindowContent(title, [address], 'market_info?id='+idClient);
@@ -159,7 +173,7 @@
 
 					<div class="col-bg-12" id="map-canvas"><!-- map goes here --></div>
 					<div class="col-sm-12">
-						<p class="text-right small">Los marcadores de color <label style="color:green">verde</label> y <label style="color:blue">azul</label> representan los clientes <label style="color:green">actuales</label> y <label style="color:blue">potenciales</label> respectivamente. El marcador <label style="color: purple">púrpura</label> representa su posición actual.</p>
+						<p class="text-right small">Los marcadores de color <label style="color:green">verde</label> y <label style="color:#A79E09">amarillo</label> representan los clientes <label style="color:green">actuales</label> y <label style="color:#A79E09">potenciales</label> respectivamente.<br>Los marcadores <label style="color: purple">púrpura</label> y <label style="color: blue">azul</label> representan su <label style="color: purple">posición actual</label> y la posición de <label style="color: blue">Semillas SZ</label> respectivamente.</p>
 					</div>
 	
 					<hr>{% include "menu_toggle.html" %}
