@@ -31,6 +31,10 @@ class CropForm(forms.Form):
 	name = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
 	region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Seleccione región", widget=forms.Select(attrs={'class':'form-control input-sm'}))
 	address = forms.CharField(required=False, max_length=256, widget=forms.TextInput(attrs={"class": "form-control input-sm"}))
+
+ 	latitude = forms.FloatField(required=False, widget=forms.NumberInput(attrs={"type": "number", "class": "form-control input-sm"}))
+ 	longitude = forms.FloatField(required=False, widget=forms.NumberInput(attrs={"type": "number", "class": "form-control input-sm"}))
+ 
 	has = forms.FloatField(required=False, min_value=0, max_value=32767, widget=forms.NumberInput(attrs={'type': 'number', 'class':'form-control input-sm'}))
 
 	# information about crop core characteristics

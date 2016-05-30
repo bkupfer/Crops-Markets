@@ -101,6 +101,8 @@ def add_crop(request):
 			except:
 				pass
 			address = crop_form.cleaned_data['address']
+			lat = crop_form.cleaned_data['latitude']
+			lng = crop_form.cleaned_data['longitude']
 
 			# terrain characteristics information
 			has = crop_form.cleaned_data['has']
@@ -116,7 +118,7 @@ def add_crop(request):
 			access_cmnt = crop_form.cleaned_data['access_cmnt']
 
 			obs = crop_form.cleaned_data['observations'].strip(' \t\n\r')
-			crop = Crop(name=name, region=region, province=province, commune=commune, address=address, has=has,
+			crop = Crop(name=name, region=region, province=province, commune=commune, address=address, latitude=lat, longitude=lng, has=has,
 				water=water, soil=soil, topography=topo, temperatures=temp, access=access,
 				water_cmnt=water_cmnt, soil_cmnt=soil_cmnt, topography_cmnt=topo_cmnt, temperatures_cmnt=temp_cmnt, access_cmnt=access_cmnt, observations=obs)
 			crop.save()

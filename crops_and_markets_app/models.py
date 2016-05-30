@@ -33,13 +33,6 @@ class Certification(models.Model):
 	def __str__(self):
 		return self.certification.encode('utf-8')
 		
-# class Company(models.Model):
-#
-#
-#        todo: unify all companies (crom_company & market_company)
-#
-#
-
 
 # ######## #
 # Crops	
@@ -61,7 +54,9 @@ class Crop(models.Model):
 	province = models.ForeignKey('Province', blank=True, null=True)
 	commune = models.ForeignKey('Commune', blank=True, null=True)
 	address = models.CharField(max_length=256, blank=True, null=True)
-
+ 	latitude = models.FloatField(blank=True, null=True)
+ 	longitude = models.FloatField(blank=True, null=True)
+ 	
 	# general characterisitcs
 	has = models.FloatField(blank=True, null=True) #PositiveSmallIntegerField(blank=True, null=True)
 
