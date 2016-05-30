@@ -140,7 +140,7 @@
 
 						<br class="write">
 						<button type="submit" form="edit-form" class="btn btn-primary save-changes" style="display: none;">Guardar</button>
-						<button name="delete" class="btn btn-danger pull-right write" style="display: none;" onclick="return confirm('Está seguro que desea eliminar a {{ client }} de la base de datos?\nEste proceso es irreversible.');">Borrar</button>
+						<button name="delete" class="btn btn-danger pull-right write" style="display: none;" onclick="return confirm('Está seguro que desea eliminar la plantación con número de control; {{ plantation.control_number }}, de la base de datos?\nEste proceso es irreversible.');">Borrar</button>
 					</form>
 
 					<hr>{% include "menu_toggle.html" %}

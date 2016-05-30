@@ -394,6 +394,11 @@ def plantation_info(request):
 	plantation_form = PlantationForm(request.POST or None)
 	# plantation_form.date = plantation.date 
 
+	# Delete crop
+	if 'delete' in request.POST:
+		plantation.delete()
+		return redirect('plantation_table')
+
 	# Edit
 	if request.method == 'POST':
 		if plantation_form.is_valid():
