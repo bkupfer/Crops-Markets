@@ -225,6 +225,8 @@ def crop_info(request):
 			crop.province = province
 			crop.commune = commune
 			crop.address = crop_form.cleaned_data['address']
+			crop.latitude = crop_form.cleaned_data['latitude']
+			crop.longitude = crop_form.cleaned_data['longitude']
 			crop.observations = crop_form.cleaned_data['observations']
 			crop.save()
 

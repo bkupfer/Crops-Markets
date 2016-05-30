@@ -285,7 +285,7 @@
 							</tr>
 							<tr>
 								<td>Lat, Long</td>
-								<td class="read">{{ crop.latitude }}, {{ crop.longitude }}</td>
+								<td class="read">({{ crop.latitude }}, {{ crop.longitude }})</td>
 								<td class="write">{{ crop_form.latitude }}, {{ crop_form.longitude }}</td>
 							</tr>
 							<tr>
@@ -398,6 +398,9 @@
 			communeSelector.options[0] = new Option('{{ crop.commune }}', '{{ crop.commune }}');
 		}
 		$("#id_address").val("{{ crop.address }}");
+		$("#id_latitude").val("{{ crop.latitude }}");
+		$("#id_longitude").val("{{ crop.longitude }}");
+
 		$("#id_observations").val( $("#observations").text() );
 	});
 
